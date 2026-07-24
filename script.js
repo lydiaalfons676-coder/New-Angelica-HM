@@ -318,3 +318,131 @@ if(localStorage.getItem("theme") === "dark"){
     themeButton.innerHTML="☀️";
 
 }
+function toggleFavoriteBox(){
+
+    let favoriteBox = document.getElementById("favorite-box");
+
+    favoriteBox.classList.toggle("active");
+
+}
+let favoriteProducts = [];
+function updateFavoriteCount(){
+
+    document.getElementById("favorite-count").innerText = favoriteProducts.length;
+
+}
+
+function toggleFavorite(button){
+
+    let card = button.closest(".product-card");
+
+    let productName = card.querySelector("h3").innerText;
+
+    let icon = button.querySelector("i");
+
+    let index = favoriteProducts.findIndex(
+        item => item.name === productName
+    );
+
+    if(index == -1){
+
+        favoriteProducts.push({
+
+            name: productName,
+
+            price: card.querySelector(".price").innerText,
+
+            image: card.querySelector("img").src,
+
+            button: button
+
+        });
+
+        button.classList.add("active");
+
+        icon.classList.remove("fa-regular");
+
+        icon.classList.add("fa-solid");
+
+    }else{
+
+        favoriteProducts.splice(index,1);
+
+        button.classList.remove("active");
+
+        icon.classList.remove("fa-solid");
+
+        icon.classList.add("fa-regular");
+
+    }
+
+    renderFavorites();
+
+    updateFavoriteCount();
+
+}
+
+
+function renderFavorites(){
+
+    let favoriteItems = document.getElementById("favorite-items");
+
+    favoriteItems.innerHTML="";
+
+    favoriteProducts.forEach((product,index)=>{
+
+        favoriteItems.innerHTML +=`
+
+        <div class="favorite-product">
+
+            <img src="${product.image}">
+
+            <div class="favorite-info">
+
+                <h4>${product.name}</h4>
+
+                <p>${product.price}</p>
+
+            </div>
+
+            <button class="remove-favorite" onclick="removeFavorite(${index})">
+
+                ✖
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function removeFavorite(index){
+
+    let removedProduct = favoriteProducts[index];
+
+    favoriteProducts.splice(index,1);
+
+    let heart = document.querySelector(
+        `.favorite-btn[data-product="${removedProduct.name}"]`
+    );
+
+    if(heart){
+
+        heart.classList.remove("active");
+
+        let icon = heart.querySelector("i");
+
+        icon.classList.remove("fa-solid");
+
+        icon.classList.add("fa-regular");
+
+    }
+
+    renderFavorites();
+
+    updateFavoriteCount();
+
+}

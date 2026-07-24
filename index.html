@@ -32,14 +32,24 @@
 
 </ul>
 
-<div class="cart-icon" onclick="toggleCart()">
-    🛒
-    <span id="cart-count">0</span>
-</div>
 
-<button id="theme-toggle">
-    🌙
-</button>
+<div class="favorite-icon"
+
+    <div class="favorite-icon" onclick="toggleFavoriteBox()">
+        ❤️
+        <span id="favorite-count">0</span>
+    </div>
+
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span id="cart-count">0</span>
+    </div>
+
+    <button id="theme-toggle">
+        🌙
+    </button>
+
+</div>
 
 </nav>
 <!-- Shopping Cart -->
@@ -47,20 +57,34 @@
 
     <div class="cart-header">
         <h3>🛒 Shopping Cart</h3>
+
         <span class="close-cart" onclick="toggleCart()">✖</span>
     </div>
 
     <div id="cart-items" class="cart-items">
         Cart is empty
+
     </div>
+
 
     <div class="cart-footer">
         <h3>Total: <span id="cart-total">0</span> EGP</h3>
 
     <button id="order-btn" onclick="orderWhatsApp()">
     Order on WhatsApp 💬
-</button>
+    </button>
 </div>
+</div>
+<!-- Favorite Box -->
+
+<div id="favorite-box">
+
+    <h2>❤️ Favorite Products</h2>
+
+    <div id="favorite-items">
+    <p id="empty-favorite">No favorite products yet ❤️</p>
+</div>
+
 </div>
 <!-- Banner Section -->
 <section id="home" class="banner">
@@ -110,7 +134,7 @@
     <i class="fas fa-star-half-alt"></i>
 </div>
 
-        <p>400 EGP</p>
+        <p class="price">400 EGP</p>
         <div class="product-info">
 
     <p><i class="fas fa-truck"></i> Free Shipping</p>
@@ -144,7 +168,7 @@
     <i class="fas fa-star"></i>
     <i class="far fa-star"></i>
 </div>
-    <p>350 EGP</p>
+    <p class="price">350 EGP</p>
     <div class="product-info">
 
     <p><i class="fas fa-gem"></i> Premium Quality</p>
@@ -178,9 +202,9 @@
     <i class="fas fa-star-half-alt"></i>
     <i class="far fa-star"></i>
 </div>
-    <p>
+    <p class="price">
     <del>1,200 EGP</del>
-    1,000 EGP
+    <span class="new-price">1,000 EGP</span>
 </p>
 <div class="product-info">
 
@@ -338,6 +362,9 @@
 
 <script src="script.js"></script>
 
-
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/201555128809" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
 </body>
 </html>
