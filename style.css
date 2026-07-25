@@ -439,12 +439,9 @@ box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     background:#a67c52;
 }
 
-
-    text-align: center;
-    padding: 60px 20px;
 .contact{
-    text-align: center;
-    padding: 60px 20px;
+    text-align:center;
+    padding:60px 20px;
 }
 
 .contact h2{
@@ -525,17 +522,18 @@ box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         width:38px;
         height:38px;
         font-size:18px;
+        
     }
 
     /* ===== Cart Mobile ===== */
     #cart-box{
-        width:90%;
-        left:5%;
-        right:5%;
-        top:70px;
-        height:75vh;
-        padding:12px;
-    }
+    width:95%;
+    left:2.5%;
+    right:2.5%;
+    top:70px;
+    height:80vh;
+    padding:15px;
+}
 
     /* ===== Navbar Icons ===== */
     .icons{
@@ -614,16 +612,6 @@ footer p{
         transform:scale(1);
     }
 
-}
-.cart-box{
-    display:none;
-    background:white;
-    width:350px;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
-    margin:30px auto;
-    text-align:left;
 }
 #cart-box{
     display: none;
@@ -711,18 +699,7 @@ footer p{
     background:#1EBE5D;
     transform:translateY(-2px);
 }
-.cart-product{
-    padding:10px 0;
-}
 
-.cart-product p{
-    margin:5px 0;
-}
-
-.cart-product hr{
-    border:none;
-    border-top:1px solid #ddd;
-}
 .cart-product{
     background:#f9f9f9;
     border-radius:12px;
@@ -1018,9 +995,4 @@ footer p{
     color: goldenrod;
     font-size: 20px;
     font-weight: bold;
-}
-.icons{
-    display: flex;
-    align-items: center;
-    gap: 20px;
 }
