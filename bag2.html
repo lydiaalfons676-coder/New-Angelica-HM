@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Golden Pearl Bag | Angelica Handmade</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="breadcrumb">
+
+        <a href="index.html">🏠 Home</a>
+
+        <span>></span>
+
+        <a href="index.html#products">👜 Bags</a>
+
+        <span>></span>
+
+        <span>Golden Pearl Bag</span>
+
+    </div>
+
+    <div class="product-page">
+
+        <div class="product-image">
+
+            <img id="main-image" src="bag2.jpg" alt="Golden Pearl Bag">
+
+            <div class="gallery">
+
+                <img src="bag2.jpg" onclick="changeImage(this)">
+
+                <img src="bag2-2.jpg" onclick="changeImage(this)">
+
+                <img src="bag2-3.jpg" onclick="changeImage(this)">
+
+            </div>
+
+        </div>
+
+        <div class="product-details">
+
+            <h1>Golden Pearl Bag</h1>
+
+            <div class="product-stars">
+                ★★★★★ <span>(4.9)</span>
+            </div>
+
+            <div class="price-box">
+
+                <h2>350 EGP</h2>
+
+                <p>✔ Free Shipping</p>
+
+            </div>
+
+
+            <hr>
+
+            <p><strong>📏 Size:</strong> 22 × 18 cm</p>
+
+            <p><strong>🎨 Available Colors:</strong></p>
+
+            <ul>
+                <li>🤍 Off White</li>
+                <li>🤍 White</li>
+                <li>🩶 Pearl White</li>
+            </ul>
+
+            <p><strong>🧵 Material:</strong> Premium Pearls & Cotton Thread</p>
+
+            <p><strong>✋ Handmade:</strong> 100%</p>
+
+            <p><strong>🚚 Shipping:</strong> Free Shipping</p>
+
+            <p><strong>🎁 Packaging:</strong> Gift Ready</p>
+
+            <hr>
+
+            <h3>Description</h3>
+
+            <p>
+                Elegant handmade pearl bag with a luxurious design,
+                perfect for weddings, parties and special occasions.
+                Carefully handcrafted using premium pearls to add a unique touch of elegance.
+            </p>
+
+            <hr>
+
+            <h3>📋 Product Specifications</h3>
+
+            <table class="specs-table">
+
+                <tr>
+                    <td><strong>Material</strong></td>
+                    <td>Premium Pearls & Cotton Thread</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Size</strong></td>
+                    <td>22 × 18 cm</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Weight</strong></td>
+                    <td>350 g</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Handmade</strong></td>
+                    <td>✔ 100%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Shipping</strong></td>
+                    <td>Free Shipping</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Gift Ready</strong></td>
+                    <td>✔ Yes</td>
+                </tr>
+
+            </table>
+            <p class="order-note">
+                ✨ اطلب الآن عبر واتساب واستمتع بشحن سريع وتغليف أنيق.
+            </p>
+
+            <button class="buy-btn" onclick="openOrderForm()">
+                Order on WhatsApp 💬
+            </button>
+
+
+
+            <!-- Order Form -->
+
+            <div id="order-popup" class="popup">
+
+                <div class="popup-content">
+
+                    <span class="close-popup" onclick="closeOrderForm()">&times;</span>
+
+                    <h2>🛍 Complete Your Order</h2>
+
+                    <input type="text" placeholder="Your Name">
+
+                    <input type="tel" placeholder="Phone Number">
+
+                    <select>
+                        <option>Select Color</option>
+                        <option>Off White</option>
+                        <option>White</option>
+                        <option>Pearl White</option>
+                    </select>
+
+                    <input type="number" placeholder="Quantity" min="1">
+
+                    <textarea placeholder="Address"></textarea>
+
+                    <textarea placeholder="Notes (Optional)"></textarea>
+
+                    <button class="buy-btn" onclick="sendOrder()">
+                        Send Order
+                    </button>
+
+                </div>
+
+            </div>
+            <hr>
+
+            <h3>👜 Related Products</h3>
+
+            <div class="related-products">
+
+                <div class="related-card">
+
+                    <a href="bag2.html">
+
+                        <img src="bag2.jpg" alt="Golden Pearl Bag">
+
+                        <p>Golden Pearl Bag</p>
+
+                        <span class="related-price">
+                            350 EGP
+                        </span>
+
+                    </a>
+
+                </div>
+
+                <div class="related-card">
+
+                    <a href="bag3.html">
+
+                        <img src="bag3.jpg" alt="Gold Metallic Canvas Bag">
+
+                        <p>Gold Metallic Canvas Bag</p>
+
+                        <span class="related-price">
+                            1000 EGP
+                        </span>
+
+                    </a>
+
+                </div>
+            </div> <!-- نهاية related-products -->
+
+            <!-- هنا اكتبي كود Reviews -->
+
+            <hr>
+
+            <h3>⭐ Customer Reviews</h3>
+
+                        <div class="reviews">
+
+                <div class="review-card">
+                    <h4>⭐⭐⭐⭐⭐ Mary</h4>
+                    <p>Beautiful bag and amazing quality ❤️</p>
+                </div>
+
+                <div class="review-card">
+                    <h4>⭐⭐⭐⭐⭐ Sara</h4>
+                    <p>Very elegant and exactly like the pictures.</p>
+                </div>
+
+                <div class="review-card">
+                    <h4>⭐⭐⭐⭐⭐ Lina</h4>
+                    <p>Fast shipping and beautiful packaging.</p>
+                </div>
+
+            </div>
+
+        
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+            

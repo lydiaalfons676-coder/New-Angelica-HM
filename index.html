@@ -118,23 +118,30 @@
     <h2>Our Products</h2>
 <div class="product-container">
 
-    <div class="card product-card">
-<span class="favorite-btn" data-product="Brown Cordon Bag" onclick="toggleFavorite(this)">
-    <i class="fa-regular fa-heart"></i>
-</span>
+    
+<div class="card product-card" onclick="window.location='bag1.html'">
 
-        <img src="bag.jpg" alt="Brown Cordon Bag">
+    <span class="favorite-btn"
+          data-product="Brown Cordon Bag"
+          onclick="event.stopPropagation(); toggleFavorite(this)">
+        <i class="fa-regular fa-heart"></i>
+    </span>
 
-        <h3>Brown Cordon Bag</h3>
-        <div class="stars">
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star-half-alt"></i>
-</div>
+    <img src="bag.jpg" alt="Brown Cordon Bag">
 
-        <p class="price">400 EGP</p>
+    <h3>Brown Cordon Bag</h3>
+
+    <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+    </div>
+
+    <p class="price">400 EGP</p>
+
+    
         <div class="product-info">
 
     <p><i class="fas fa-truck"></i> Free Shipping</p>
@@ -145,16 +152,16 @@
 
 </div>
 
-        <a href="https://wa.me/201555128809?text=مرحبًا%20Angelica%20Handmade%20👋%0A%0Aأرغب%20في%20طلب%20الشنطة:%0A👜%20Brown%20Cordon%20Bag%0A%0Aمن%20فضلك%20أرسل%20لي%20التفاصيل%20وطريقة%20الشحن.%0A%0Aشكرًا%20🌹" target="_blank">
-    <button onclick="buyProduct('Brown Cordon Bag',400,'bag.jpg')">
+    <button onclick="event.stopPropagation(); window.location='bag1.html';">
     Buy Now
 </button>
-</a>
 
-    </div>
+</div>
 
-<div class="card product-card">
-    <span class="favorite-btn" data-product="Golden Pearl Bag" onclick="toggleFavorite(this)">
+<div class="card product-card" onclick="window.location='bag2.html'">
+    <span class="favorite-btn"
+      data-product="Golden Pearl Bag"
+      onclick="event.stopPropagation(); toggleFavorite(this)">
     <i class="fa-regular fa-heart"></i>
 </span>
 
@@ -187,9 +194,13 @@
 
 </div>
 
-<div class="card product-card">
-    <span class="favorite-btn" data-product="Gold Metallic Canvas Bag" onclick="toggleFavorite(this)">
+<div class="card product-card" onclick="window.location='bag3.html'">
+    <span class="favorite-btn"
+      data-product="Gold Metallic Canvas Bag"
+      onclick="event.stopPropagation(); toggleFavorite(this)">
+
     <i class="fa-regular fa-heart"></i>
+
 </span>
 
     <img src="bag3.jpg" alt=" Gold Metallic Canvas Bag">
@@ -344,5 +355,9 @@
 <a href="https://wa.me/201555128809" class="whatsapp-float" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
+
+<button id="backToTop" onclick="scrollToTop()">
+    ⬆
+</button>
 </body>
 </html>

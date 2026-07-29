@@ -222,41 +222,46 @@ window.onload = function () {
         let productName = button.dataset.product;
         let icon = button.querySelector("i");
 
-        if (favorites.includes(productName)) {
+        if (favorites.includes(productName) && icon) {
 
-            icon.classList.remove("fa-regular");
-            icon.classList.add("fa-solid");
-            icon.style.color = "red";
+    icon.classList.remove("fa-regular");
+    icon.classList.add("fa-solid");
+    icon.style.color = "red";
 
-        }
+}
 
     });
 
 }
 const searchInput = document.getElementById("searchInput");
-const products = document.querySelectorAll(".product-card");
 
-searchInput.addEventListener("keyup", function () {
+if (searchInput) {
 
-    let searchValue = searchInput.value.toLowerCase();
+    const products = document.querySelectorAll(".product-card");
 
-    products.forEach(function(product){
+    searchInput.addEventListener("keyup", function () {
 
-        let productName = product.querySelector("h3").innerText.toLowerCase();
+        let searchValue = searchInput.value.toLowerCase();
 
-        if(productName.includes(searchValue)){
+        products.forEach(function(product){
 
-            product.style.display = "block";
+            let productName = product.querySelector("h3").innerText.toLowerCase();
 
-        }else{
+            if(productName.includes(searchValue)){
 
-            product.style.display = "none";
+                product.style.display = "block";
 
-        }
+            }else{
+
+                product.style.display = "none";
+
+            }
+
+        });
 
     });
 
-});
+}
 function increaseQuantity(index){
 
     cartItems[index].quantity++;
@@ -444,5 +449,58 @@ function removeFavorite(index){
     renderFavorites();
 
     updateFavoriteCount();
+
+}
+function changeImage(img){
+
+    document.getElementById("main-image").src = img.src;
+
+}
+function openOrderForm(){
+
+    document.getElementById("order-popup").style.display="flex";
+
+}
+
+function closeOrderForm(){
+
+    document.getElementById("order-popup").style.display="none";
+
+}
+function sendOrder(){
+
+    const name = document.querySelector('input[placeholder="Your Name"]').value;
+
+    const phone = document.querySelector('input[placeholder="Phone Number"]').value;
+
+    const color = document.querySelector("select").value;
+
+    const quantity = document.querySelector('input[type="number"]').value;
+
+    const address = document.querySelector('textarea[placeholder="Address"]').value;
+
+    const notes = document.querySelector('textarea[placeholder="Notes (Optional)"]').value;
+
+    const message =
+`🛍 New Order
+
+👤 Name: ${name}
+
+📱 Phone: ${phone}
+
+👜 Product: Gold Metallic Canvas Bag
+
+🎨 Color: ${color}
+
+🔢 Quantity: ${quantity}
+
+📍 Address: ${address}
+
+📝 Notes: ${notes}`;
+
+    window.open(
+        "https://wa.me/201555128809?text=" + encodeURIComponent(message),
+        "_blank"
+    );
 
 }
