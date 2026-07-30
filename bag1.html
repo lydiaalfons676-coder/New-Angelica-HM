@@ -7,6 +7,8 @@
 
     <title>Brown Cordon Bag | Angelica Handmade</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -145,9 +147,11 @@
 
     <div class="popup-content">
 
-        <span class="close-popup" onclick="closeOrderForm()">&times;</span>
+        <span class="close-popup" onclick="closeOrderForm()">
+    <i class="fa-solid fa-xmark"></i>
+</span>
 
-        <h2>🛍 Complete Your Order</h2>
+        <h2>🛍️ Complete Your Order</h2>
 
         <input type="text" placeholder="Your Name">
 
@@ -169,6 +173,9 @@
         <button class="buy-btn" onclick="sendOrder()">
     Send Order
 </button>
+<p id="success-message">
+    ✅ Order sent successfully
+</p>
 
     </div>
 

@@ -1353,25 +1353,7 @@ transition: 4s;
 
 }
 
-.popup-content{
 
-    width:400px;
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:18px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-    position:relative;
-
-}
 
 .popup-content input,
 .popup-content select,
@@ -1396,19 +1378,17 @@ transition: 4s;
     height:80px;
 
 }
-
 .close-popup{
-
     position:absolute;
-
-    right:15px;
-
-    top:10px;
-
-    font-size:28px;
-
+    top:12px;
+    right:12px;
+    font-size:26px;
+    color:#8B4513;
     cursor:pointer;
+}
 
+.close-popup:hover{
+    color:#c9a227;
 }
 /* ========================= */
 /* Mobile - Product Details */
@@ -1502,5 +1482,111 @@ transition: 4s;
     width:100%;
 
 }
+
+}
+#success-message{
+
+    display: none;
+
+    color: green;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    margin-top: 10px;
+
+}
+.welcome-message {
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: rgba(255, 255, 255, 0.95);
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    z-index: 9999;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+    opacity: 0;
+
+    animation: fadeIn 1s forwards;
+
+}
+
+.welcome-message img {
+
+    width: 150px;
+
+    margin-bottom: 15px;
+
+}
+
+.welcome-message h2 {
+
+    color: #6f4e37;
+
+    margin-bottom: 10px;
+
+}
+
+.welcome-message p {
+
+    color: #888;
+
+}
+
+.hide {
+
+    animation: fadeOut 1s forwards;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+        transform: translate(-50%, -60%);
+
+    }
+
+    to {
+
+        opacity: 1;
+        transform: translate(-50%, -50%);
+
+    }
+
+}
+
+@keyframes fadeOut {
+
+    from {
+
+        opacity: 1;
+        transform: translate(-50%, -50%);
+
+    }
+
+    to {
+
+        opacity: 0;
+        transform: translate(-50%, -60%);
+
+    }
 
 }

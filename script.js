@@ -502,5 +502,23 @@ function sendOrder(){
         "https://wa.me/201555128809?text=" + encodeURIComponent(message),
         "_blank"
     );
+    document.getElementById("success-message").style.display = "block";
+
+    setTimeout(function(){
+
+    closeOrderForm();
+
+}, 3000);
 
 }
+window.addEventListener("load", function () {
+
+    let message = document.getElementById("welcome-message");
+
+    setTimeout(function () {
+
+        message.classList.add("hide");
+
+    }, 5000);
+
+});
