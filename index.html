@@ -45,9 +45,12 @@
 <div class="icons">
 
     <div class="favorite-icon" onclick="toggleFavoriteBox()">
-        ❤️
-        <span id="favorite-count">0</span>
-    </div>
+
+    <i class="fa-solid fa-heart"></i>
+
+    <span id="favorite-count">0</span>
+
+</div>
 
     <div class="cart-icon" onclick="toggleCart()">
         🛒
@@ -130,11 +133,13 @@
     
 <div class="card product-card" onclick="window.location='bag1.html'">
 
-    <span class="favorite-btn"
-          data-product="Brown Cordon Bag"
-          onclick="event.stopPropagation(); toggleFavorite(this)">
-        <i class="fa-regular fa-heart"></i>
-    </span>
+        <span class="favorite-btn"
+      data-product="Brown Cordon Bag"
+      onclick="event.stopPropagation(); toggleFavoriteCard(this)">
+    <i class="fa-regular fa-heart"></i>
+</span>
+
+
 
     <img src="bag.jpg" alt="Brown Cordon Bag">
 
@@ -161,7 +166,10 @@
 
 </div>
 
-    <button onclick="event.stopPropagation(); window.location='bag1.html';">
+    <button class="buy-btn"
+onclick="event.stopPropagation();
+buyProduct('Brown Cordon Bag',400,'bag.jpg');
+window.location='bag1.html';">
     Buy Now
 </button>
 
@@ -170,7 +178,7 @@
 <div class="card product-card" onclick="window.location='bag2.html'">
     <span class="favorite-btn"
       data-product="Golden Pearl Bag"
-      onclick="event.stopPropagation(); toggleFavorite(this)">
+      onclick="event.stopPropagation(); toggleFavoriteCard(this)">
     <i class="fa-regular fa-heart"></i>
 </span>
 
@@ -195,24 +203,25 @@
 
 </div>
 
-    <a href="https://wa.me/201555128809?text=مرحبًا%20Angelica%20Handmade%20👋%0A%0Aأرغب%20في%20طلب%20الشنطة:%0A👜%20Golden%20Pearl%20Bag%0A%0Aمن%20فضلك%20أرسل%20لي%20التفاصيل%20وطريقة%20الشحن.%0A%0Aشكرًا%20🌹" target="_blank">
-    <button onclick="buyProduct('Golden Pearl Bag',350,'bag2.jpg')">
-    Buy Now
-</button>
-</a>
+<button class="buy-btn"
 
+onclick="event.stopPropagation();
+buyProduct('Golden Pearl Bag',350,'bag2.jpg');
+window.location='bag2.html';">
+
+    Buy Now
+
+</button>
 </div>
 
 <div class="card product-card" onclick="window.location='bag3.html'">
     <span class="favorite-btn"
       data-product="Gold Metallic Canvas Bag"
-      onclick="event.stopPropagation(); toggleFavorite(this)">
-
+      onclick="event.stopPropagation(); toggleFavoriteCard(this)">
     <i class="fa-regular fa-heart"></i>
-
 </span>
 
-    <img src="bag3.jpg" alt=" Gold Metallic Canvas Bag">
+    <img src="bag3.jpg" alt="Gold Metallic Canvas Bag">
 
     <h3>Gold Metallic Canvas Bag</h3>
 <div class="stars">
@@ -236,11 +245,12 @@
 
 </div>
 
-    <a href="https://wa.me/201555128809?text=مرحبًا%20Angelica%20Handmade%20👋%0A%0Aأرغب%20في%20طلب%20الشنطة:%0A👜%20Gold%20Metallic%20Canvas%20Bag%0A%0Aمن%20فضلك%20أرسل%20لي%20التفاصيل%20وطريقة%20الشحن.%0A%0Aشكرًا%20🌹" target="_blank">
-    <button onclick="buyProduct('Gold Metallic Canvas Bag',1000,'bag3.jpg')">
+<button class="buy-btn"
+onclick="event.stopPropagation();
+buyProduct('Gold Metallic Canvas Bag',1000,'bag3.jpg');
+window.location='bag3.html';">
     Buy Now
 </button>
-</a>
 
 </div>
 

@@ -17,27 +17,35 @@ function showReview(index){
 
 showReview(current);
 
-next.onclick = function(){
+if (next) {
 
-    current++;
+    next.onclick = function(){
 
-    if(current >= reviews.length){
-        current = 0;
-    }
+        current++;
 
-    showReview(current);
+        if(current >= reviews.length){
+            current = 0;
+        }
+
+        showReview(current);
+
+    };
 
 }
 
-prev.onclick = function(){
+if (prev) {
 
-    current--;
+    prev.onclick = function(){
 
-    if(current < 0){
-        current = reviews.length - 1;
-    }
+        current--;
 
-    showReview(current);
+        if(current < 0){
+            current = reviews.length - 1;
+        }
+
+        showReview(current);
+
+    };
 
 }
 setInterval(function(){
@@ -56,7 +64,7 @@ function welcomeMessage(productName) {
 }
     
 let cartCount = 0;
-let cartItems = [];
+let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 function addToCart() {
 
@@ -108,6 +116,7 @@ document.getElementById("cart-total").innerHTML = total;
 
 }
 function buyProduct(productName, price, image) {
+    console.log(productName);
 
     if (welcomeMessage(productName)) {
 
@@ -127,6 +136,7 @@ if(existingProduct){
         image: image,
         quantity: 1
     });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
 }
 
@@ -177,6 +187,7 @@ function orderWhatsApp(){
 function removeItem(index){
 
     cartItems.splice(index,1);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
     cartCount = cartItems.length;
 
@@ -266,6 +277,8 @@ function increaseQuantity(index){
 
     cartItems[index].quantity++;
 
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
     addToCart();
 
 }
@@ -285,44 +298,42 @@ function decreaseQuantity(index){
 
     }
 
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
     addToCart();
 
 }
 const themeButton = document.getElementById("theme-toggle");
 
-themeButton.addEventListener("click", function(){
+if (themeButton) {
 
-    document.body.classList.toggle("dark-mode");
+    themeButton.addEventListener("click", function () {
 
-    if(document.body.classList.contains("dark-mode")){
+        document.body.classList.toggle("dark-mode");
 
-        themeButton.innerHTML="☀️";
+        if (document.body.classList.contains("dark-mode")) {
 
-    }else{
+            themeButton.innerHTML = "☀️";
+            localStorage.setItem("theme", "dark");
 
-        themeButton.innerHTML="🌙";
+        } else {
+
+            themeButton.innerHTML = "🌙";
+            localStorage.setItem("theme", "light");
+
+        }
+
+    });
+
+    if (localStorage.getItem("theme") === "dark") {
+
+        document.body.classList.add("dark-mode");
+        themeButton.innerHTML = "☀️";
 
     }
-
-});
-// حفظ وضع الموقع
-themeButton.addEventListener("click", function(){
-
-    if(document.body.classList.contains("dark-mode")){
-        localStorage.setItem("theme","dark");
-    }else{
-        localStorage.setItem("theme","light");
-    }
-
-});
-// استرجاع الوضع عند فتح الموقع
-if(localStorage.getItem("theme") === "dark"){
-
-    document.body.classList.add("dark-mode");
-
-    themeButton.innerHTML="☀️";
 
 }
+
 function toggleFavoriteBox(){
 
     let favoriteBox = document.getElementById("favorite-box");
@@ -331,13 +342,15 @@ function toggleFavoriteBox(){
 
 }
 let favoriteProducts = [];
-function updateFavoriteCount(){
 
-    document.getElementById("favorite-count").innerText = favoriteProducts.length;
+function updateFavoriteCount() {
+
+    document.getElementById("favorite-count").innerText =
+        favoriteProducts.length;
 
 }
 
-function toggleFavorite(button){
+function toggleFavoriteCard(button) {
 
     let card = button.closest(".product-card");
 
@@ -349,7 +362,7 @@ function toggleFavorite(button){
         item => item.name === productName
     );
 
-    if(index == -1){
+    if (index == -1) {
 
         favoriteProducts.push({
 
@@ -357,9 +370,7 @@ function toggleFavorite(button){
 
             price: card.querySelector(".price").innerText,
 
-            image: card.querySelector("img").src,
-
-            button: button
+            image: card.querySelector("img").src
 
         });
 
@@ -369,9 +380,9 @@ function toggleFavorite(button){
 
         icon.classList.add("fa-solid");
 
-    }else{
+    } else {
 
-        favoriteProducts.splice(index,1);
+        favoriteProducts.splice(index, 1);
 
         button.classList.remove("active");
 
@@ -387,16 +398,15 @@ function toggleFavorite(button){
 
 }
 
-
-function renderFavorites(){
+function renderFavorites() {
 
     let favoriteItems = document.getElementById("favorite-items");
 
-    favoriteItems.innerHTML="";
+    favoriteItems.innerHTML = "";
 
-    favoriteProducts.forEach((product,index)=>{
+    favoriteProducts.forEach((product, index) => {
 
-        favoriteItems.innerHTML +=`
+        favoriteItems.innerHTML += `
 
         <div class="favorite-product">
 
@@ -410,7 +420,8 @@ function renderFavorites(){
 
             </div>
 
-            <button class="remove-favorite" onclick="removeFavorite(${index})">
+            <button class="remove-favorite"
+                    onclick="removeFavorite(${index})">
 
                 ✖
 
@@ -431,7 +442,9 @@ function removeFavorite(index){
     favoriteProducts.splice(index,1);
 
     let heart = document.querySelector(
+
         `.favorite-btn[data-product="${removedProduct.name}"]`
+
     );
 
     if(heart){
@@ -451,6 +464,7 @@ function removeFavorite(index){
     updateFavoriteCount();
 
 }
+
 function changeImage(img){
 
     document.getElementById("main-image").src = img.src;
@@ -515,10 +529,19 @@ window.addEventListener("load", function () {
 
     let message = document.getElementById("welcome-message");
 
-    setTimeout(function () {
+    if (message) {
 
-        message.classList.add("hide");
+        setTimeout(function () {
 
-    }, 5000);
+            message.classList.add("hide");
+
+        }, 5000);
+
+    }
 
 });
+window.onload = function () {
+
+    addToCart();
+
+}

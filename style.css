@@ -152,6 +152,9 @@ body{
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     transition: 0.3s;
+    display: flex;
+flex-direction: column;
+justify-content: space-between;
 }
 .card:hover{
     transform: translateY(-10px);
@@ -198,9 +201,7 @@ body{
     background-color: #8b5e3c;
     transform:scale(1.08);
 }
-.card{
-    transition:0.3s;
-}
+
 
 .card:hover{
     transform:translateY(-10px);
@@ -911,7 +912,19 @@ footer p{
     font-size:28px;
     cursor:pointer;
 }
+.favorite-icon i{
 
+    color: red;
+
+    transition: 0.3s;
+
+}
+
+.favorite-icon:hover i{
+
+    transform: scale(1.4);
+
+}
 #favorite-count,
 #cart-count{
     position:absolute;
@@ -1588,5 +1601,24 @@ transition: 4s;
         transform: translate(-50%, -60%);
 
     }
+
+}
+.buy-btn{
+
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+
+}
+
+.buy-btn:hover{
+
+    background-color: #8b5e3c;
+    transform: scale(1.08);
 
 }
