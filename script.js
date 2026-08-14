@@ -70,7 +70,8 @@ function addToCart() {
 
     cartCount++;
 
-    document.getElementById("cart-count").innerHTML = cartCount;
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) cartCountEl.innerHTML = cartCount;
 
     
 
@@ -110,9 +111,12 @@ cartItems.forEach(function(item, index){
     totalItems += item.quantity;
 
 });
-document.getElementById("cart-count").innerHTML = totalItems;
-document.getElementById("cart-items").innerHTML = html;
-document.getElementById("cart-total").innerHTML = total;
+const cartCountEl2 = document.getElementById("cart-count");
+const cartItemsEl = document.getElementById("cart-items");
+const cartTotalEl = document.getElementById("cart-total");
+if (cartCountEl2) cartCountEl2.innerHTML = totalItems;
+if (cartItemsEl) cartItemsEl.innerHTML = html;
+if (cartTotalEl) cartTotalEl.innerHTML = total;
 
 }
 function buyProduct(productName, price, image) {
@@ -224,8 +228,7 @@ localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
 }
-window.onload = function () {
-
+window.addEventListener("load", function () {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
     document.querySelectorAll(".favorite-btn").forEach(button => {
@@ -235,15 +238,15 @@ window.onload = function () {
 
         if (favorites.includes(productName) && icon) {
 
-    icon.classList.remove("fa-regular");
-    icon.classList.add("fa-solid");
-    icon.style.color = "red";
+            icon.classList.remove("fa-regular");
+            icon.classList.add("fa-solid");
+            icon.style.color = "red";
 
-}
+        }
 
     });
 
-}
+});
 const searchInput = document.getElementById("searchInput");
 
 if (searchInput) {
@@ -526,7 +529,6 @@ function sendOrder(){
 
 }
 window.addEventListener("load", function () {
-
     let message = document.getElementById("welcome-message");
 
     if (message) {
@@ -534,14 +536,22 @@ window.addEventListener("load", function () {
         setTimeout(function () {
 
             message.classList.add("hide");
+            // After the fade-out animation ends, remove it from layout so it won't block clicks
+            const onAnimEnd = function () {
+                message.style.display = 'none';
+                message.removeEventListener('animationend', onAnimEnd);
+            };
+            message.addEventListener('animationend', onAnimEnd);
+
+            // Also ensure it doesn't capture pointer events while visible
+            message.style.pointerEvents = 'none';
 
         }, 5000);
 
     }
 
+    if (typeof addToCart === 'function') {
+        addToCart();
+    }
+
 });
-window.onload = function () {
-
-    addToCart();
-
-}

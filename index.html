@@ -133,13 +133,11 @@
     
 <div class="card product-card" onclick="window.location='bag1.html'">
 
-        <span class="favorite-btn"
+<span class="favorite-btn"
       data-product="Brown Cordon Bag"
       onclick="event.stopPropagation(); toggleFavoriteCard(this)">
     <i class="fa-regular fa-heart"></i>
 </span>
-
-
 
     <img src="bag.jpg" alt="Brown Cordon Bag">
 
@@ -176,7 +174,8 @@ window.location='bag1.html';">
 </div>
 
 <div class="card product-card" onclick="window.location='bag2.html'">
-    <span class="favorite-btn"
+
+<span class="favorite-btn"
       data-product="Golden Pearl Bag"
       onclick="event.stopPropagation(); toggleFavoriteCard(this)">
     <i class="fa-regular fa-heart"></i>
@@ -334,17 +333,17 @@ window.location='bag3.html';">
         <p><strong>📞 WhatsApp:</strong> 01555128809</p>
         <div class="social-buttons">
 
-    <a href="https://wa.me/201555128809" target="_blank">
-        <button class="whatsapp">WhatsApp</button>
-    </a>
+    <a class="whatsapp" href="https://wa.me/201555128809" target="_blank" rel="noopener noreferrer">
+    WhatsApp
+</a>
 
-    <a href="https://www.facebook.com/profile.php?id=61557003458365" target="_blank">
-        <button class="facebook">Facebook</button>
-    </a>
+    <a class="facebook" href="https://www.facebook.com/profile.php?id=61557003458365" target="_blank" rel="noopener noreferrer">
+    Facebook
+</a>
 
-    <a href="https://www.tiktok.com/@user4567857231587" target="_blank">
-        <button class="tiktok">TikTok</button>
-    </a>
+    <a class="tiktok" href="https://www.tiktok.com/@user4567857231587" target="_blank" rel="noopener noreferrer">
+    TikTok
+</a>
 
 </div>
 </section>
@@ -369,6 +368,24 @@ window.location='bag3.html';">
 
 
 <script src="script.js"></script>
+
+<script>
+// Fallback open for contact links when running from file:// or restricted contexts
+document.querySelectorAll('.social-buttons a').forEach(a => {
+    a.addEventListener('click', function (e) {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        // Try standard navigation first, otherwise force a new window
+        try {
+            window.open(href, '_blank', 'noopener');
+        } catch (err) {
+            // last resort: change location
+            window.location.href = href;
+        }
+        e.preventDefault();
+    });
+});
+</script>
 
 <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/201555128809" class="whatsapp-float" target="_blank">
