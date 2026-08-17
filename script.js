@@ -125,31 +125,34 @@ if (cartTotalEl) cartTotalEl.innerHTML = total;
 
 }
 function buyProduct(productName, price, image) {
-    console.log(productName);
-
     if (welcomeMessage(productName)) {
-
         let existingProduct = cartItems.find(function(item){
-    return item.name === productName;
-});
+            return item.name === productName;
+        });
 
-if(existingProduct){
+        if (existingProduct) {
+            existingProduct.quantity++;
+        } else {
+            cartItems.push({
+                name: productName,
+                price: price,
+                image: image,
+                quantity: 1
+            });
+        }
 
-    existingProduct.quantity++;
-
-}else{
-
-    cartItems.push({
-        name: productName,
-        price: price,
-        image: image,
-        quantity: 1
-    });
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        addToCart();
+    }
 }
 
-        addToCart();
+function buyProductAndGo(productName, price, image, targetPage) {
+    buyProduct(productName, price, image);
+
+    if (targetPage) {
+        setTimeout(function() {
+            window.location.href = targetPage;
+        }, 50);
     }
 }
 
@@ -404,10 +407,20 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
         ["Luxury Finish", "Premium Material", "Handmade"]
     ];
 
+    const productPrices = [
+        420, 470, 430, 450, 500, 480, 520, 475, 530, 490,
+        510, 540, 550, 485, 495, 470, 520, 560, 510, 530,
+        600, 520, 540, 610, 590, 570, 600, 620, 580, 640,
+        590, 610, 660, 625, 645, 650, 680, 700, 710, 690,
+        720, 750, 735, 760, 770, 790, 780, 800, 820, 835,
+        850, 870, 890, 900, 920, 940, 960
+    ];
+
     for (let i = 4; i <= 56; i++) {
         const productName = productNames[i - 4] || `Bag ${i}`;
         const imageName = `bag${i}.jpg`;
         const details = productDetails[i - 4] || ["Handmade", "Elegant Design", "Gift Ready"];
+        const price = productPrices[i - 4] || 500;
 
         const card = document.createElement("div");
         card.className = "card product-card";
@@ -437,8 +450,13 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
                 <p><i class="fas fa-gift"></i> ${details[2]}</p>
             </div>
 
+            <p class="price">
+                <del>EGP ${price + 100}</del>
+                <span class="new-price">EGP ${price}</span>
+            </p>
+
             <button class="buy-btn"
-            onclick="event.stopPropagation(); window.location='product.html?name=${encodeURIComponent(productName)}&image=${imageName}';">
+            onclick="event.stopPropagation(); buyProductAndGo('${productName}', ${price}, '${imageName}', 'product.html?name=${encodeURIComponent(productName)}&image=${imageName}');">
                 Buy Now
             </button>
         `;
