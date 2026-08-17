@@ -231,23 +231,10 @@ localStorage.setItem("favorites", JSON.stringify(favorites));
 
 }
 window.addEventListener("load", function () {
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    document.querySelectorAll(".favorite-btn").forEach(button => {
-
-        let productName = button.dataset.product;
-        let icon = button.querySelector("i");
-
-        if (favorites.includes(productName) && icon) {
-
-            icon.classList.remove("fa-regular");
-            icon.classList.add("fa-solid");
-            icon.style.color = "red";
-
-        }
-
-    });
-
+    favoriteProducts = getStoredFavoriteProducts();
+    syncFavoriteButtons();
+    renderFavorites();
+    updateFavoriteCount();
 });
 const searchInput = document.getElementById("searchInput");
 
@@ -532,21 +519,81 @@ function toggleFavoriteBox(){
     favoriteBox.classList.toggle("active");
 
 }
-let favoriteProducts = [];
+function getStoredFavoriteProducts() {
+    const oldFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const newFavorites = JSON.parse(localStorage.getItem("favoriteProducts")) || [];
+    const merged = [...newFavorites];
+
+    oldFavorites.forEach((name) => {
+        if (!merged.some(item => item.name === name)) {
+            merged.push({
+                name: name,
+                price: "EGP 0",
+                image: ""
+            });
+        }
+    });
+
+    return merged;
+}
+
+let favoriteProducts = getStoredFavoriteProducts();
+
+function getProductPrice(card) {
+    const priceWrap = card.querySelector(".price");
+    if (priceWrap) {
+        const newPrice = priceWrap.querySelector(".new-price");
+        if (newPrice) return newPrice.innerText.trim();
+        return priceWrap.innerText.trim();
+    }
+
+    const inlinePrice = card.querySelector(".new-price");
+    if (inlinePrice) return inlinePrice.innerText.trim();
+
+    return "EGP 0";
+}
+
+function saveFavoriteProducts() {
+    localStorage.setItem("favoriteProducts", JSON.stringify(favoriteProducts));
+    localStorage.setItem("favorites", JSON.stringify(favoriteProducts.map(item => item.name)));
+}
 
 function updateFavoriteCount() {
+    const favoriteCount = document.getElementById("favorite-count");
+    if (favoriteCount) {
+        favoriteCount.innerText = favoriteProducts.length;
+    }
+}
 
-    document.getElementById("favorite-count").innerText =
-        favoriteProducts.length;
+function syncFavoriteButtons() {
+    document.querySelectorAll(".favorite-btn").forEach((button) => {
+        const productName = button.dataset.product;
+        const icon = button.querySelector("i");
+        if (!productName || !icon) return;
 
+        const exists = favoriteProducts.some(item => item.name === productName);
+        if (exists) {
+            button.classList.add("active");
+            icon.classList.remove("fa-regular");
+            icon.classList.add("fa-solid");
+            icon.style.color = "red";
+        } else {
+            button.classList.remove("active");
+            icon.classList.remove("fa-solid");
+            icon.classList.add("fa-regular");
+            icon.style.color = "";
+        }
+    });
 }
 
 function toggleFavoriteCard(button) {
 
     let card = button.closest(".product-card");
 
-    let productName = card.querySelector("h3").innerText;
+    if (!card) return;
 
+    let productName = card.querySelector("h3").innerText.trim();
+    let productImage = card.querySelector("img");
     let icon = button.querySelector("i");
 
     let index = favoriteProducts.findIndex(
@@ -556,20 +603,16 @@ function toggleFavoriteCard(button) {
     if (index == -1) {
 
         favoriteProducts.push({
-
             name: productName,
-
-            price: card.querySelector(".price").innerText,
-
-            image: card.querySelector("img").src
-
+            price: getProductPrice(card),
+            image: productImage ? (productImage.currentSrc || productImage.src) : ""
         });
 
         button.classList.add("active");
 
         icon.classList.remove("fa-regular");
-
         icon.classList.add("fa-solid");
+        icon.style.color = "red";
 
     } else {
 
@@ -578,30 +621,36 @@ function toggleFavoriteCard(button) {
         button.classList.remove("active");
 
         icon.classList.remove("fa-solid");
-
         icon.classList.add("fa-regular");
+        icon.style.color = "";
 
     }
 
+    saveFavoriteProducts();
     renderFavorites();
-
+    syncFavoriteButtons();
     updateFavoriteCount();
 
 }
 
 function renderFavorites() {
-
     let favoriteItems = document.getElementById("favorite-items");
+
+    if (!favoriteItems) return;
 
     favoriteItems.innerHTML = "";
 
-    favoriteProducts.forEach((product, index) => {
+    if (favoriteProducts.length === 0) {
+        favoriteItems.innerHTML = '<p id="empty-favorite">No favorite products yet ❤️</p>';
+        return;
+    }
 
+    favoriteProducts.forEach((product, index) => {
         favoriteItems.innerHTML += `
 
         <div class="favorite-product">
 
-            <img src="${product.image}">
+            <img src="${product.image || 'bag.jpg'}" alt="${product.name}">
 
             <div class="favorite-info">
 
@@ -621,37 +670,35 @@ function renderFavorites() {
         </div>
 
         `;
-
     });
-
 }
 
 function removeFavorite(index){
 
-    let removedProduct = favoriteProducts[index];
+    if (!favoriteProducts[index]) return;
+
+    const removedProduct = favoriteProducts[index];
 
     favoriteProducts.splice(index,1);
 
-    let heart = document.querySelector(
-
+    const heart = document.querySelector(
         `.favorite-btn[data-product="${removedProduct.name}"]`
-
     );
 
     if(heart){
-
         heart.classList.remove("active");
 
-        let icon = heart.querySelector("i");
-
-        icon.classList.remove("fa-solid");
-
-        icon.classList.add("fa-regular");
-
+        const icon = heart.querySelector("i");
+        if (icon) {
+            icon.classList.remove("fa-solid");
+            icon.classList.add("fa-regular");
+            icon.style.color = "";
+        }
     }
 
+    saveFavoriteProducts();
     renderFavorites();
-
+    syncFavoriteButtons();
     updateFavoriteCount();
 
 }
