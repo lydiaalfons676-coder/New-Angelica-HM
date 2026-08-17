@@ -1,3 +1,10 @@
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .catch((error) => console.log("Service Worker registration failed:", error));
+    });
+}
+
 let cart = [];
 const reviews = document.querySelectorAll(".review-card");
 
@@ -88,8 +95,6 @@ cartItems.forEach(function(item, index){
 
         <h4>${item.name}</h4>
 
-        <p>Price: ${item.price} EGP</p>
-
 <div class="quantity-box">
 
     <button onclick="decreaseQuantity(${index})">➖</button>
@@ -173,17 +178,11 @@ function orderWhatsApp(){
 
     let message = "Hello, I want to order:%0A%0A";
 
-    let total = 0;
-
     cartItems.forEach(function(item){
 
-        message += "👜 " + item.name + " - " + item.price + " EGP%0A";
-
-        total += item.price;
+        message += "👜 " + item.name + " - Quantity: " + item.quantity + "%0A";
 
     });
-
-    message += "%0A💰 Total: " + total + " EGP";
 
     window.open("https://wa.me/201555128809?text=" + message);
 
@@ -275,6 +274,177 @@ if (searchInput) {
 
     });
 
+}
+
+const productContainer = document.querySelector(".product-container");
+
+if (productContainer && !document.body.dataset.extraGalleryLoaded) {
+    document.body.dataset.extraGalleryLoaded = "true";
+
+    const productNames = [
+        "Cream Ivory Tote",
+        "White Pearl Handbag",
+        "Black Gold Evening Bag",
+        "Beige Woven Tote",
+        "White Pearl Purse",
+        "Golden Yellow Bag",
+        "Ivory Silk Tote",
+        "Sand Beige Purse",
+        "Bronze Gold Handbag",
+        "White Pearl Clutch",
+        "Dark Brown Tote",
+        "Amber Gold Handbag",
+        "Off White Pearl Bag",
+        "Sienna Brown Bag",
+        "Beige Gold Purse",
+        "Walnut Brown Tote",
+        "Rose Pink Mini Bag",
+        "Golden Yellow Handbag",
+        "Blush Pink Purse",
+        "Beige Cream Tote",
+        "White Pearl Bag",
+        "Coffee Brown Handbag",
+        "Ivory Classic Tote",
+        "Gold Metallic Purse",
+        "Terracotta Orange Bag",
+        "Dawn Beige Handbag",
+        "Sunset Orange Tote",
+        "Rose Pearl Purse",
+        "Carmel Beige Bag",
+        "Bronze Gold Clutch",
+        "Honey Yellow Tote",
+        "Cream Royal Purse",
+        "Willow Gold Bag",
+        "Copper Brown Tote",
+        "Sandalwood Beige Purse",
+        "Rose Soft Tote",
+        "Leaf Gold Handbag",
+        "Beige Venetian Bag",
+        "Pearl Sunlight Purse",
+        "Cocoa Luxury Tote",
+        "Coral Silk Handbag",
+        "Bamboo Beige Bag",
+        "Treasure Gold Purse",
+        "Mocha Brown Tote",
+        "Garden Rose Handbag",
+        "Bronze Soft Purse",
+        "Sand Elegant Bag",
+        "Luna Gold Tote",
+        "Harbor Beige Handbag",
+        "Golden Bloom Purse",
+        "Rosewood Luxe Bag",
+        "Pearl Ivory Tote",
+        "Sandal Beige Tote",
+        "Butter Yellow Purse",
+        "Rose Classic Bag",
+        "Sweet Gold Handbag",
+        "Warm Beige Tote"
+    ];
+
+    const productDetails = [
+        ["Handmade", "Luxury Finish", "Gift Ready"],
+        ["Premium Material", "Elegant Design", "Gift Ready"],
+        ["Luxury Style", "Handmade", "Classic Finish"],
+        ["Soft Texture", "Elegant Design", "Gift Ready"],
+        ["Premium Material", "Luxury Finish", "Handmade"],
+        ["Elegant Style", "Golden Touch", "Gift Ready"],
+        ["Luxury Finish", "Soft Texture", "Handmade"],
+        ["Premium Material", "Classic Design", "Gift Ready"],
+        ["Golden Accent", "Elegant Design", "Gift Ready"],
+        ["Premium Material", "Soft Touch", "Luxury Look"],
+        ["Rich Finish", "Classic Design", "Handmade"],
+        ["Golden Accent", "Luxury Style", "Gift Ready"],
+        ["Premium Material", "Soft Texture", "Elegant Look"],
+        ["Classic Design", "Rich Finish", "Handmade"],
+        ["Luxury Finish", "Premium Material", "Gift Ready"],
+        ["Classic Design", "Warm Tone", "Handmade"],
+        ["Soft Texture", "Elegant Look", "Gift Ready"],
+        ["Golden Accent", "Premium Look", "Handmade"],
+        ["Soft Touch", "Elegant Design", "Gift Ready"],
+        ["Luxury Finish", "Premium Material", "Handmade"],
+        ["Classic Design", "Soft Texture", "Gift Ready"],
+        ["Rich Finish", "Elegant Design", "Handmade"],
+        ["Luxury Finish", "Premium Material", "Gift Ready"],
+        ["Golden Accent", "Classic Design", "Handmade"],
+        ["Warm Tone", "Elegant Design", "Gift Ready"],
+        ["Soft Texture", "Luxury Finish", "Handmade"],
+        ["Premium Material", "Elegant Design", "Gift Ready"],
+        ["Soft Touch", "Classic Finish", "Handmade"],
+        ["Golden Accent", "Luxury Style", "Gift Ready"],
+        ["Premium Material", "Soft Texture", "Handmade"],
+        ["Warm Tone", "Elegant Design", "Gift Ready"],
+        ["Luxury Finish", "Handmade", "Classic Look"],
+        ["Premium Material", "Soft Touch", "Gift Ready"],
+        ["Golden Accent", "Luxury Design", "Handmade"],
+        ["Rich Finish", "Elegant Look", "Gift Ready"],
+        ["Classic Design", "Premium Material", "Handmade"],
+        ["Soft Texture", "Elegant Design", "Gift Ready"],
+        ["Luxury Finish", "Golden Touch", "Handmade"],
+        ["Premium Material", "Classic Design", "Gift Ready"],
+        ["Warm Tone", "Elegant Look", "Handmade"],
+        ["Golden Accent", "Luxury Finish", "Gift Ready"],
+        ["Soft Touch", "Classic Design", "Handmade"],
+        ["Premium Material", "Elegant Design", "Gift Ready"],
+        ["Luxury Style", "Warm Tone", "Handmade"],
+        ["Rich Finish", "Premium Material", "Gift Ready"],
+        ["Soft Texture", "Elegant Design", "Handmade"],
+        ["Classic Look", "Luxury Finish", "Gift Ready"],
+        ["Golden Accent", "Premium Material", "Handmade"],
+        ["Warm Tone", "Soft Touch", "Gift Ready"],
+        ["Luxury Finish", "Elegant Design", "Handmade"],
+        ["Premium Material", "Classic Style", "Gift Ready"],
+        ["Golden Accent", "Soft Texture", "Handmade"],
+        ["Warm Tone", "Elegant Design", "Gift Ready"],
+        ["Luxury Finish", "Premium Material", "Handmade"],
+        ["Classic Design", "Soft Touch", "Gift Ready"],
+        ["Golden Accent", "Elegant Style", "Handmade"],
+        ["Premium Material", "Luxury Finish", "Gift Ready"],
+        ["Soft Texture", "Classic Look", "Handmade"],
+        ["Elegant Design", "Warm Tone", "Gift Ready"],
+        ["Luxury Finish", "Premium Material", "Handmade"]
+    ];
+
+    for (let i = 4; i <= 56; i++) {
+        const productName = productNames[i - 4] || `Bag ${i}`;
+        const imageName = `bag${i}.jpg`;
+        const details = productDetails[i - 4] || ["Handmade", "Elegant Design", "Gift Ready"];
+
+        const card = document.createElement("div");
+        card.className = "card product-card";
+
+        card.innerHTML = `
+            <span class="favorite-btn"
+                  data-product="${productName}"
+                  onclick="event.stopPropagation(); toggleFavoriteCard(this)">
+                <i class="fa-regular fa-heart"></i>
+            </span>
+
+            <img src="${imageName}" alt="${productName}">
+
+            <h3>${productName}</h3>
+
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+
+            <div class="product-info">
+                <p><i class="fas fa-truck"></i> ${details[0]}</p>
+                <p><i class="fas fa-hand-paper"></i> ${details[1]}</p>
+                <p><i class="fas fa-gift"></i> ${details[2]}</p>
+            </div>
+
+            <button class="buy-btn"
+            onclick="event.stopPropagation(); window.location='product.html?name=${encodeURIComponent(productName)}&image=${imageName}';">
+                Buy Now
+            </button>
+        `;
+
+        productContainer.appendChild(card);
+    }
 }
 function increaseQuantity(index){
 

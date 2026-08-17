@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Angelica Handmade</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Home</a>
+        <span>></span>
+        <a href="index.html#products">👜 Bags</a>
+        <span>></span>
+        <span id="page-product-name">Product Details</span>
+    </div>
+
+    <div class="product-page">
+        <div class="product-image">
+            <img id="main-image" src="bag4.jpg" alt="Product image">
+            <div class="gallery">
+                <img id="thumb-1" src="bag4.jpg" onclick="changeImage(this)">
+                <img id="thumb-2" src="bag4.jpg" onclick="changeImage(this)">
+                <img id="thumb-3" src="bag4.jpg" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <div class="product-details">
+            <h1 id="product-name">Product Name</h1>
+
+            <div class="product-stars">
+                ★★★★★ <span>(4.9)</span>
+            </div>
+
+            <div class="price-box">
+                <h2>Custom Order</h2>
+                <p>✔ Free Shipping</p>
+            </div>
+
+            <hr>
+
+            <p><strong>🎨 Color:</strong> <span id="product-color">Handmade</span></p>
+            <p><strong>🧵 Material:</strong> Premium Handmade Fabric</p>
+            <p><strong>✋ Handmade:</strong> 100%</p>
+            <p><strong>🚚 Shipping:</strong> Free Shipping</p>
+            <p><strong>🎁 Packaging:</strong> Gift Ready</p>
+
+            <hr>
+
+            <h3>Description</h3>
+            <p id="product-description">
+                Elegant handmade bag with a unique style and premium finishing, designed to match your taste and personality.
+            </p>
+
+            <hr>
+
+            <h3>📋 Product Specifications</h3>
+            <table class="specs-table">
+                <tr>
+                    <td><strong>Material</strong></td>
+                    <td>Premium Handmade Fabric</td>
+                </tr>
+                <tr>
+                    <td><strong>Color</strong></td>
+                    <td id="spec-color">Handmade</td>
+                </tr>
+                <tr>
+                    <td><strong>Handmade</strong></td>
+                    <td>✔ 100%</td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping</strong></td>
+                    <td>Free Shipping</td>
+                </tr>
+                <tr>
+                    <td><strong>Gift Ready</strong></td>
+                    <td>✔ Yes</td>
+                </tr>
+            </table>
+
+            <p class="order-note">
+                ✨ اطلب الآن عبر واتساب واستمتع بشحن سريع وتغليف أنيق.
+            </p>
+
+            <button class="buy-btn" onclick="openOrderForm()">
+                Order on WhatsApp 💬
+            </button>
+
+            <div id="order-popup" class="popup">
+                <div class="popup-content">
+                    <span class="close-popup" onclick="closeOrderForm()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </span>
+                    <h2>🛍️ Complete Your Order</h2>
+                    <input type="text" placeholder="Your Name">
+                    <input type="tel" placeholder="Phone Number">
+                    <select>
+                        <option>Select Color</option>
+                        <option>Beige</option>
+                        <option>White</option>
+                        <option>Gold</option>
+                        <option>Brown</option>
+                        <option>Pink</option>
+                        <option>Black</option>
+                    </select>
+                    <input type="number" placeholder="Quantity" min="1">
+                    <textarea placeholder="Address"></textarea>
+                    <textarea placeholder="Notes (Optional)"></textarea>
+                    <button class="buy-btn" onclick="sendOrder()">
+                        Send Order
+                    </button>
+                    <p id="success-message">✅ Order sent successfully</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name') || 'Product Details';
+        const imageName = urlParams.get('image') || 'bag4.jpg';
+
+        document.getElementById('product-name').textContent = productName;
+        document.getElementById('page-product-name').textContent = productName;
+        document.getElementById('main-image').src = imageName;
+        document.getElementById('main-image').alt = productName;
+        document.getElementById('thumb-1').src = imageName;
+        document.getElementById('thumb-2').src = imageName;
+        document.getElementById('thumb-3').src = imageName;
+
+        const color = productName.includes('Gold') ? 'Gold' :
+            productName.includes('White') ? 'White' :
+            productName.includes('Black') ? 'Black' :
+            productName.includes('Pink') ? 'Pink' :
+            productName.includes('Brown') ? 'Brown' :
+            productName.includes('Beige') ? 'Beige' :
+            productName.includes('Yellow') ? 'Yellow' :
+            'Handmade';
+
+        document.getElementById('product-color').textContent = color;
+        document.getElementById('spec-color').textContent = color;
+
+        const detailedDescription = {
+            'Cream Ivory Tote': 'Elegant cream ivory tote with a soft and luxurious look, designed for everyday elegance and special occasions.',
+            'White Pearl Handbag': 'Light pearl handbag with a refined finish and graceful style for chic everyday outfits.',
+            'Black Gold Evening Bag': 'A luxurious black-and-gold evening bag with a bold statement look for special nights.',
+            'Beige Woven Tote': 'A natural beige woven tote with classic texture and a comfortable, stylish finish.',
+            'White Pearl Purse': 'Minimal white pearl purse with a delicate and elegant design.',
+            'Golden Yellow Bag': 'Bright golden yellow handbag that adds warmth and luxury to any look.',
+            'Ivory Silk Tote': 'Soft ivory silk tote with a polished and graceful presentation.',
+            'Sand Beige Purse': 'Warm sand-tone purse with a polished, elegant finish.',
+            'Bronze Gold Handbag': 'Refined bronze-gold handbag with a luxurious and unique presence.',
+            'White Pearl Clutch': 'Clean white pearl clutch designed for elegant events and refined styling.',
+            'Dark Brown Tote': 'Classic dark brown tote with rich tones and a timeless handmade finish.',
+            'Amber Gold Handbag': 'Warm amber metallic handbag with a rich and premium appeal.',
+            'Off White Pearl Bag': 'Soft off-white pearl bag with a subtle luxury look for everyday elegance.',
+            'Sienna Brown Bag': 'Warm sienna brown bag with earthy tones and a clean elegant shape.',
+            'Beige Gold Purse': 'Beige and gold purse with a balanced and feminine design.',
+            'Walnut Brown Tote': 'Dark walnut tote with a natural and sophisticated feel.',
+            'Rose Pink Mini Bag': 'Soft rose pink mini bag with a feminine touch and modern elegance.',
+            'Golden Yellow Handbag': 'Golden yellow handbag with a vivid and luxurious style.',
+            'Blush Pink Purse': 'Blush pink purse with a light and elegant finish.',
+            'Beige Cream Tote': 'Cream-beige tote with a soft and elegant handmade feel.',
+            'White Pearl Bag': 'Minimal white pearl bag designed for a clean and classy look.',
+            'Coffee Brown Handbag': 'Warm coffee brown handbag with a modern and earthy finish.',
+            'Ivory Classic Tote': 'Classic ivory tote with a refined look and comfortable everyday style.',
+            'Gold Metallic Purse': 'Gold metallic purse with a glamorous and luxurious finish.',
+            'Terracotta Orange Bag': 'Terracotta orange bag with warm tones and a stylish handcrafted finish.',
+            'Dawn Beige Handbag': 'Soft dawn beige handbag with a natural and graceful style.',
+            'Sunset Orange Tote': 'Sunset orange tote with vibrant energy and a distinctive handmade look.',
+            'Rose Pearl Purse': 'Rose pearl purse with a delicate and feminine finish.',
+            'Carmel Beige Bag': 'Warm caramel beige bag with a timeless elegant look.',
+            'Bronze Gold Clutch': 'Small bronze gold clutch with a rich, elegant design.',
+            'Honey Yellow Tote': 'Honey yellow tote with soft golden accents and a warm visual charm.',
+            'Cream Royal Purse': 'Cream royal purse with a polished and regal appearance.',
+            'Willow Gold Bag': 'Willow gold bag with a delicate golden note and refined design.',
+            'Copper Brown Tote': 'Copper brown tote with strong earthy tones and a handmade luxury finish.',
+            'Sandalwood Beige Purse': 'Warm sandalwood beige purse with a natural and elegant finish.',
+            'Rose Soft Tote': 'Soft rose tote with a gentle floral feeling and refined style.',
+            'Leaf Gold Handbag': 'Light gold handbag with a natural shimmer and elegant detailing.',
+            'Beige Venetian Bag': 'Beige Venetian-inspired bag with a classic and premium feel.',
+            'Pearl Sunlight Purse': 'Sparkling pearl sunlight purse with soft brightness and luxury appeal.',
+            'Cocoa Luxury Tote': 'Rich cocoa luxury tote with a premium and timeless look.',
+            'Coral Silk Handbag': 'Coral silk handbag with a soft vibrant finish and handmade charm.',
+            'Bamboo Beige Bag': 'Bamboo beige bag with a soft neutral look and a stylish finish.',
+            'Treasure Gold Purse': 'Treasure gold purse with rich gold accents and a statement look.',
+            'Mocha Brown Tote': 'Mocha brown tote with a warm, modern and elegant finish.',
+            'Garden Rose Handbag': 'Garden rose handbag with soft pastel beauty and feminine elegance.',
+            'Bronze Soft Purse': 'Soft bronze purse with a refined metallic finish.',
+            'Sand Elegant Bag': 'Sand-toned elegant bag with a clean and soft luxury design.',
+            'Luna Gold Tote': 'Luna gold tote with subtle shimmer and graceful styling.',
+            'Harbor Beige Handbag': 'Harbor beige handbag with a soft coastal elegance and simple sophistication.',
+            'Golden Bloom Purse': 'Golden bloom purse with a rich golden presence and premium craftsmanship.',
+            'Rosewood Luxe Bag': 'Rosewood luxe bag with a warm and elegant palette.',
+            'Pearl Ivory Tote': 'Pearl ivory tote with a clean sleek shape and graceful feel.'
+        };
+
+        document.getElementById('product-description').textContent = detailedDescription[productName] || 'Elegant handmade bag with a unique style and premium finishing, designed to match your taste and personality.';
+    </script>
+</body>
+</html>

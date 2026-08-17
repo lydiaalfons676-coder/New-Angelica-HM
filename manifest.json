@@ -1,0 +1,25 @@
+{
+  "name": "Angelica Handmade",
+  "short_name": "Angelica",
+  "description": "Angelica Handmade boutique store",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f4ef",
+  "theme_color": "#6f4e37",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo-small.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-small.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
