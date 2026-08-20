@@ -205,6 +205,14 @@ function removeItem(index){
     addToCart();
 
 }
+function clearCart(){
+
+    cartItems = [];
+    localStorage.removeItem("cartItems");
+
+    addToCart();
+
+}
 function toggleFavorite(element){
 
     let icon = element.querySelector("i");
@@ -683,6 +691,17 @@ function removeFavorite(index){
     }
 
     saveFavoriteProducts();
+    renderFavorites();
+    syncFavoriteButtons();
+    updateFavoriteCount();
+
+}
+function clearFavorites(){
+
+    favoriteProducts = [];
+    localStorage.removeItem("favoriteProducts");
+    localStorage.removeItem("favorites");
+
     renderFavorites();
     syncFavoriteButtons();
     updateFavoriteCount();

@@ -763,6 +763,18 @@ footer p{
     font-size:22px;
     font-weight:bold;
 }
+.clear-list-btn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:8px 12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.clear-list-btn:hover{
+    background:#b02a37;
+}
 .cart-items{
     max-height:420px;
     overflow-y:auto;
