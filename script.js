@@ -210,7 +210,7 @@ function clearCart(event){
     if (event) event.stopPropagation();
 
     cartItems = [];
-    localStorage.removeItem("cartItems");
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
     addToCart();
 
@@ -703,8 +703,8 @@ function clearFavorites(event){
     if (event) event.stopPropagation();
 
     favoriteProducts = [];
-    localStorage.removeItem("favoriteProducts");
-    localStorage.removeItem("favorites");
+    localStorage.setItem("favoriteProducts", JSON.stringify(favoriteProducts));
+    localStorage.setItem("favorites", JSON.stringify([]));
 
     renderFavorites();
     syncFavoriteButtons();
