@@ -763,6 +763,20 @@ footer p{
     font-size:22px;
     font-weight:bold;
 }
+.close-favorite{
+    color:white;
+    cursor:pointer;
+    font-size:22px;
+    font-weight:bold;
+}
+.favorite-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    background:chocolate;
+    color:white;
+}
 .clear-list-btn{
     display:inline-block;
     background:#dc3545 !important;
@@ -1066,17 +1080,18 @@ footer p{
     display: none;
     position: fixed;
 
-    top: 70px;
-    right: 10px;
-    left: 10px;
+    top: 80px;
+    right: 20px;
+    width: 380px;
 
-    width: auto;
-
-    max-height: 80vh;
+    height: 85vh;
 
     overflow-y: auto;
 
     background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
 
     z-index: 99999;
 

@@ -182,15 +182,48 @@ function orderWhatsApp(){
         return;
     }
 
-    let message = "Hello, I want to order:%0A%0A";
+    let message = "Hello, I want to order:\n\n";
 
     cartItems.forEach(function(item){
 
-        message += "👜 " + item.name + " - Quantity: " + item.quantity + "%0A";
+        const imageUrl = new URL(item.image, document.baseURI).href;
+        message += "👜 " + item.name + " - Quantity: " + item.quantity + "\n";
+        message += "🖼 Product image: " + imageUrl + "\n\n";
 
     });
 
-    window.open("https://wa.me/201555128809?text=" + message);
+    const imageUrls = cartItems.map(function(item){
+        return new URL(item.image, document.baseURI).href;
+    });
+
+    shareOrderWithImages(message, imageUrls);
+
+}
+async function shareOrderWithImages(message, imageUrls){
+
+    try {
+        const files = [];
+
+        for (const imageUrl of imageUrls) {
+            const response = await fetch(imageUrl);
+            if (!response.ok) throw new Error("Image could not be loaded");
+
+            const blob = await response.blob();
+            const fileName = imageUrl.split("/").pop().split("?")[0] || "product-image.jpg";
+            files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
+        }
+
+        const shareData = { text: message, files: files };
+
+        if (navigator.share && navigator.canShare && navigator.canShare({ files })) {
+            await navigator.share(shareData);
+            return;
+        }
+    } catch (error) {
+        if (error.name === "AbortError") return;
+    }
+
+    window.open("https://wa.me/201555128809?text=" + encodeURIComponent(message), "_blank");
 
 }
 function removeItem(index){
@@ -728,7 +761,7 @@ function closeOrderForm(){
     document.getElementById("order-popup").style.display="none";
 
 }
-function sendOrder(){
+async function sendOrder(){
 
     const name = document.querySelector('input[placeholder="Your Name"]').value;
 
@@ -742,6 +775,12 @@ function sendOrder(){
 
     const notes = document.querySelector('textarea[placeholder="Notes (Optional)"]').value;
 
+    const productElement = document.getElementById("product-name") ||
+        document.querySelector(".product-details h1");
+    const imageElement = document.getElementById("main-image");
+    const productName = productElement ? productElement.textContent.trim() : "Product";
+    const imageUrl = imageElement ? new URL(imageElement.src, document.baseURI).href : "";
+
     const message =
 `🛍 New Order
 
@@ -749,7 +788,9 @@ function sendOrder(){
 
 📱 Phone: ${phone}
 
-👜 Product: Gold Metallic Canvas Bag
+👜 Product: ${productName}
+
+🖼 Product image: ${imageUrl}
 
 🎨 Color: ${color}
 
@@ -759,10 +800,7 @@ function sendOrder(){
 
 📝 Notes: ${notes}`;
 
-    window.open(
-        "https://wa.me/201555128809?text=" + encodeURIComponent(message),
-        "_blank"
-    );
+    await shareOrderWithImages(message, imageUrl ? [imageUrl] : []);
     document.getElementById("success-message").style.display = "block";
 
     setTimeout(function(){
