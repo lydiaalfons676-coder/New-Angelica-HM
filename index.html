@@ -74,7 +74,7 @@
     <div class="cart-header">
         <h3>🛒 Shopping Cart</h3>
 
-        <button class="clear-list-btn" onclick="clearCart()">Clear All</button>
+        <button type="button" class="clear-list-btn" onclick="clearCart(event)">Clear All</button>
 
         <span class="close-cart" onclick="toggleCart()">✖</span>
     </div>
@@ -98,7 +98,7 @@
 
     <h2>❤️ Favorite Products</h2>
 
-    <button class="clear-list-btn" onclick="clearFavorites()">Clear All</button>
+    <button type="button" class="clear-list-btn" onclick="clearFavorites(event)">Clear All</button>
 
     <div id="favorite-items">
     <p id="empty-favorite">No favorite products yet ❤️</p>

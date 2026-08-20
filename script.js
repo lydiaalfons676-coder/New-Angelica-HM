@@ -205,7 +205,9 @@ function removeItem(index){
     addToCart();
 
 }
-function clearCart(){
+function clearCart(event){
+
+    if (event) event.stopPropagation();
 
     cartItems = [];
     localStorage.removeItem("cartItems");
@@ -696,7 +698,9 @@ function removeFavorite(index){
     updateFavoriteCount();
 
 }
-function clearFavorites(){
+function clearFavorites(event){
+
+    if (event) event.stopPropagation();
 
     favoriteProducts = [];
     localStorage.removeItem("favoriteProducts");
