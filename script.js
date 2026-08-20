@@ -1,7 +1,11 @@
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js")
+            .then(() => navigator.serviceWorker.ready)
+            .then((registration) => registration.update())
             .catch((error) => console.log("Service Worker registration failed:", error));
+
+        caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key))));
     });
 }
 
@@ -156,7 +160,6 @@ function buyProductAndGo(productName, price, image, targetPage) {
     }
 }
 
-console.log(cartItems);
 function toggleCart() {
 
     let cartBox = document.getElementById("cart-box");
@@ -272,63 +275,61 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
     document.body.dataset.extraGalleryLoaded = "true";
 
     const productNames = [
-        "Cream Ivory Tote",
-        "White Pearl Handbag",
-        "Black Gold Evening Bag",
+        "Canary Yellow Organza Bag",
+        "Black Organza Bag",
+        "Pink Cord Bag",
         "Beige Woven Tote",
-        "White Pearl Purse",
-        "Golden Yellow Bag",
-        "Ivory Silk Tote",
-        "Sand Beige Purse",
-        "Bronze Gold Handbag",
-        "White Pearl Clutch",
-        "Dark Brown Tote",
-        "Amber Gold Handbag",
-        "Off White Pearl Bag",
-        "Sienna Brown Bag",
-        "Beige Gold Purse",
-        "Walnut Brown Tote",
-        "Rose Pink Mini Bag",
-        "Golden Yellow Handbag",
-        "Blush Pink Purse",
-        "Beige Cream Tote",
-        "White Pearl Bag",
-        "Coffee Brown Handbag",
-        "Ivory Classic Tote",
-        "Gold Metallic Purse",
-        "Terracotta Orange Bag",
-        "Dawn Beige Handbag",
-        "Sunset Orange Tote",
-        "Rose Pearl Purse",
-        "Carmel Beige Bag",
-        "Bronze Gold Clutch",
-        "Honey Yellow Tote",
-        "Cream Royal Purse",
-        "Willow Gold Bag",
-        "Copper Brown Tote",
-        "Sandalwood Beige Purse",
-        "Rose Soft Tote",
+        "Black Beaded Bag With a Gold Metal Handle",
+        "Black Macrame Bag With Wooden Handles",
+        "Off White Sugar Crumb and Pearl Bag",
+        "Pink Cord Bag With Thin Gold Threads",
+        "Black and Gray Cord Bag",
+        "Beige and Black Canvas Bag",
+        "Small Petrol Blue Macrame Bag",
+        "Yellow Cord Bag",
+        "Burgundy Acrylic Evening Bag With Beaded Side Panels and Satin Handles",
+        "Black Beaded Bag With Gold Metal Strap",
+        "Beige Burlap Bag With Round Wooden Side Panels",
+        "Black Corded Clutch Accented With Fine Gold Threads",
+        "Black and Beige Canvas Box",
+        "Blue Velvet Beaded Purse",
+        "Black Cord Bag With Gold Metal Handle",
+        "Off White Bag Crafted From Sparkling Sugar Beads Applied With Shiny Golden Glass Beads",
+        "Yellow Cordovan Leather Bag With a Pouch",
+        "Beige Cord Bag",
+        "Red Corded Bag With Black Satin Bows",
+        "Crystal Sugar Crumbs Beads and Premium Pearl Beads With White Satin Dust Bag",
+        "Transparent Hexagonal Beaded Clutch With Large Lavender Bow",
+        "Pink Injected Bead Bag",
+        "Children's Acrylic Purses With Pearl Sides",
+        "Blue Floral Corded Bag With a Colorful Injected Beaded Flap Handle",
+        "Gray Velvet Beaded Bag With Silver Beads",
+        "Beaded Phone Pouch With Colorful Beads",
+        "Black Beaded Box Purse",
+        "Off White Pearl Beaded Bag",
+        "Jute Bag With Black",
         "Leaf Gold Handbag",
-        "Beige Venetian Bag",
-        "Pearl Sunlight Purse",
-        "Cocoa Luxury Tote",
-        "Coral Silk Handbag",
-        "Bamboo Beige Bag",
-        "Treasure Gold Purse",
-        "Mocha Brown Tote",
-        "Garden Rose Handbag",
-        "Bronze Soft Purse",
-        "Sand Elegant Bag",
-        "Luna Gold Tote",
-        "Harbor Beige Handbag",
-        "Golden Bloom Purse",
-        "Rosewood Luxe Bag",
-        "Pearl Ivory Tote",
-        "Sandal Beige Tote",
-        "Butter Yellow Purse",
-        "Rose Classic Bag",
-        "Sweet Gold Handbag",
-        "Warm Beige Tote"
+        "Clear Acrylic Hexagonal Beaded Bag",
+        "Black and Fuchsia Cord Bag",
+        "Maroon and Beige Cord-Thread Bag With Its Matching Hat",
+        "Fuchsia Phone Case With Lanyard",
+        "Black Phone Case With Lanyard",
+        "Black and Gold Thin Striped Phone Case With Lanyard",
+        "Canary Yellow Crossbody Phone Case With Lanyard Cord",
+        "Jute and Cordon Cord Clutch With Colorful Cordon Loops",
+        "Phone Case With Cord Lanyard",
+        "Beige and Coffee Cordon Bag",
+        "Beige Drawstring Bag With Its Matching Hat",
+        "Burlap Cord Bag With Black and White",
+        "Beige Cord Bag",
+        "Pink Cord Bag With Pearl Bead Short and Long Straps",
+        "Pink Organza Pouch",
+        "Maroon Velvet Beaded Bag",
+        "Golden Glass Bead Faux Pearl Bag with a Spiral Handle",
+        "Off White Sugar Texture and Pearl Beaded Phone Strap",
+        "Silver Beaded Phone Case",
+        "Blue Gray Cord Bag With Satin Pouch",
+        "Orange Beaded Bag With a Beaded Handle"
     ];
 
     const productDetails = [
@@ -403,7 +404,9 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
         850, 870, 890, 900, 920, 940, 960
     ];
 
-    for (let i = 4; i <= 56; i++) {
+    for (let i = 4; i <= 58; i++) {
+        if (i === 7 || i === 37) continue;
+
         const productName = productNames[i - 4] || `Bag ${i}`;
         const imageName = `bag${i}.jpg`;
         const details = productDetails[i - 4] || ["Handmade", "Elegant Design", "Gift Ready"];
@@ -436,11 +439,6 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
                 <p><i class="fas fa-hand-paper"></i> ${details[1]}</p>
                 <p><i class="fas fa-gift"></i> ${details[2]}</p>
             </div>
-
-            <p class="price">
-                <del>EGP ${price + 100}</del>
-                <span class="new-price">EGP ${price}</span>
-            </p>
 
             <button class="buy-btn"
             onclick="event.stopPropagation(); buyProductAndGo('${productName}', ${price}, '${imageName}', 'product.html?name=${encodeURIComponent(productName)}&image=${imageName}');">
@@ -528,7 +526,7 @@ function getStoredFavoriteProducts() {
         if (!merged.some(item => item.name === name)) {
             merged.push({
                 name: name,
-                price: "EGP 0",
+                price: "",
                 image: ""
             });
         }
@@ -540,17 +538,7 @@ function getStoredFavoriteProducts() {
 let favoriteProducts = getStoredFavoriteProducts();
 
 function getProductPrice(card) {
-    const priceWrap = card.querySelector(".price");
-    if (priceWrap) {
-        const newPrice = priceWrap.querySelector(".new-price");
-        if (newPrice) return newPrice.innerText.trim();
-        return priceWrap.innerText.trim();
-    }
-
-    const inlinePrice = card.querySelector(".new-price");
-    if (inlinePrice) return inlinePrice.innerText.trim();
-
-    return "EGP 0";
+    return "";
 }
 
 function saveFavoriteProducts() {
@@ -576,7 +564,7 @@ function syncFavoriteButtons() {
             button.classList.add("active");
             icon.classList.remove("fa-regular");
             icon.classList.add("fa-solid");
-            icon.style.color = "red";
+            icon.style.color = "#ffffff";
         } else {
             button.classList.remove("active");
             icon.classList.remove("fa-solid");
@@ -612,7 +600,7 @@ function toggleFavoriteCard(button) {
 
         icon.classList.remove("fa-regular");
         icon.classList.add("fa-solid");
-        icon.style.color = "red";
+        icon.style.color = "#ffffff";
 
     } else {
 
@@ -655,8 +643,6 @@ function renderFavorites() {
             <div class="favorite-info">
 
                 <h4>${product.name}</h4>
-
-                <p>${product.price}</p>
 
             </div>
 
