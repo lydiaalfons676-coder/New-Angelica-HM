@@ -1,4 +1,4 @@
-const CACHE_NAME = 'angelica-pwa-v4';
+const CACHE_NAME = 'angelica-pwa-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -42,6 +42,21 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
+  const isAppAsset = ['script', 'style'].includes(event.request.destination);
+
+  if (isAppAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
