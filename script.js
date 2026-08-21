@@ -286,28 +286,27 @@ const searchInput = document.getElementById("searchInput");
 
 if (searchInput) {
 
-    const products = document.querySelectorAll(".product-card");
+    const searchAliases = {
+        "أورجانزا": "organza",
+        "اورجانزا": "organza",
+        "مكرمية": "macrame",
+        "مكرمه": "macrame",
+        "خرز": "beaded",
+        "كانفاس": "canvas",
+        "قطيفة": "velvet",
+        "جوت": "jute",
+        "كورد": "cord"
+    };
 
-    searchInput.addEventListener("keyup", function () {
-
-        let searchValue = searchInput.value.toLowerCase();
+    searchInput.addEventListener("input", function () {
+        const searchValue = searchInput.value.trim().toLowerCase();
+        const searchTerm = searchAliases[searchValue] || searchValue;
+        const products = document.querySelectorAll(".product-card");
 
         products.forEach(function(product){
-
-            let productName = product.querySelector("h3").innerText.toLowerCase();
-
-            if(productName.includes(searchValue)){
-
-                product.style.display = "block";
-
-            }else{
-
-                product.style.display = "none";
-
-            }
-
+            const productName = product.querySelector("h3").innerText.toLowerCase();
+            product.style.display = productName.includes(searchTerm) ? "block" : "none";
         });
-
     });
 
 }
