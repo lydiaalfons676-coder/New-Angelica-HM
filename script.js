@@ -452,7 +452,6 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
 
         const productName = productNames[i - 4] || `Bag ${i}`;
         const imageName = `bag${i}.jpg`;
-        const details = productDetails[i - 4] || ["Handmade", "Elegant Design", "Gift Ready"];
         const price = productPrices[i - 4] || 500;
 
         const card = document.createElement("div");
@@ -469,23 +468,14 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
 
             <h3>${productName}</h3>
 
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
-            </div>
-
             <div class="product-info">
-                <p><i class="fas fa-truck"></i> ${details[0]}</p>
-                <p><i class="fas fa-hand-paper"></i> ${details[1]}</p>
-                <p><i class="fas fa-gift"></i> ${details[2]}</p>
+                <p>Made to Order</p>
+                <a href="#contact" onclick="event.stopPropagation()">Contact Us</a>
             </div>
 
             <button class="buy-btn"
             onclick="event.stopPropagation(); buyProductAndGo('${productName}', ${price}, '${imageName}', 'product.html?name=${encodeURIComponent(productName)}&image=${imageName}');">
-                Buy Now
+                Shop Now
             </button>
         `;
 

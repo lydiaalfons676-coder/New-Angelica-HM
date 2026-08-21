@@ -706,6 +706,19 @@ footer p{
     margin:8px 0;
 }
 
+.product-info a{
+    display:inline-block;
+    margin-top:8px;
+    color:chocolate;
+    font-size:15px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.product-info a:hover{
+    text-decoration:underline;
+}
+
 .product-info i{
     color:#C9A227;
     margin-right:8px;
