@@ -26,7 +26,9 @@ function showReview(index){
     reviews[index].style.display = "block";
 }
 
-showReview(current);
+if (reviews.length > 0) {
+    showReview(current);
+}
 
 if (next) {
 
@@ -59,17 +61,19 @@ if (prev) {
     };
 
 }
-setInterval(function(){
+if (reviews.length > 0) {
+    setInterval(function(){
 
-    current++;
+        current++;
 
-    if(current >= reviews.length){
-        current = 0;
-    }
+        if(current >= reviews.length){
+            current = 0;
+        }
 
-    showReview(current);
+        showReview(current);
 
-},3000);
+    },3000);
+}
 function welcomeMessage(productName) {
     return confirm("Do you want to add " + productName + " to your cart?");
 }
