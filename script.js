@@ -754,7 +754,7 @@ function closeOrderForm(){
     document.getElementById("order-popup").style.display="none";
 
 }
-function sendOrder(event){
+async function sendOrder(event){
 
     if (event) event.preventDefault();
 
@@ -785,8 +785,6 @@ function sendOrder(event){
 
 👜 Product: ${productName}
 
-🖼 Product image: ${imageUrl}
-
 🎨 Color: ${color}
 
 🔢 Quantity: ${quantity}
@@ -794,6 +792,25 @@ function sendOrder(event){
 📍 Address: ${address}
 
 📝 Notes: ${notes}`;
+
+    try {
+        if (imageUrl && navigator.share && navigator.canShare) {
+            const response = await fetch(imageUrl);
+            const imageBlob = await response.blob();
+            const imageFile = new File(
+                [imageBlob],
+                "product-image.jpg",
+                { type: imageBlob.type || "image/jpeg" }
+            );
+
+            if (navigator.canShare({ files: [imageFile] })) {
+                await navigator.share({ text: message, files: [imageFile] });
+                return;
+            }
+        }
+    } catch (error) {
+        if (error.name === "AbortError") return;
+    }
 
     const whatsappUrl = "https://wa.me/201555128809?text=" + encodeURIComponent(message);
     window.location.assign(whatsappUrl);
