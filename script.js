@@ -750,7 +750,7 @@ function closeOrderForm(){
     document.getElementById("order-popup").style.display="none";
 
 }
-async function sendOrder(){
+function sendOrder(){
 
     const name = document.querySelector('input[placeholder="Your Name"]').value;
 
@@ -789,14 +789,8 @@ async function sendOrder(){
 
 📝 Notes: ${notes}`;
 
-    await shareOrderWithImages(message, imageUrl ? [imageUrl] : []);
-    document.getElementById("success-message").style.display = "block";
-
-    setTimeout(function(){
-
-    closeOrderForm();
-
-}, 3000);
+    const whatsappUrl = "https://wa.me/201555128809?text=" + encodeURIComponent(message);
+    window.location.href = whatsappUrl;
 
 }
 window.addEventListener("load", function () {
