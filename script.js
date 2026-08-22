@@ -754,19 +754,21 @@ function closeOrderForm(){
     document.getElementById("order-popup").style.display="none";
 
 }
-function sendOrder(){
+function sendOrder(event){
 
-    const name = document.querySelector('input[placeholder="Your Name"]').value;
+    if (event) event.preventDefault();
 
-    const phone = document.querySelector('input[placeholder="Phone Number"]').value;
+    const getValue = function(selector){
+        const field = document.querySelector(selector);
+        return field ? field.value.trim() : "";
+    };
 
-    const color = document.querySelector("select").value;
-
-    const quantity = document.querySelector('input[type="number"]').value;
-
-    const address = document.querySelector('textarea[placeholder="Address"]').value;
-
-    const notes = document.querySelector('textarea[placeholder="Notes (Optional)"]').value;
+    const name = getValue('input[placeholder="Your Name"]');
+    const phone = getValue('input[placeholder="Phone Number"]');
+    const color = getValue("select");
+    const quantity = getValue('input[type="number"]');
+    const address = getValue('textarea[placeholder="Address"]');
+    const notes = getValue('textarea[placeholder="Notes (Optional)"]');
 
     const productElement = document.getElementById("product-name") ||
         document.querySelector(".product-details h1");
@@ -794,7 +796,7 @@ function sendOrder(){
 📝 Notes: ${notes}`;
 
     const whatsappUrl = "https://wa.me/201555128809?text=" + encodeURIComponent(message);
-    window.location.href = whatsappUrl;
+    window.location.assign(whatsappUrl);
 
 }
 window.addEventListener("load", function () {
