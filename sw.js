@@ -1,9 +1,9 @@
-const CACHE_NAME = 'angelica-pwa-v6';
+const CACHE_NAME = 'angelica-pwa-v8';
 const APP_SHELL = [
   './',
   './index.html',
   './style.css',
-  './script.js',
+  './script.js?v=8',
   './manifest.json',
   './logo-small.png'
 ];
