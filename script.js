@@ -302,16 +302,32 @@ if (searchInput) {
         "كورد": "cord"
     };
 
-    searchInput.addEventListener("input", function () {
-        const searchValue = searchInput.value.trim().toLowerCase();
-        const searchTerm = searchAliases[searchValue] || searchValue;
+    const normalizeSearchText = function (value) {
+        return value.trim().toLowerCase().replace(/\s+/g, " ");
+    };
+
+    const filterProducts = function () {
+        const searchValue = normalizeSearchText(searchInput.value);
+        const searchTerm = normalizeSearchText(searchAliases[searchValue] || searchValue);
         const products = document.querySelectorAll(".product-card");
+        let firstMatch = null;
 
         products.forEach(function(product){
-            const productName = product.querySelector("h3").innerText.toLowerCase();
-            product.style.display = productName.includes(searchTerm) ? "block" : "none";
+            const nameElement = product.querySelector("h3");
+            const productName = normalizeSearchText(nameElement ? nameElement.textContent : "");
+            const isMatch = !searchTerm || productName.includes(searchTerm);
+
+            product.style.display = isMatch ? "" : "none";
+            if (isMatch && !firstMatch) firstMatch = product;
         });
-    });
+
+        if (searchTerm && firstMatch) {
+            firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    };
+
+    searchInput.addEventListener("input", filterProducts);
+    searchInput.addEventListener("search", filterProducts);
 
 }
 
