@@ -9,6 +9,18 @@ if ("serviceWorker" in navigator) {
     });
 }
 
+document.addEventListener("contextmenu", function (event) {
+    if (event.target.closest("img")) {
+        event.preventDefault();
+    }
+});
+
+document.addEventListener("dragstart", function (event) {
+    if (event.target.closest("img")) {
+        event.preventDefault();
+    }
+});
+
 let cart = [];
 const reviews = document.querySelectorAll(".review-card");
 
