@@ -450,10 +450,14 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
         850, 870, 890, 900, 920, 940, 960
     ];
 
-    for (let i = 4; i <= 58; i++) {
+    for (let i = 4; i <= 62; i++) {
         if (i === 7 || i === 37) continue;
 
-        const productName = productNames[i - 4] || `Bag ${i}`;
+        const productName = i === 59 ? "Pink and Jute Cord Bag" :
+            i === 60 ? "Red Beaded Bag with White Sugar Crumbs" :
+            i === 61 ? "Beige Jute Bag with a White Satin Bow" :
+            i === 62 ? "Ganga Beaded Phone Case" :
+            (productNames[i - 4] || `Bag ${i}`);
         const imageName = `bag${i}.jpg`;
         const price = productPrices[i - 4] || 500;
 
@@ -785,6 +789,8 @@ async function sendOrder(event){
 
 👜 Product: ${productName}
 
+🖼 Product image: ${imageUrl || "Not available"}
+
 🎨 Color: ${color}
 
 🔢 Quantity: ${quantity}
@@ -812,7 +818,7 @@ async function sendOrder(event){
         if (error.name === "AbortError") return;
     }
 
-    const whatsappUrl = "https://wa.me/201555128809?text=" + encodeURIComponent(message);
+    const whatsappUrl = "https://api.whatsapp.com/send?phone=201555128809&text=" + encodeURIComponent(message);
     window.location.assign(whatsappUrl);
 
 }
@@ -834,7 +840,7 @@ window.addEventListener("load", function () {
             // Also ensure it doesn't capture pointer events while visible
             message.style.pointerEvents = 'none';
 
-        }, 5000);
+        }, 1000);
 
     }
 
