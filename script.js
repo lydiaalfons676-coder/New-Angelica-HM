@@ -296,6 +296,10 @@ if (searchInput) {
         "مكرمية": "macrame",
         "مكرمه": "macrame",
         "خرز": "beaded",
+        "شنطة": "bag",
+        "شنط": "bag",
+        "حقيبة": "bag",
+        "جراب": "case",
         "كانفاس": "canvas",
         "قطيفة": "velvet",
         "جوت": "jute",
@@ -306,22 +310,34 @@ if (searchInput) {
         return value.trim().toLowerCase().replace(/\s+/g, " ");
     };
 
+    const getSearchTerms = function (value) {
+        return normalizeSearchText(value).split(" ").filter(Boolean).map(function (term) {
+            return searchAliases[term] || term;
+        });
+    };
+
     const filterProducts = function () {
         const searchValue = normalizeSearchText(searchInput.value);
-        const searchTerm = normalizeSearchText(searchAliases[searchValue] || searchValue);
+        const searchTerms = getSearchTerms(searchValue);
         const products = document.querySelectorAll(".product-card");
         let firstMatch = null;
 
         products.forEach(function(product){
             const nameElement = product.querySelector("h3");
-            const productName = normalizeSearchText(nameElement ? nameElement.textContent : "");
-            const isMatch = !searchTerm || productName.includes(searchTerm);
+            const imageElement = product.querySelector("img");
+            const productText = normalizeSearchText(
+                (nameElement ? nameElement.textContent : "") + " " +
+                (imageElement ? imageElement.alt : "")
+            );
+            const isMatch = !searchTerms.length || searchTerms.every(function (term) {
+                return productText.includes(term);
+            });
 
             product.style.display = isMatch ? "" : "none";
             if (isMatch && !firstMatch) firstMatch = product;
         });
 
-        if (searchTerm && firstMatch) {
+        if (searchTerms.length && firstMatch) {
             firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
         }
     };
