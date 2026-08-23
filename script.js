@@ -320,6 +320,7 @@ if (searchInput) {
         const searchValue = normalizeSearchText(searchInput.value);
         const searchTerms = getSearchTerms(searchValue);
         const products = document.querySelectorAll(".product-card");
+        const matchingProducts = [];
         let firstMatch = null;
 
         products.forEach(function(product){
@@ -333,8 +334,13 @@ if (searchInput) {
                 return productText.includes(term);
             });
 
-            product.style.display = isMatch ? "" : "none";
+            if (isMatch) matchingProducts.push(product);
             if (isMatch && !firstMatch) firstMatch = product;
+        });
+
+        products.forEach(function(product) {
+            product.style.display = !searchTerms.length || matchingProducts.length === 0 ||
+                matchingProducts.includes(product) ? "" : "none";
         });
 
         if (searchTerms.length && firstMatch) {
