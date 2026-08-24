@@ -18,7 +18,7 @@ This project includes the website source code, page layouts, product presentatio
 
 The work is original project material and may not be copied, republished, modified, redistributed, or used commercially without written permission from the project owner.
 
-The website uses embedded watermarks and limited image interaction blocking as deterrents. These measures support attribution but do not replace copyright registration, legal notices, or evidence of authorship.
+The website identifies the brand with the Angelica Handmade(TM) mark. Keep the original product photographs, design drafts, source files, and dated backups outside the published website as evidence of authorship and creation date.
 
 ## Evidence and maintenance
 

@@ -850,6 +850,9 @@ async function sendOrder(event){
 
 📍 Address: ${address}
 
+⏱️ Processing and delivery time: 7 to 10 days
+⏱️ مدة تجهيز وتسليم الطلب: من 7 إلى 10 أيام
+
 📝 Notes: ${notes}`;
 
     shareOrderWithImages(message, imageUrl ? [imageUrl] : []);
