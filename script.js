@@ -92,6 +92,8 @@ function welcomeMessage(productName) {
     
 let cartCount = 0;
 let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+const whatsappDisplayNumber = "01555128809";
+const whatsappPhoneNumber = "201555128809";
 
 function addToCart() {
 
@@ -199,6 +201,7 @@ function orderWhatsApp(){
     }
 
     let message = "Hello, I want to order:\n\n";
+    message += "WhatsApp: " + whatsappDisplayNumber + "\n\n";
 
     cartItems.forEach(function(item){
 
@@ -229,17 +232,15 @@ async function shareOrderWithImages(message, imageUrls){
             files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
         }
 
-        const shareData = { text: message, files: files };
-
         if (navigator.share && navigator.canShare && navigator.canShare({ files })) {
-            await navigator.share(shareData);
+            await navigator.share({ text: message, files: files });
             return;
         }
     } catch (error) {
         if (error.name === "AbortError") return;
     }
 
-    window.open("https://wa.me/201555128809?text=" + encodeURIComponent(message), "_blank");
+    window.open("https://wa.me/" + whatsappPhoneNumber + "?text=" + encodeURIComponent(message), "_blank");
 
 }
 function removeItem(index){
@@ -837,6 +838,8 @@ async function sendOrder(event){
 
 📱 Phone: ${phone}
 
+📞 WhatsApp: ${whatsappDisplayNumber}
+
 👜 Product: ${productName}
 
 🖼 Product image: ${imageUrl || "Not available"}
@@ -849,27 +852,7 @@ async function sendOrder(event){
 
 📝 Notes: ${notes}`;
 
-    try {
-        if (imageUrl && navigator.share && navigator.canShare) {
-            const response = await fetch(imageUrl);
-            const imageBlob = await response.blob();
-            const imageFile = new File(
-                [imageBlob],
-                "product-image.jpg",
-                { type: imageBlob.type || "image/jpeg" }
-            );
-
-            if (navigator.canShare({ files: [imageFile] })) {
-                await navigator.share({ text: message, files: [imageFile] });
-                return;
-            }
-        }
-    } catch (error) {
-        if (error.name === "AbortError") return;
-    }
-
-    const whatsappUrl = "https://api.whatsapp.com/send?phone=201555128809&text=" + encodeURIComponent(message);
-    window.location.assign(whatsappUrl);
+    shareOrderWithImages(message, imageUrl ? [imageUrl] : []);
 
 }
 window.addEventListener("load", function () {

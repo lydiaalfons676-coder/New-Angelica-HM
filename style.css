@@ -1687,6 +1687,39 @@ transition: 4s;
     margin-top: 10px;
 
 }
+
+.whatsapp-order-number{
+
+    margin: 0 0 15px;
+
+    color: #128c4a;
+
+    font-weight: bold;
+
+    text-align: center;
+
+}
+
+.whatsapp-order-number a{
+
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: #25d366;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+}
+
+.whatsapp-order-number a:hover{
+
+    background: #128c4a;
+    transform: translateY(-1px);
+
+}
 .welcome-message {
 
     position: fixed;
