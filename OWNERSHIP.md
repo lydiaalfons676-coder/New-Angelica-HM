@@ -5,8 +5,12 @@
 - Brand: Angelica Handmade
 - Owner: Angelica H.M
 - Project established: March 2023
-- Website record updated: August 23, 2026
+- Website record updated: August 24, 2026
 - Design and development: Lydia Alfons
+
+## Brand notice
+
+Angelica Handmade is the project brand name. The `™` mark used on the website identifies the brand as claimed by the project owner; it does not by itself confirm formal trademark registration.
 
 ## Protected work
 

@@ -10,23 +10,6 @@ body{
     overflow-x:hidden;
 }
 
-body::after{
-    content:"Angelica Handmade | Original Design";
-    position:fixed;
-    top:50%;
-    left:50%;
-    z-index:1000;
-    color:rgba(111,78,55,0.16);
-    font-size:clamp(24px,4vw,58px);
-    font-weight:bold;
-    letter-spacing:2px;
-    white-space:nowrap;
-    transform:translate(-50%,-50%) rotate(-28deg);
-    pointer-events:none;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
 img{
     max-width:100%;
     user-select:none;
@@ -116,6 +99,69 @@ img{
 
 .banner{
     width:100%;
+    position:relative;
+}
+
+.brand-signature{
+    padding:12px 20px 0;
+    color:#6f4e37;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.brand-signature span{
+    margin-left:8px;
+    color:#888;
+    font-size:14px;
+    font-weight:normal;
+}
+
+.banner::after,
+.product-card::after,
+.product-image::after{
+    content:"Angelica Handmade | Original Design";
+    position:absolute;
+    z-index:1;
+    color:rgba(111,78,55,0.035);
+    font-size:clamp(18px,2.5vw,34px);
+    font-weight:bold;
+    letter-spacing:1px;
+    white-space:nowrap;
+    transform:rotate(-28deg);
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.banner::after{
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-28deg);
+}
+
+.product-card::after{
+    top:20px;
+    left:20px;
+    right:20px;
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.product-image{
+    position:relative;
+}
+
+.product-image::after{
+    top:0;
+    left:0;
+    right:0;
+    height:calc(100% - 90px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .banner img{
@@ -1831,6 +1877,11 @@ transition: 4s;
 
 }
 @media (max-width: 768px){
+
+    .brand-signature span{
+        display:block;
+        margin:4px 0 0;
+    }
 
     #favorite-box{
 
