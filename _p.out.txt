@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>probe</title></head>
+<body>
+<div id="out">getNextBagNumbers type = function
+getBagLinkData type    = function
+getBagNumberFromImage  = function
+bagPageNames keys      = 67
+
+=== next-two for each bag (what the related cards will show) ===
+bag1 (Havan Cordon Bag)
+     bag2 "Golden Pearl Bag" -&gt; bag2.html [img bag2.jpg]
+     bag3 "Gold Metallic Canvas Bag" -&gt; bag3.html [img bag3.jpg]
+bag2 (Golden Pearl Bag)
+     bag3 "Gold Metallic Canvas Bag" -&gt; bag3.html [img bag3.jpg]
+     bag4 "Canary Yellow Organza Bag" -&gt; bag4.html [img bag4.jpg]
+bag5 (Black Organza Bag)
+     bag6 "Pink Cordon Bag" -&gt; bag6.html [img bag6.jpg]
+     bag8 "Black Beaded Handbag With a Gold Metal Handle" -&gt; bag8.html [img bag8.jpg]
+bag6 (Pink Cordon Bag)
+     bag8 "Black Beaded Handbag With a Gold Metal Handle" -&gt; bag8.html [img bag8.jpg]
+     bag9 "Black Macrame Bag With Wooden Handles" -&gt; bag9.html [img bag9.jpg]
+bag36 (Jute Bag With Black)
+     bag38 "Black Acrylic Bag With Clear White Beaded Sides" -&gt; bag38.html [img bag38.jpg]
+     bag39 "Black and Fuchsia Cordon Bag" -&gt; bag39.html [img bag39.jpg]
+bag38 (Black Acrylic Bag With Clear White Beaded Sides)
+     bag39 "Black and Fuchsia Cordon Bag" -&gt; bag39.html [img bag39.jpg]
+     bag40 "Beige and Burgundy Cordon Bag With Its Matching Hat" -&gt; bag40.html [img bag40.jpg]
+bag39 (Black and Fuchsia Cordon Bag)
+     bag40 "Beige and Burgundy Cordon Bag With Its Matching Hat" -&gt; bag40.html [img bag40.jpg]
+     bag41 "Fuchsia Cordon Phone Pouch" -&gt; bag41.html [img bag41.jpg]
+bag58 (?)
+     bag59 "Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color" -&gt; bag59.html [img bag59.jpg]
+     bag60 "Red Beaded Bag With Off White Sugar Crumbs Beads" -&gt; bag60.html [img bag60.jpg]
+bag59 (Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color)
+     bag60 "Red Beaded Bag With Off White Sugar Crumbs Beads" -&gt; bag60.html [img bag60.jpg]
+     bag61 "Beige Jute Bag With a White Bow" -&gt; bag61.html [img bag61.jpg]
+bag60 (Red Beaded Bag With Off White Sugar Crumbs Beads)
+     bag61 "Beige Jute Bag With a White Bow" -&gt; bag61.html [img bag61.jpg]
+     bag62 "Colorful Beaded Phone Pouch" -&gt; bag62.html [img bag62.jpg]
+bag61 (Beige Jute Bag With a White Bow)
+     bag62 "Colorful Beaded Phone Pouch" -&gt; bag62.html [img bag62.jpg]
+     bag63 "Beige Cordon Bag" -&gt; product.html?name=Beige%20Cordon%20Bag&amp;image=bag63.jpg [img bag63.jpg]
+bag62 (Colorful Beaded Phone Pouch)
+     bag63 "Beige Cordon Bag" -&gt; product.html?name=Beige%20Cordon%20Bag&amp;image=bag63.jpg [img bag63.jpg]
+     bag64 "Beige Backpack" -&gt; product.html?name=Beige%20Backpack&amp;image=bag64.jpg [img bag64.jpg]
+bag63 (Beige Cordon Bag)
+     bag64 "Beige Backpack" -&gt; product.html?name=Beige%20Backpack&amp;image=bag64.jpg [img bag64.jpg]
+     bag65 "Off White Pearl Bag" -&gt; product.html?name=Off%20White%20Pearl%20Bag&amp;image=bag65.jpg [img bag65.jpg]
+bag64 (Beige Backpack)
+     bag65 "Off White Pearl Bag" -&gt; product.html?name=Off%20White%20Pearl%20Bag&amp;image=bag65.jpg [img bag65.jpg]
+     bag66 "Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch" -&gt; product.html?name=Acrylic%20Bag%20With%20Lavender%20Beaded%20Edges%20and%20a%20Purple%20Satin%20Pouch&amp;image=bag66.jpg [img bag66.jpg]
+bag65 (Off White Pearl Bag)
+     bag66 "Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch" -&gt; product.html?name=Acrylic%20Bag%20With%20Lavender%20Beaded%20Edges%20and%20a%20Purple%20Satin%20Pouch&amp;image=bag66.jpg [img bag66.jpg]
+     bag67 "Yellow and Green Cordon Bag" -&gt; product.html?name=Yellow%20and%20Green%20Cordon%20Bag&amp;image=bag67.jpg [img bag67.jpg]
+bag66 (Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch)
+     bag67 "Yellow and Green Cordon Bag" -&gt; product.html?name=Yellow%20and%20Green%20Cordon%20Bag&amp;image=bag67.jpg [img bag67.jpg]
+     bag68 "Baby Blue Cordon Bag" -&gt; product.html?name=Baby%20Blue%20Cordon%20Bag&amp;image=bag68.jpg [img bag68.jpg]
+bag67 (Yellow and Green Cordon Bag)
+     bag68 "Baby Blue Cordon Bag" -&gt; product.html?name=Baby%20Blue%20Cordon%20Bag&amp;image=bag68.jpg [img bag68.jpg]
+     bag69 "White Transparent Beaded Bag" -&gt; product.html?name=White%20Transparent%20Beaded%20Bag&amp;image=bag69.jpg [img bag69.jpg]
+bag68 (Baby Blue Cordon Bag)
+     bag69 "White Transparent Beaded Bag" -&gt; product.html?name=White%20Transparent%20Beaded%20Bag&amp;image=bag69.jpg [img bag69.jpg]
+     bag70 "Candy Cordon Bag - Customizable in Any Color" -&gt; product.html?name=Candy%20Cordon%20Bag%20-%20Customizable%20in%20Any%20Color&amp;image=bag70.jpg [img bag70.jpg]
+bag69 (White Transparent Beaded Bag)
+     bag70 "Candy Cordon Bag - Customizable in Any Color" -&gt; product.html?name=Candy%20Cordon%20Bag%20-%20Customizable%20in%20Any%20Color&amp;image=bag70.jpg [img bag70.jpg]
+     bag1 "Havan Cordon Bag" -&gt; bag1.html [img bag.jpg]
+bag70 (Candy Cordon Bag - Customizable in Any Color)
+     bag1 "Havan Cordon Bag" -&gt; bag1.html [img bag.jpg]
+     bag2 "Golden Pearl Bag" -&gt; bag2.html [img bag2.jpg]
+
+=== bag number from image ===
+  bag.jpg -&gt; 1
+  bag4.jpg -&gt; 4
+  bag61.jpg -&gt; 61
+  bag63.jpg -&gt; 63
+  bag70.jpg -&gt; 70
+
+=== names used by related cards (bag 61 -&gt; 62,63) ===
+  bag62 | Colorful Beaded Phone Pouch | bag62.html
+  bag63 | Beige Cordon Bag | product.html?name=Beige%20Cordon%20Bag&amp;image=bag63.jpg</div>
+<script src="script.js?v=9"></script>
+<script>
+var lines = [];
+lines.push('getNextBagNumbers type = ' + typeof getNextBagNumbers);
+lines.push('getBagLinkData type    = ' + typeof getBagLinkData);
+lines.push('getBagNumberFromImage  = ' + typeof getBagNumberFromImage);
+lines.push('bagPageNames keys      = ' + Object.keys(bagPageNames).length);
+lines.push('');
+lines.push('=== next-two for each bag (what the related cards will show) ===');
+
+var checks = [1, 2, 5, 6, 36, 38, 39, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+for (var i = 0; i < checks.length; i++) {
+    var n = checks[i];
+    var nums = getNextBagNumbers(n, 2);
+    var parts = [];
+    for (var j = 0; j < nums.length; j++) {
+        var d = getBagLinkData(nums[j]);
+        parts.push('bag' + d.number + ' "' + d.name + '" -> ' + d.page + ' [img ' + d.image + ']');
+    }
+    lines.push('bag' + n + ' (' + (bagPageNames[n] || '?') + ')');
+    lines.push('     ' + parts.join('\n     '));
+}
+
+lines.push('');
+lines.push('=== bag number from image ===');
+['bag.jpg', 'bag4.jpg', 'bag61.jpg', 'bag63.jpg', 'bag70.jpg'].forEach(function (s) {
+    lines.push('  ' + s + ' -> ' + getBagNumberFromImage(s));
+});
+
+lines.push('');
+lines.push('=== names used by related cards (bag 61 -> 62,63) ===');
+getNextBagNumbers(61, 2).forEach(function (n) {
+    var d = getBagLinkData(n);
+    lines.push('  bag' + n + ' | ' + d.name + ' | ' + d.page);
+});
+
+document.getElementById('out').textContent = lines.join('\n');
+</script>
+
+</body></html>

@@ -1,0 +1,25 @@
+=== AUDIT: related products of every bagN.html ===
+  bag3   *** WRONG ***
+        actual  : bag4.jpg , image-backup-before-watermark/bag5.jpg
+        expected: bag4.jpg , bag5.jpg
+  bag4   *** WRONG ***
+        actual  : image-backup-before-watermark/bag5.jpg , bag6.jpg
+        expected: bag5.jpg , bag6.jpg
+
+  pages needing a fix = 4
+
+=== details ===
+  bag3  ("Gold Metallic Canvas Bag")
+          - card2: img=image-backup-before-watermark/bag5.jpg expected bag5.jpg
+  bag4  ("Canary Yellow Organza Bag")
+          - card1: img=image-backup-before-watermark/bag5.jpg expected bag5.jpg
+
+=== product.html dynamic renderer ===
+  id="related-products" present : True
+  renderer present              : True
+  uses getNextBagNumbers        : True
+  uses getBagLinkData           : True
+  uses getBagNumberFromImage    : True
+  helpers in script.js          : True
+  gaps/last declared            : True / True
+  bagPageNames keys 63..70      : True

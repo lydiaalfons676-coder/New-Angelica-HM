@@ -1,0 +1,190 @@
+=== existing pages ===
+  bagN.html count = 60
+  1 2 3 4 5 6 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62
+
+=== existing bagN.jpg ===
+  bagN.jpg count = 67
+  0 2 3 4 6 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+  images WITHOUT an individual page : 0 63 64 65 66 67 68 69 70
+
+=== per-page related products ===
+  bag1   "Havan Cordon Bag"
+        cards  : bag2.html | Golden Pearl Bag  ///  bag3.html | Gold Metallic Canvas Bag
+        expect next two bag#: 2,3
+  bag2   "Golden Pearl Bag"
+        cards  : bag3.html | Gold Metallic Canvas Bag  ///  bag4.html | Canary Yellow Organza Bag
+        expect next two bag#: 3,4
+  bag3   "Gold Metallic Canvas Bag"
+        cards  : bag4.html | Canary Yellow Organza Bag  ///  bag5.html | Black Organza Bag
+        expect next two bag#: 4,5
+  bag4   "Canary Yellow Organza Bag"
+        cards  : bag5.html | Black Organza Bag  ///  bag6.html | Pink Cordon Bag
+        expect next two bag#: 5,6
+  bag5   "Black Organza Bag"
+        cards  : bag6.html | Pink Cordon Bag  ///  bag8.html | Black Beaded Handbag With a Gold Metal Handle
+        expect next two bag#: 6,7
+  bag6   "Organza Ribbon Bag"
+        cards  : bag8.html | Black Beaded Handbag With a Gold Metal Handle  ///  bag9.html | Black Macrame Bag With Wooden Handles
+        expect next two bag#: 7,8
+  bag8   "Pearl Evening Bag"
+        cards  : bag9.html | Black Macrame Bag With Wooden Handles  ///  bag10.html | Off White Bag Crafted From Sugar Crumbs Beads and Pearls
+        expect next two bag#: 9,10
+  bag9   "Cord Crossbody Bag"
+        cards  : bag10.html | Off White Bag Crafted From Sugar Crumbs Beads and Pearls  ///  bag11.html | Pink Cordon Bag With a Thin Gold Thread
+        expect next two bag#: 10,11
+  bag10  "Metallic Clutch"
+        cards  : bag11.html | Pink Cordon Bag With a Thin Gold Thread  ///  bag12.html | Black and Gray Cordon Bag
+        expect next two bag#: 11,12
+  bag11  "Beaded wristlet"
+        cards  : bag12.html | Black and Gray Cordon Bag  ///  bag13.html | Beige and Black Canvas Bag
+        expect next two bag#: 12,13
+  bag12  "Fluffy Tote Bag"
+        cards  : bag13.html | Beige and Black Canvas Bag  ///  bag14.html | Small Petrol Blue Macrame Bag
+        expect next two bag#: 13,14
+  bag13  "Beige and Black Canvas Bag"
+        cards  : bag14.html | Small Petrol Blue Macrame Bag  ///  bag15.html | Mustard Yellow Cordon Bag
+        expect next two bag#: 14,15
+  bag14  "Small Petrol Blue Macrame Bag"
+        cards  : bag15.html | Mustard Yellow Cordon Bag  ///  bag16.html | Acrylic Bag With Burgundy Beaded Edges and a Satin Handle
+        expect next two bag#: 15,16
+  bag15  "Pearl Crossbody"
+        cards  : bag16.html | Acrylic Bag With Burgundy Beaded Edges and a Satin Handle  ///  bag17.html | Black Beaded Bag
+        expect next two bag#: 16,17
+  bag16  "Beaded Evening Bag"
+        cards  : bag17.html | Black Beaded Bag  ///  bag18.html | Beige Burlap Bag With Round Wooden Side Panels
+        expect next two bag#: 17,18
+  bag17  "Organza Clutch"
+        cards  : bag18.html | Beige Burlap Bag With Round Wooden Side Panels  ///  bag19.html | Black Cordon Bag With a Thin Gold Thread
+        expect next two bag#: 18,19
+  bag18  "Beige Burlap Bag With Round Wooden Side Panels"
+        cards  : bag19.html | Black Cordon Bag With a Thin Gold Thread  ///  bag20.html | Beige and Black Canvas Bag
+        expect next two bag#: 19,20
+  bag19  "Canvas Mini Bag"
+        cards  : bag20.html | Beige and Black Canvas Bag  ///  bag21.html | Blue Velvet Beaded Bag
+        expect next two bag#: 20,21
+  bag20  "Fluffy Crossbody"
+        cards  : bag21.html | Blue Velvet Beaded Bag  ///  bag22.html | Black Cordon Bag With a Thin Gold Thread
+        expect next two bag#: 21,22
+  bag21  "Metallic Tote"
+        cards  : bag22.html | Black Cordon Bag With a Thin Gold Thread  ///  bag23.html | Off White Sugar Crumbs Beaded Bag
+        expect next two bag#: 22,23
+  bag22  "Beaded Tote"
+        cards  : bag23.html | Off White Sugar Crumbs Beaded Bag  ///  bag24.html | Yellow Cordon Bag
+        expect next two bag#: 23,24
+  bag23  "Pearl Clutch"
+        cards  : bag24.html | Yellow Cordon Bag  ///  bag25.html | Light Beige Cordon Bag
+        expect next two bag#: 24,25
+  bag24  "Organza Shoulder Bag"
+        cards  : bag25.html | Light Beige Cordon Bag  ///  bag26.html | Red Cordon Bag
+        expect next two bag#: 25,26
+  bag25  "Cord Mini Bag"
+        cards  : bag26.html | Red Cordon Bag  ///  bag27.html | Off White Sugar Crumbs Beaded Bag With Pearls
+        expect next two bag#: 26,27
+  bag26  "Red Cordon Bag"
+        cards  : bag27.html | Off White Sugar Crumbs Beaded Bag With Pearls  ///  bag28.html | White Beaded Bag With a Large Lavender Bow Made of Injected Beads
+        expect next two bag#: 27,28
+  bag27  "Off White Sugar Crumbs Beaded Bag With Pearls"
+        cards  : bag28.html | White Beaded Bag With a Large Lavender Bow Made of Injected Beads  ///  bag29.html | Pink Bag Made of Injected Beads
+        expect next two bag#: 28,29
+  bag28  "White Beaded Bag With a Large Lavender Bow Made of Injected Beads"
+        cards  : bag29.html | Pink Bag Made of Injected Beads  ///  bag30.html | Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes
+        expect next two bag#: 29,30
+  bag29  "Pink Bag Made of Injected Beads"
+        cards  : bag30.html | Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes  ///  bag31.html | Blue Cordon Bag With a Beaded Flap and Handle
+        expect next two bag#: 30,31
+  bag30  "Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes"
+        cards  : bag31.html | Blue Cordon Bag With a Beaded Flap and Handle  ///  bag32.html | Gray Velvet Beaded Bag With Silver Beads
+        expect next two bag#: 31,32
+  bag31  "Blue Cordon Bag With a Beaded Flap and Handle"
+        cards  : bag32.html | Gray Velvet Beaded Bag With Silver Beads  ///  bag33.html | Phone Pouch With Multicolored Beads
+        expect next two bag#: 32,33
+  bag32  "Gray Velvet Beaded Bag With Silver Beads"
+        cards  : bag33.html | Phone Pouch With Multicolored Beads  ///  bag34.html | Black Beaded Bag
+        expect next two bag#: 33,34
+  bag33  "Phone Pouch With Multicolored Beads"
+        cards  : bag34.html | Black Beaded Bag  ///  bag35.html | Off-White Pearl Bag With an Elegant Metal Clasp
+        expect next two bag#: 34,35
+  bag34  "Black Beaded Bag"
+        cards  : bag35.html | Off-White Pearl Bag With an Elegant Metal Clasp  ///  bag36.html | Jute Bag With Black
+        expect next two bag#: 35,36
+  bag35  "Off-White Pearl Bag With an Elegant Metal Clasp"
+        cards  : bag36.html | Jute Bag With Black  ///  bag38.html | Black Acrylic Bag With Clear White Beaded Sides
+        expect next two bag#: 36,37
+  bag36  "Jute Bag With Black"
+        cards  : bag38.html | Black Acrylic Bag With Clear White Beaded Sides  ///  bag39.html | Black and Fuchsia Cordon Bag
+        expect next two bag#: 37,38
+  bag38  "Black Acrylic Bag With Clear White Beaded Sides"
+        cards  : bag39.html | Black and Fuchsia Cordon Bag  ///  bag40.html | Beige and Burgundy Cordon Bag With Its Matching Hat
+        expect next two bag#: 39,40
+  bag39  "Black and Fuchsia Cordon Bag"
+        cards  : bag40.html | Beige and Burgundy Cordon Bag With Its Matching Hat  ///  bag41.html | Fuchsia Cordon Phone Pouch
+        expect next two bag#: 40,41
+  bag40  "Beige and Burgundy Cordon Bag With Its Matching Hat"
+        cards  : bag41.html | Fuchsia Cordon Phone Pouch  ///  bag42.html | Black Cordon Phone Pouch
+        expect next two bag#: 41,42
+  bag41  "Fuchsia Cordon Phone Pouch"
+        cards  : bag42.html | Black Cordon Phone Pouch  ///  bag43.html | Black Phone Pouch With a Thin Gold Thread
+        expect next two bag#: 42,43
+  bag42  "Black Cordon Phone Pouch"
+        cards  : bag43.html | Black Phone Pouch With a Thin Gold Thread  ///  bag44.html | Butter Yellow Cordon Phone Pouch
+        expect next two bag#: 43,44
+  bag43  "Metallic Wristlet"
+        cards  : bag44.html | Butter Yellow Cordon Phone Pouch  ///  bag45.html | Beige Jute Clutch With Multicolored Loops - Customizable on Request
+        expect next two bag#: 44,45
+  bag44  "Beaded Mini Bag"
+        cards  : bag45.html | Beige Jute Clutch With Multicolored Loops - Customizable on Request  ///  bag46.html | Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request
+        expect next two bag#: 45,46
+  bag45  "Beige Jute Clutch With Multicolored Loops - Customizable on Request"
+        cards  : bag46.html | Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request  ///  bag47.html | Beige and Coffee Cordon Bag With Matching Hat Available on Request
+        expect next two bag#: 46,47
+  bag46  "Organza Wristlet"
+        cards  : bag47.html | Beige and Coffee Cordon Bag With Matching Hat Available on Request  ///  bag48.html | Light Beige Cordon Bag With Its Matching Hat
+        expect next two bag#: 47,48
+  bag47  "Cord Evening Bag"
+        cards  : bag48.html | Light Beige Cordon Bag With Its Matching Hat  ///  bag49.html | Cocoa Cordon Bag
+        expect next two bag#: 48,49
+  bag48  "Fluffy Evening Bag"
+        cards  : bag49.html | Cocoa Cordon Bag  ///  bag50.html | Beige Cordon Bag
+        expect next two bag#: 49,50
+  bag49  "Canvas Evening Bag"
+        cards  : bag50.html | Beige Cordon Bag  ///  bag51.html | Fuchsia Cordon Bag With a Short White Pearl Handle
+        expect next two bag#: 50,51
+  bag50  "Metallic Evening Bag"
+        cards  : bag51.html | Fuchsia Cordon Bag With a Short White Pearl Handle  ///  bag52.html | Pink Organza Bag
+        expect next two bag#: 51,52
+  bag51  "Beaded Evening Clutch"
+        cards  : bag52.html | Pink Organza Bag  ///  bag53.html | Burgundy Velvet Beaded Bag
+        expect next two bag#: 52,53
+  bag52  "Pearl Evening Clutch"
+        cards  : bag53.html | Burgundy Velvet Beaded Bag  ///  bag54.html | Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads
+        expect next two bag#: 53,54
+  bag53  "Organza Evening Clutch"
+        cards  : bag54.html | Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads  ///  bag55.html | Off White Sugar Crumbs Beaded Phone Pouch With Pearls
+        expect next two bag#: 54,55
+  bag54  "Cord Clutch"
+        cards  : bag55.html | Off White Sugar Crumbs Beaded Phone Pouch With Pearls  ///  bag56.html | Silver Beaded Phone Pouch
+        expect next two bag#: 55,56
+  bag55  "Fluffy Clutch"
+        cards  : bag56.html | Silver Beaded Phone Pouch  ///  bag57.html | Light Blue Cordon Bag With a Light Blue Satin Pouch
+        expect next two bag#: 56,57
+  bag56  "Canvas Clutch"
+        cards  : bag57.html | Light Blue Cordon Bag With a Light Blue Satin Pouch  ///  bag58.html | Orange Beaded Bag
+        expect next two bag#: 57,58
+  bag57  "Metallic Clutch"
+        cards  : bag58.html | Orange Beaded Bag  ///  bag59.html | Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color
+        expect next two bag#: 58,59
+  bag58  "Orange Beaded Bag"
+        cards  : bag59.html | Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color  ///  bag60.html | Red Beaded Bag With Off White Sugar Crumbs Beads
+        expect next two bag#: 59,60
+  bag59  "Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color"
+        cards  : bag60.html | Red Beaded Bag With Off White Sugar Crumbs Beads  ///  bag61.html | Beige Jute Bag With a White Bow
+        expect next two bag#: 60,61
+  bag60  "Red Beaded Bag With Off White Sugar Crumbs Beads"
+        cards  : bag61.html | Beige Jute Bag With a White Bow  ///  bag62.html | Colorful Beaded Phone Pouch
+        expect next two bag#: 61,62
+  bag61  "Beige Jute Bag With a White Bow"
+        cards  : bag62.html | Colorful Beaded Phone Pouch  ///  product.html?name=Beige%20Cordon%20Bag&image=bag63.jpg | Beige Cordon Bag
+        expect next two bag#: 62,63
+  bag62  "Fast Delivery"
+        cards  : product.html?name=Beige%20Cordon%20Bag&image=bag63.jpg | Beige Cordon Bag  ///  product.html?name=Beige%20Backpack&image=bag64.jpg | Beige Backpack
+        expect next two bag#: 63,64

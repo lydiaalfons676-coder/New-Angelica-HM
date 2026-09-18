@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Macrame Bag With Wooden Handles | Angelica Handmade</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Home</a>
+        <span>&gt;</span>
+        <a href="index.html#products">👜 Bags</a>
+        <span>&gt;</span>
+        <span>Black Macrame Bag With Wooden Handles</span>
+    </div>
+
+    <div class="brand-signature">Angelica Handmade™ <span>Original handmade designs</span></div>
+
+    <div class="product-page">
+        <div class="product-image">
+            <img id="main-image" src="bag9.jpg" alt="Black Macrame Bag With Wooden Handles">
+            <div class="gallery">
+                <img src="file:///C:/Users/compuremo/Desktop/New%20Angelica%20HM%20-%20Copy%20(2)/bag9.jpg" onclick="changeImage(this)" onerror="this.src='bag9.jpg'" alt="Black Macrame Bag With Wooden Handles">
+<img src="file:///C:/Users/compuremo/Desktop/New%20Angelica%20HM%20-%20Copy%20(2)/bag9.jpg" alt="Black Macrame Bag With Wooden Handles"><img src="file:///C:/Users/compuremo/Desktop/New%20Angelica%20HM%20-%20Copy%20(2)/bag9.jpg" alt="Black Macrame Bag With Wooden Handles"></div>
+        </div>
+
+        <div class="product-details">
+            <h1>Black Macrame Bag With Wooden Handles</h1>
+            <div class="product-stars">★★★★★ <span>(4.9)</span></div>
+            <div class="price-box">
+                <p>✔ Free Shipping - For a limited time</p>
+            </div>
+
+            <hr>
+            <p><strong>🎨 Available Colors:</strong></p>
+            <ul>
+                <li>🤎 Brown</li>
+                <li>🖤 Black</li>
+                <li>🤍 Beige</li>
+            </ul>
+
+            <p><strong>🧵 Material:</strong> Premium Handmade Fabric</p>
+            <p><strong>✋ Handmade:</strong> 100%</p>
+            <p><strong>🚚 Shipping:</strong> Free Shipping - For a limited time</p>
+            <p><strong>🎁 Packaging:</strong> Gift Ready</p>
+
+            <hr>
+            <h3>Description</h3>
+            <p>
+                Elegant handmade product with a refined finish, carefully crafted to match a modern and timeless style.
+            </p>
+
+            <hr>
+            <h3>📋 Product Specifications</h3>
+            <table class="specs-table">
+                <tbody><tr><td><strong>Material</strong></td><td>Premium Handmade Fabric</td></tr>
+                <tr><td><strong>Handmade</strong></td><td>✔ 100%</td></tr>
+                <tr><td><strong>Shipping</strong></td><td>Free Shipping - For a limited time</td></tr>
+                <tr><td><strong>Gift Ready</strong></td><td>✔ Yes</td></tr>
+            </tbody></table>
+
+            <p class="order-note">
+                ✨ اطلب الآن عبر واتساب واستمتع بشحن سريع وتغليف أنيق.<br>
+                Orders are processed and delivered within 7 to 10 days.<br>
+                يتم تجهيز وتسليم الطلب خلال 7 إلى 10 أيام.
+            </p>
+
+            <button class="buy-btn" onclick="openOrderForm()">Order on WhatsApp 💬</button>
+
+            <div id="order-popup" class="popup">
+                <div class="popup-content">
+                    <span class="close-popup" onclick="closeOrderForm()"><i class="fa-solid fa-xmark"></i></span>
+                    <h2>🛍️ Complete Your Order</h2>
+                    <input type="text" placeholder="Your Name">
+                    <input type="tel" placeholder="Phone Number">
+                    <select>
+                        <option>Select Color</option>
+                        <option>Brown</option>
+                        <option>Black</option>
+                        <option>Beige</option>
+                    </select>
+                    <input type="number" placeholder="Quantity" min="1">
+                    <textarea placeholder="Address"></textarea>
+                    <textarea placeholder="Notes (Optional)"></textarea>
+                    <button type="button" class="buy-btn" onclick="sendOrder(event)">Send Order</button>
+                    <p id="success-message">✅ Order sent successfully</p>
+                </div>
+            </div>
+        
+</div>
+</div>
+
+
+
+
+<hr>
+
+<h3>👜 Related Products</h3>
+
+<div class="related-products" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 220px)); justify-content: center; gap: 20px; margin: 20px auto; width: 100%; max-width: 480px;">
+
+    <div class="related-card" style="width: 220px; max-width: 100%; min-height: 300px; margin: 0px auto; background: rgb(255, 255, 255); border-radius: 15px; overflow: hidden; text-align: center; box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px; display: flex; flex-direction: column;">
+
+<a href="bag10.html" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: rgb(111, 78, 55);">
+
+<img src="bag10.jpg" alt="Off White Bag Crafted From Sugar Crumbs Beads and Pearls" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+
+<p style="padding: 12px 10px; font-size: 15px; margin: 0px; flex: 1 1 0%; display: flex; align-items: center; justify-content: center;">Off White Bag Crafted From Sugar Crumbs Beads and Pearls</p>
+
+</a>
+
+</div>
+
+    <div class="related-card" style="width: 220px; max-width: 100%; min-height: 300px; margin: 0px auto; background: rgb(255, 255, 255); border-radius: 15px; overflow: hidden; text-align: center; box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px; display: flex; flex-direction: column;">
+
+<a href="bag11.html" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: rgb(111, 78, 55);">
+
+<img src="bag11.jpg" alt="Pink Cordon Bag With a Thin Gold Thread" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+
+<p style="padding: 12px 10px; font-size: 15px; margin: 0px; flex: 1 1 0%; display: flex; align-items: center; justify-content: center;">Pink Cordon Bag With a Thin Gold Thread</p>
+
+</a>
+
+</div>
+
+</div>   <!-- نهاية related-products -->
+
+<!-- هنا اكتبي كود Reviews -->
+
+<hr style="display: none;">
+
+<h3 style="display: none;">⭐ Customer Reviews</h3>
+
+<div class="reviews" style="display: none;">
+
+    <div class="review-card">
+        <h4>⭐⭐⭐⭐⭐ Mary</h4>
+        <p>Beautiful bag and amazing quality ❤️</p>
+    
+
+    <div class="review-card">
+        <h4>⭐⭐⭐⭐⭐ Sara</h4>
+        <p>Very elegant and exactly like the pictures.</p>
+    
+
+    <div class="review-card">
+        <h4>⭐⭐⭐⭐⭐ Lina</h4>
+        <p>Fast shipping and beautiful packaging.</p>
+    
+
+
+
+        
+    
+
+<script src="script.js?v=6"></script>
+
+
+</div></div></div></div></body></html>

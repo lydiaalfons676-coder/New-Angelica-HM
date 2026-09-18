@@ -1,0 +1,59 @@
+=== which bagN.jpg exist in root (1..70) ===
+  MISSING images : 5, 7, 37
+  declared bagImageGaps in script.js : 7, 37
+
+=== where bag5 / bag7 / bag37 images actually live ===
+  bag5.jpg in root : False   | found at: image-backup-before-watermark\bag5.jpg ;; New-Angelica-HM\bag5.jpg ;; New-Angelica-HM\image-backup-before-watermark\bag5.jpg
+  bag7.jpg in root : False   | found at: 
+  bag37.jpg in root : False   | found at: 
+
+=== image path used by STATIC pages for bag5 related cards ===
+  bag3.html -> image-backup-before-watermark/bag5.jpg
+  bag4.html -> image-backup-before-watermark/bag5.jpg
+  bag48.html -> bag50.jpg
+  bag49.html -> bag50.jpg
+  bag49.html -> bag51.jpg
+  bag5.html -> image-backup-before-watermark/bag5.jpg
+  bag50.html -> bag50.jpg
+  bag50.html -> bag51.jpg
+  bag50.html -> bag52.jpg
+  bag51.html -> bag51.jpg
+  bag51.html -> bag52.jpg
+  bag51.html -> bag53.jpg
+  bag52.html -> bag52.jpg
+  bag52.html -> bag53.jpg
+  bag52.html -> bag54.jpg
+  bag53.html -> bag53.jpg
+  bag53.html -> bag54.jpg
+  bag53.html -> bag55.jpg
+  bag54.html -> bag54.jpg
+  bag54.html -> bag55.jpg
+  bag54.html -> bag56.jpg
+  bag55.html -> bag55.jpg
+  bag55.html -> bag56.jpg
+  bag55.html -> bag57.jpg
+  bag56.html -> bag56.jpg
+  bag56.html -> bag57.jpg
+  bag56.html -> bag58.jpg
+  bag57.html -> bag57.jpg
+  bag57.html -> bag58.jpg
+  bag57.html -> bag59.jpg
+  bag58.html -> bag58.jpg
+  bag58.html -> bag59.jpg
+  bag59.html -> bag59.jpg
+
+=== bagPageNames: keys present 1..70 ===
+  explicit overrides block:
+     59 -> Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color
+     60 -> Red Beaded Bag With Off White Sugar Crumbs Beads
+     61 -> Beige Jute Bag With a White Bow
+     62 -> Colorful Beaded Phone Pouch
+     63 -> Beige Cordon Bag
+     64 -> Beige Backpack
+     65 -> Off White Pearl Bag
+     66 -> Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch
+     67 -> Yellow and Green Cordon Bag
+     68 -> Baby Blue Cordon Bag
+     69 -> White Transparent Beaded Bag
+     70 -> Candy Cordon Bag - Customizable in Any Color
+  liveBagNames count : 57

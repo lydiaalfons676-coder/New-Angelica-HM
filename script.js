@@ -22,7 +22,8 @@ document.addEventListener("dragstart", function (event) {
 });
 
 let cart = [];
-const reviews = document.querySelectorAll(".review-card");
+const reviewsSlider = document.querySelector(".reviews .slider, section.reviews .slider");
+const reviews = reviewsSlider ? reviewsSlider.querySelectorAll(".review-card") : [];
 
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
@@ -35,14 +36,14 @@ function showReview(index){
         review.style.display = "none";
     });
 
-    reviews[index].style.display = "block";
+    if (reviews[index]) reviews[index].style.display = "block";
 }
 
 if (reviews.length > 0) {
     showReview(current);
 }
 
-if (next) {
+if (next && reviews.length > 0) {
 
     next.onclick = function(){
 
@@ -58,7 +59,7 @@ if (next) {
 
 }
 
-if (prev) {
+if (prev && reviews.length > 0) {
 
     prev.onclick = function(){
 
@@ -246,29 +247,54 @@ function orderWhatsApp(){
     shareOrderWithImages(message, imageUrls);
 
 }
-async function shareOrderWithImages(message, imageUrls){
+function openOrderOnWhatsApp(message){
 
-    try {
-        const files = [];
+    const whatsappUrl = "https://wa.me/" + whatsappPhoneNumber + "?text=" + encodeURIComponent(message);
 
-        for (const imageUrl of imageUrls) {
-            const response = await fetch(imageUrl);
-            if (!response.ok) throw new Error("Image could not be loaded");
+    // فتح واتساب فوراً وبشكل متزامن بدون أي انتظار عشان المتصفح مايحجبش النافذة الجديدة
+    const orderWindow = window.open(whatsappUrl, "_blank");
 
-            const blob = await response.blob();
-            const fileName = imageUrl.split("/").pop().split("?")[0] || "product-image.jpg";
-            files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
-        }
-
-        if (navigator.share && navigator.canShare && navigator.canShare({ files })) {
-            await navigator.share({ text: message, files: files });
-            return;
-        }
-    } catch (error) {
-        if (error.name === "AbortError") return;
+    // لو المتصفح حجب النافذة الجديدة نفتح واتساب في نفس التاب
+    if (!orderWindow) {
+        window.location.href = whatsappUrl;
     }
 
-    window.open("https://wa.me/" + whatsappPhoneNumber + "?text=" + encodeURIComponent(message), "_blank");
+}
+// بيبعت رسالة الواتساب مع صورة المنتج نفسها (مش لينك) عشان الصورة تظهر لصاحب الموقع
+// لو المتصفح مش بيدعم مشاركة الصور، بيرجع تلقائياً لرسالة واتساب العادية اللي فيها لينك الصورة
+async function shareOrderWithImages(message, imageUrls){
+
+    const isHttp = /^https?:$/i.test(window.location.protocol);
+    const urls = Array.isArray(imageUrls) ? imageUrls.filter(Boolean) : [];
+
+    if (isHttp && urls.length && navigator.share && navigator.canShare) {
+
+        try {
+
+            const files = [];
+
+            for (const imageUrl of urls) {
+                const response = await fetch(imageUrl);
+                if (!response.ok) throw new Error("Image could not be loaded");
+
+                const blob = await response.blob();
+                const fileName = decodeURIComponent(imageUrl.split("/").pop().split("?")[0]) || "product-image.jpg";
+                files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
+            }
+
+            if (files.length && navigator.canShare({ files: files })) {
+                await navigator.share({ text: message, files: files });
+                return;
+            }
+
+        } catch (error) {
+            // لو المستخدم قفل الشيت بنفسه منبعتش رسالة تانية
+            if (error.name === "AbortError") return;
+        }
+
+    }
+
+    openOrderOnWhatsApp(message);
 
 }
 function removeItem(index){
@@ -390,11 +416,53 @@ liveBagNames.forEach(function (name, index) {
 });
 
 Object.assign(bagPageNames, {
+    58: "Orange Beaded Bag",
     59: "Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color",
     60: "Red Beaded Bag With Off White Sugar Crumbs Beads",
     61: "Beige Jute Bag With a White Bow",
-    62: "Colorful Beaded Phone Pouch"
+    62: "Colorful Beaded Phone Pouch",
+    63: "Beige Cordon Bag",
+    64: "Beige Backpack",
+    65: "Off White Pearl Bag",
+    66: "Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch",
+    67: "Yellow and Green Cordon Bag",
+    68: "Baby Blue Cordon Bag",
+    69: "White Transparent Beaded Bag",
+    70: "Candy Cordon Bag - Customizable in Any Color"
 });
+
+// أرقام صور الشنط الموجودة فعلاً: من 1 لـ 70 (صورة رقم 1 اسمها bag.jpg) وفيها فجوتين: 7 و 37
+const bagImageGaps = [7, 37];
+const lastBagNumber = 70;
+
+// بيرجّع أرقام الصور اللى بعد صورة المنتج الحالى بنفس ترتيب الكروت (وبيلف من الأول بعد آخر صورة)
+function getNextBagNumbers(bagNumber, count){
+    const numbers = [];
+    const wanted = count || 2;
+    const total = lastBagNumber;
+
+    if (!bagNumber || bagNumber < 1 || bagNumber > total) return numbers;
+
+    let current = bagNumber;
+
+    for (let step = 0; step < total && numbers.length < wanted; step++) {
+        current = current >= total ? 1 : current + 1;
+        if (bagImageGaps.indexOf(current) === -1) numbers.push(current);
+    }
+
+    return numbers;
+}
+
+// بيرجّع بيانات صورة شنطة معينة (اللينك + الصورة + الاسم) عشان الريليتد بروداكتس
+function getBagLinkData(bagNumber){
+    const image = bagNumber === 1 ? "bag.jpg" : `bag${bagNumber}.jpg`;
+    const name = bagPageNames[bagNumber] || `Bag ${bagNumber}`;
+    const page = bagNumber <= 62 ?
+        `bag${bagNumber}.html` :
+        `product.html?name=${encodeURIComponent(name)}&image=${image}`;
+
+    return { number: bagNumber, image: image, name: name, page: page };
+}
 
 function syncProductPageName() {
     const match = window.location.pathname.match(/bag(\d+)\.html$/i);
@@ -1210,3 +1278,93 @@ window.addEventListener("load", function () {
     }
 
 });
+
+// ===== Normalize Related Products shape like bag1 (Havan Cordon Bag) on ALL product pages =====
+(function(){
+  function normalizeRelated(){
+    try{
+      var page = document.querySelector('.product-page');
+      var grid = document.querySelector('.related-products');
+      if(page && grid && page.contains(grid)){
+        var title = null;
+        var el = grid.previousElementSibling;
+        for(var k=0;k<6 && el;k++){
+          if(el.tagName==='H3' && /Related Products/.test(el.textContent)){ title = el; break; }
+          el = el.previousElementSibling;
+        }
+        var hrBefore = null;
+        if(title && title.previousElementSibling && title.previousElementSibling.tagName==='HR') hrBefore = title.previousElementSibling;
+        var parent = page.parentNode;
+        var next = page.nextSibling;
+        if(hrBefore) parent.insertBefore(hrBefore, next);
+        if(title){ parent.insertBefore(title, next); title.style.textAlign='center'; title.style.width='100%'; }
+        parent.insertBefore(grid, next);
+      }
+    }catch(e){}
+    var grids = document.querySelectorAll('.related-products');
+    if(!grids.length) return;
+    grids.forEach(function(grid){
+      // Force: grid 2 columns, centered
+      grid.style.display = 'grid';
+      grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 220px))';
+      grid.style.justifyContent = 'center';
+      grid.style.gap = '20px';
+      grid.style.margin = '20px auto';
+      grid.style.width = '100%';
+      grid.style.maxWidth = '480px';
+      var cards = grid.querySelectorAll('.related-card');
+      cards.forEach(function(card){
+        card.style.width = '220px';
+        card.style.maxWidth = '100%';
+        card.style.minHeight = '300px';
+        card.style.margin = '0 auto';
+        card.style.background = '#fff';
+        card.style.borderRadius = '15px';
+        card.style.overflow = 'hidden';
+        card.style.textAlign = 'center';
+        card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        var a = card.querySelector('a');
+        if(a){ a.style.display='flex'; a.style.flexDirection='column'; a.style.height='100%'; a.style.textDecoration='none'; a.style.color='#6f4e37'; }
+        var img = card.querySelector('img');
+        if(img){ img.style.width='100%'; img.style.height='200px'; img.style.objectFit='cover'; img.style.display='block'; }
+        var p = card.querySelector('p');
+        if(p){ p.style.padding='12px 10px'; p.style.fontSize='15px'; p.style.margin='0'; p.style.flex='1'; p.style.display='flex'; p.style.alignItems='center'; p.style.justifyContent='center'; }
+      });
+    });
+    // Mobile: keep 2 per row
+    if(window.innerWidth <= 600){
+      grids.forEach(function(grid){
+        grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+        grid.style.gap = '12px';
+        grid.style.maxWidth = '100%';
+        grid.style.padding = '0 10px';
+      });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', normalizeRelated);
+  else normalizeRelated();
+  window.addEventListener('resize', normalizeRelated);
+})();
+// Hide Customer Reviews on product pages (bag*.html + product.html) - keep homepage
+(function(){
+  function hideProductReviews(){
+    if(!document.querySelector('.product-page')) return;
+    // hide every .reviews div inside/after product-page
+    document.querySelectorAll('.reviews').forEach(function(r){ r.style.display='none'; });
+    // hide its title + hr: "Customer Reviews"
+    document.querySelectorAll('h3').forEach(function(h){
+      if(/Customer Reviews/.test(h.textContent)){
+        h.style.display='none';
+        var prev = h.previousElementSibling;
+        if(prev && prev.tagName==='HR') prev.style.display='none';
+        // hide arabic comment marker sibling is not element, skip
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', hideProductReviews);
+  else hideProductReviews();
+})();
+
+

@@ -232,6 +232,102 @@ window.location='bag4.html';">
 
 
 </div>
+
+<!-- بطاقات الصور bag67.jpg و bag68.jpg و bag69.jpg و bag70.jpg - نفس تصميم باقي الكروت (بدون أي سعر) -->
+<div class="product-container">
+
+    <div class="card">
+
+        <span class="favorite-btn" data-product="Yellow and Green Cordon Bag"
+            onclick="event.stopPropagation(); toggleImageFavorite(this)">
+            <i class="fa-regular fa-heart"></i>
+        </span>
+
+        <img src="bag67.jpg" alt="Yellow and Green Cordon Bag">
+
+        <h3>Yellow and Green Cordon Bag</h3>
+
+        <div class="product-info">
+            <p>Made to Order</p>
+            <a href="#contact">Contact Us</a>
+        </div>
+
+        <button class="buy-btn"
+            onclick="event.stopPropagation(); buyProductAndGo('Yellow and Green Cordon Bag', 500, 'bag67.jpg', 'product.html?name=Yellow%20and%20Green%20Cordon%20Bag&image=bag67.jpg');">
+            Shop Now
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <span class="favorite-btn" data-product="Baby Blue Cordon Bag"
+            onclick="event.stopPropagation(); toggleImageFavorite(this)">
+            <i class="fa-regular fa-heart"></i>
+        </span>
+
+        <img src="bag68.jpg" alt="Baby Blue Cordon Bag">
+
+        <h3>Baby Blue Cordon Bag</h3>
+
+        <div class="product-info">
+            <p>Made to Order</p>
+            <a href="#contact">Contact Us</a>
+        </div>
+
+        <button class="buy-btn"
+            onclick="event.stopPropagation(); buyProductAndGo('Baby Blue Cordon Bag', 500, 'bag68.jpg', 'product.html?name=Baby%20Blue%20Cordon%20Bag&image=bag68.jpg');">
+            Shop Now
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <span class="favorite-btn" data-product="White Transparent Beaded Bag"
+            onclick="event.stopPropagation(); toggleImageFavorite(this)">
+            <i class="fa-regular fa-heart"></i>
+        </span>
+
+        <img src="bag69.jpg" alt="White Transparent Beaded Bag">
+
+        <h3>White Transparent Beaded Bag</h3>
+
+        <div class="product-info">
+            <p>Made to Order</p>
+            <a href="#contact">Contact Us</a>
+        </div>
+
+        <button class="buy-btn"
+            onclick="event.stopPropagation(); buyProductAndGo('White Transparent Beaded Bag', 500, 'bag69.jpg', 'product.html?name=White%20Transparent%20Beaded%20Bag&image=bag69.jpg');">
+            Shop Now
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <span class="favorite-btn" data-product="Candy Cordon Bag - Customizable in Any Color"
+            onclick="event.stopPropagation(); toggleImageFavorite(this)">
+            <i class="fa-regular fa-heart"></i>
+        </span>
+
+        <img src="bag70.jpg" alt="Candy Cordon Bag - Customizable in Any Color">
+
+        <h3>Candy Cordon Bag - Customizable in Any Color</h3>
+
+        <div class="product-info">
+            <p>Made to Order</p>
+            <a href="#contact">Contact Us</a>
+        </div>
+
+        <button class="buy-btn"
+            onclick="event.stopPropagation(); buyProductAndGo('Candy Cordon Bag - Customizable in Any Color', 500, 'bag70.jpg', 'product.html?name=Candy%20Cordon%20Bag%20-%20Customizable%20in%20Any%20Color&image=bag70.jpg');">
+            Shop Now
+        </button>
+
+    </div>
+</div>
 </section>
 <!-- About Section -->
 <section id="about" class="about">
@@ -390,6 +486,89 @@ document.querySelectorAll('.social-buttons a').forEach(a => {
         }
         e.preventDefault();
     });
+});
+</script>
+
+<script>
+// قلب المفضلة لبطاقتي الصورتين bag67.jpg و bag68.jpg
+// يستخدم نفس دوال المفضلة الموجودة في script.js بدون أي تعديل فيه
+function toggleImageFavorite(button) {
+
+    const productName = button.dataset.product;
+    if (!productName) return;
+
+    const card = button.closest(".card");
+    const image = card ? card.querySelector("img") : null;
+    const imageSrc = image ? (image.currentSrc || image.src) : "";
+
+    const index = favoriteProducts.findIndex(function (item) {
+        return item.name === productName;
+    });
+
+    if (index === -1) {
+
+        favoriteProducts.push({
+            name: productName,
+            price: "",
+            image: imageSrc
+        });
+
+    } else {
+
+        favoriteProducts.splice(index, 1);
+
+    }
+
+    saveFavoriteProducts();
+    renderFavorites();
+    syncFavoriteButtons();
+    updateFavoriteCount();
+}
+
+// توافق: لو المفضلة كانت محفوظة بالأسماء القديمة (Bag 67 / Bag 68 / Gray Cordon Bag / شنطه خرز ابيض شفاف / Green Striped Cordon Bag With Blue Handles) تتحول للأسماء الجديدة
+const renamedFavorites = {
+    "Bag 67": "Yellow and Green Cordon Bag",
+    "Bag 68": "Baby Blue Cordon Bag",
+    "Gray Cordon Bag": "White Transparent Beaded Bag",
+    "Green Striped Cordon Bag With Blue Handles": "Candy Cordon Bag - Customizable in Any Color",
+    "شنطه خرز ابيض شفاف": "White Transparent Beaded Bag"
+};
+
+window.addEventListener("load", function () {
+
+    let changed = false;
+
+    Object.keys(renamedFavorites).forEach(function (oldName) {
+
+        const newName = renamedFavorites[oldName];
+
+        const oldIndex = favoriteProducts.findIndex(function (item) {
+            return item.name === oldName;
+        });
+
+        if (oldIndex === -1) return;
+
+        const newIndex = favoriteProducts.findIndex(function (item) {
+            return item.name === newName;
+        });
+
+        if (newIndex > -1) {
+            favoriteProducts.splice(oldIndex, 1);
+        } else {
+            favoriteProducts[oldIndex].name = newName;
+        }
+
+        changed = true;
+
+    });
+
+    if (!changed) return;
+
+    saveFavoriteProducts();
+    renderFavorites();
+    syncFavoriteButtons();
+    updateFavoriteCount();
+
 });
 </script>
 

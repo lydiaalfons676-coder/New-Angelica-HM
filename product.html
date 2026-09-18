@@ -120,7 +120,13 @@
         </div>
     </div>
 
-    <script src="script.js?v=6"></script>
+    <hr>
+
+<h3>👜 Related Products</h3>
+
+<div class="related-products" id="related-products"></div>   <!-- نهاية related-products -->
+
+<script src="script.js?v=9"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const productName = urlParams.get('name') || 'Product Details';
@@ -148,6 +154,7 @@
             productName.includes('Brown') ? 'Brown' :
             productName.includes('Beige') ? 'Beige' :
             productName.includes('Yellow') ? 'Yellow' :
+            productName.includes('Gray') ? 'Gray' :
             'Handmade';
 
         document.getElementById('product-color').textContent = color;
@@ -215,10 +222,34 @@
             'Orange Beaded Bag': 'A vibrant orange beaded bag with a refined handmade finish and an elegant style.',
             'Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request': 'Phone cases available in black, mustard, beige, and gray, with other colors available on request.',
             'Beige and Coffee Cordon Bag With Matching Hat Available on Request': 'A refined beige and coffee cordon bag with its matching hat available on request and an elegant handmade finish.',
-            'Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color': 'A stylish beige and pink cordon bag with its matching clutch, customizable in any color according to your taste.'
+            'Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color': 'A stylish beige and pink cordon bag with its matching clutch, customizable in any color according to your taste.',
+            'White Transparent Beaded Bag': 'An elegant handmade bag crafted from clear transparent white beads with a refined sparkling finish that complements any look.',
+            'Candy Cordon Bag - Customizable in Any Color': 'A charming handmade candy-striped cordon bag with cheerful multicolored stripes, gold-detailed handles and a long comfortable strap, available in any color of your choice.',
+            'شنطه خرز ابيض شفاف': 'An elegant handmade bag crafted from clear transparent white beads with a refined sparkling finish that complements any look.'
         };
 
         document.getElementById('product-description').textContent = detailedDescription[productName] || 'Elegant handmade bag with a unique style and premium finishing, designed to match your taste and personality.';
+
+        // الريليتد بروداكتس: الصورتين اللى بعد صورة المنتج الحالى بنفس ترتيب الكروت (زى صفحات الـ bagN.html)
+        const relatedBox = document.getElementById('related-products');
+
+        if (relatedBox && typeof getNextBagNumbers === 'function' && typeof getBagLinkData === 'function') {
+
+            getNextBagNumbers(getBagNumberFromImage(imageName), 2).forEach(function (bagNumber) {
+
+                const related = getBagLinkData(bagNumber);
+
+                const card = document.createElement('div');
+                card.className = 'related-card';
+                card.innerHTML =
+                    '<a href="' + related.page + '">' +
+                    '<img src="' + related.image + '" alt="' + related.name + '">' +
+                    '<p>' + related.name + '</p>' +
+                    '</a>';
+
+                relatedBox.appendChild(card);
+            });
+        }
     </script>
 </body>
 </html>

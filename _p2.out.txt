@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>probe</title></head>
+<body>
+<div id="out">bagPageNames keys = 67
+
+=== numbers with NO name (1..70) ===
+  7, 37, 58
+
+=== full getBagLinkData table (1..70) ===
+  bag1 | name="Havan Cordon Bag" | img=bag.jpg | page=bag1.html
+  bag2 | name="Golden Pearl Bag" | img=bag2.jpg | page=bag2.html
+  bag3 | name="Gold Metallic Canvas Bag" | img=bag3.jpg | page=bag3.html
+  bag4 | name="Canary Yellow Organza Bag" | img=bag4.jpg | page=bag4.html
+  bag5 | name="Black Organza Bag" | img=bag5.jpg | page=bag5.html
+  bag6 | name="Pink Cordon Bag" | img=bag6.jpg | page=bag6.html
+  bag7 | name="Bag 7" | img=bag7.jpg | page=bag7.html [DECLARED GAP] [NO NAME]
+  bag8 | name="Black Beaded Handbag With a Gold Metal Handle" | img=bag8.jpg | page=bag8.html
+  bag9 | name="Black Macrame Bag With Wooden Handles" | img=bag9.jpg | page=bag9.html
+  bag10 | name="Off White Bag Crafted From Sugar Crumbs Beads and Pearls" | img=bag10.jpg | page=bag10.html
+  bag11 | name="Pink Cordon Bag With a Thin Gold Thread" | img=bag11.jpg | page=bag11.html
+  bag12 | name="Black and Gray Cordon Bag" | img=bag12.jpg | page=bag12.html
+  bag13 | name="Beige and Black Canvas Bag" | img=bag13.jpg | page=bag13.html
+  bag14 | name="Small Petrol Blue Macrame Bag" | img=bag14.jpg | page=bag14.html
+  bag15 | name="Mustard Yellow Cordon Bag" | img=bag15.jpg | page=bag15.html
+  bag16 | name="Acrylic Bag With Burgundy Beaded Edges and a Satin Handle" | img=bag16.jpg | page=bag16.html
+  bag17 | name="Black Beaded Bag" | img=bag17.jpg | page=bag17.html
+  bag18 | name="Beige Burlap Bag With Round Wooden Side Panels" | img=bag18.jpg | page=bag18.html
+  bag19 | name="Black Cordon Bag With a Thin Gold Thread" | img=bag19.jpg | page=bag19.html
+  bag20 | name="Beige and Black Canvas Bag" | img=bag20.jpg | page=bag20.html
+  bag21 | name="Blue Velvet Beaded Bag" | img=bag21.jpg | page=bag21.html
+  bag22 | name="Black Cordon Bag With a Thin Gold Thread" | img=bag22.jpg | page=bag22.html
+  bag23 | name="Off White Sugar Crumbs Beaded Bag" | img=bag23.jpg | page=bag23.html
+  bag24 | name="Yellow Cordon Bag" | img=bag24.jpg | page=bag24.html
+  bag25 | name="Light Beige Cordon Bag" | img=bag25.jpg | page=bag25.html
+  bag26 | name="Red Cordon Bag" | img=bag26.jpg | page=bag26.html
+  bag27 | name="Off White Sugar Crumbs Beaded Bag With Pearls" | img=bag27.jpg | page=bag27.html
+  bag28 | name="White Beaded Bag With a Large Lavender Bow Made of Injected Beads" | img=bag28.jpg | page=bag28.html
+  bag29 | name="Pink Bag Made of Injected Beads" | img=bag29.jpg | page=bag29.html
+  bag30 | name="Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes" | img=bag30.jpg | page=bag30.html
+  bag31 | name="Blue Cordon Bag With a Beaded Flap and Handle" | img=bag31.jpg | page=bag31.html
+  bag32 | name="Gray Velvet Beaded Bag With Silver Beads" | img=bag32.jpg | page=bag32.html
+  bag33 | name="Phone Pouch With Multicolored Beads" | img=bag33.jpg | page=bag33.html
+  bag34 | name="Black Beaded Bag" | img=bag34.jpg | page=bag34.html
+  bag35 | name="Off-White Pearl Bag With an Elegant Metal Clasp" | img=bag35.jpg | page=bag35.html
+  bag36 | name="Jute Bag With Black" | img=bag36.jpg | page=bag36.html
+  bag37 | name="Bag 37" | img=bag37.jpg | page=bag37.html [DECLARED GAP] [NO NAME]
+  bag38 | name="Black Acrylic Bag With Clear White Beaded Sides" | img=bag38.jpg | page=bag38.html
+  bag39 | name="Black and Fuchsia Cordon Bag" | img=bag39.jpg | page=bag39.html
+  bag40 | name="Beige and Burgundy Cordon Bag With Its Matching Hat" | img=bag40.jpg | page=bag40.html
+  bag41 | name="Fuchsia Cordon Phone Pouch" | img=bag41.jpg | page=bag41.html
+  bag42 | name="Black Cordon Phone Pouch" | img=bag42.jpg | page=bag42.html
+  bag43 | name="Black Phone Pouch With a Thin Gold Thread" | img=bag43.jpg | page=bag43.html
+  bag44 | name="Butter Yellow Cordon Phone Pouch" | img=bag44.jpg | page=bag44.html
+  bag45 | name="Beige Jute Clutch With Multicolored Loops - Customizable on Request" | img=bag45.jpg | page=bag45.html
+  bag46 | name="Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request" | img=bag46.jpg | page=bag46.html
+  bag47 | name="Beige and Coffee Cordon Bag With Matching Hat Available on Request" | img=bag47.jpg | page=bag47.html
+  bag48 | name="Light Beige Cordon Bag With Its Matching Hat" | img=bag48.jpg | page=bag48.html
+  bag49 | name="Cocoa Cordon Bag" | img=bag49.jpg | page=bag49.html
+  bag50 | name="Beige Cordon Bag" | img=bag50.jpg | page=bag50.html
+  bag51 | name="Fuchsia Cordon Bag With a Short White Pearl Handle" | img=bag51.jpg | page=bag51.html
+  bag52 | name="Pink Organza Bag" | img=bag52.jpg | page=bag52.html
+  bag53 | name="Burgundy Velvet Beaded Bag" | img=bag53.jpg | page=bag53.html
+  bag54 | name="Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads" | img=bag54.jpg | page=bag54.html
+  bag55 | name="Off White Sugar Crumbs Beaded Phone Pouch With Pearls" | img=bag55.jpg | page=bag55.html
+  bag56 | name="Silver Beaded Phone Pouch" | img=bag56.jpg | page=bag56.html
+  bag57 | name="Light Blue Cordon Bag With a Light Blue Satin Pouch" | img=bag57.jpg | page=bag57.html
+  bag58 | name="Bag 58" | img=bag58.jpg | page=bag58.html [NO NAME]
+  bag59 | name="Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color" | img=bag59.jpg | page=bag59.html
+  bag60 | name="Red Beaded Bag With Off White Sugar Crumbs Beads" | img=bag60.jpg | page=bag60.html
+  bag61 | name="Beige Jute Bag With a White Bow" | img=bag61.jpg | page=bag61.html
+  bag62 | name="Colorful Beaded Phone Pouch" | img=bag62.jpg | page=bag62.html
+  bag63 | name="Beige Cordon Bag" | img=bag63.jpg | page=product.html?name=Beige%20Cordon%20Bag&amp;image=bag63.jpg
+  bag64 | name="Beige Backpack" | img=bag64.jpg | page=product.html?name=Beige%20Backpack&amp;image=bag64.jpg
+  bag65 | name="Off White Pearl Bag" | img=bag65.jpg | page=product.html?name=Off%20White%20Pearl%20Bag&amp;image=bag65.jpg
+  bag66 | name="Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch" | img=bag66.jpg | page=product.html?name=Acrylic%20Bag%20With%20Lavender%20Beaded%20Edges%20and%20a%20Purple%20Satin%20Pouch&amp;image=bag66.jpg
+  bag67 | name="Yellow and Green Cordon Bag" | img=bag67.jpg | page=product.html?name=Yellow%20and%20Green%20Cordon%20Bag&amp;image=bag67.jpg
+  bag68 | name="Baby Blue Cordon Bag" | img=bag68.jpg | page=product.html?name=Baby%20Blue%20Cordon%20Bag&amp;image=bag68.jpg
+  bag69 | name="White Transparent Beaded Bag" | img=bag69.jpg | page=product.html?name=White%20Transparent%20Beaded%20Bag&amp;image=bag69.jpg
+  bag70 | name="Candy Cordon Bag - Customizable in Any Color" | img=bag70.jpg | page=product.html?name=Candy%20Cordon%20Bag%20-%20Customizable%20in%20Any%20Color&amp;image=bag70.jpg
+
+=== related pairs that LAND ON each number (who links to it) ===</div>
+<script src="script.js?v=9"></script>
+<script>
+var lines = [];
+lines.push('bagPageNames keys = ' + Object.keys(bagPageNames).length);
+lines.push('');
+lines.push('=== numbers with NO name (1..70) ===');
+var noName = [];
+for (var n = 1; n <= 70; n++) { if (!bagPageNames[n]) noName.push(n); }
+lines.push('  ' + (noName.length ? noName.join(', ') : 'none'));
+lines.push('');
+lines.push('=== full getBagLinkData table (1..70) ===');
+for (var n = 1; n <= 70; n++) {
+    var d = getBagLinkData(n);
+    var flag = '';
+    if (bagImageGaps.indexOf(n) !== -1) flag = ' [DECLARED GAP]';
+    if (!bagPageNames[n]) flag += ' [NO NAME]';
+    lines.push('  bag' + n + ' | name="' + d.name + '" | img=' + d.image + ' | page=' + d.page + flag);
+}
+lines.push('');
+lines.push('=== related pairs that LAND ON each number (who links to it) ===');
+for (var n = 1; n <= 70; n++) {
+    if (bagImageGaps.indexOf(n) !== -1) continue;
+    var sources = [];
+    for (var s = 1; s <= 70; s++) {
+        if (bagImageGaps.indexOf(s) !== -1) continue;
+        var nx = getNextBagNumbers(s, 2);
+        if (nx.indexOf(n) !== -1) sources.push(s);
+    }
+    if (!sources.length) lines.push('  bag' + n + ' is NEVER shown as a related card  <-- orphan');
+}
+document.getElementById('out').textContent = lines.join('\n');
+</script>
+
+</body></html>

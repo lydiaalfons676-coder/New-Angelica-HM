@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>probe</title></head>
+<body>
+<div id="out">loading</div>
+<script src="script.js?v=9"></script>
+<script>
+var lines = [];
+lines.push('getNextBagNumbers type = ' + typeof getNextBagNumbers);
+lines.push('getBagLinkData type    = ' + typeof getBagLinkData);
+lines.push('getBagNumberFromImage  = ' + typeof getBagNumberFromImage);
+lines.push('bagPageNames keys      = ' + Object.keys(bagPageNames).length);
+lines.push('');
+lines.push('=== next-two for each bag (what the related cards will show) ===');
+
+var checks = [1, 2, 5, 6, 36, 38, 39, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+for (var i = 0; i < checks.length; i++) {
+    var n = checks[i];
+    var nums = getNextBagNumbers(n, 2);
+    var parts = [];
+    for (var j = 0; j < nums.length; j++) {
+        var d = getBagLinkData(nums[j]);
+        parts.push('bag' + d.number + ' "' + d.name + '" -> ' + d.page + ' [img ' + d.image + ']');
+    }
+    lines.push('bag' + n + ' (' + (bagPageNames[n] || '?') + ')');
+    lines.push('     ' + parts.join('\n     '));
+}
+
+lines.push('');
+lines.push('=== bag number from image ===');
+['bag.jpg', 'bag4.jpg', 'bag61.jpg', 'bag63.jpg', 'bag70.jpg'].forEach(function (s) {
+    lines.push('  ' + s + ' -> ' + getBagNumberFromImage(s));
+});
+
+lines.push('');
+lines.push('=== names used by related cards (bag 61 -> 62,63) ===');
+getNextBagNumbers(61, 2).forEach(function (n) {
+    var d = getBagLinkData(n);
+    lines.push('  bag' + n + ' | ' + d.name + ' | ' + d.page);
+});
+
+document.getElementById('out').textContent = lines.join('\n');
+</script>
+</body>
+</html>
