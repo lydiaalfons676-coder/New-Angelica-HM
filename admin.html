@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - Angelica Handmade</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f4f6f9; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { margin-bottom: 20px; color: #1a1a2e; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        button { background: #1a1a2e; color: #fff; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background: #2d2d52; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; }
+        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+        .status { padding: 8px 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>إضافة منتج جديد</h2>
+            <div id="msg"></div>
+            <form id="addForm">
+                <div class="form-group">
+                    <label>اسم المنتج</label>
+                    <input type="text" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>السعر (جنية)</label>
+                    <input type="number" id="pPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>صورة المنتج (من الجهاز/الموبايل)</label>
+                    <input type="file" id="pImgFile" accept="image/*" required>
+                </div>
+                <button type="submit" id="saveBtn">حفظ المنتج</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>المنتجات المضافة</h2>
+            <div id="productList">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db, storage } from './firebase-config.js';
+        import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        const form = document.getElementById('addForm');
+        const msg = document.getElementById('msg');
+        const list = document.getElementById('productList');
+        const saveBtn = document.getElementById('saveBtn');
+
+        async function loadProducts() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                list.innerHTML = "";
+                if (querySnapshot.empty) {
+                    list.innerHTML = "<p>لا توجد منتجات حتى الآن.</p>";
+                    return;
+                }
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    list.innerHTML += `
+                        <div class="product-item">
+                            <img src="${data.imageUrl}" alt="${data.name}">
+                            <div>
+                                <strong>${data.name}</strong><br>
+                                <small>${data.price} ج.م</small>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                list.innerHTML = "<p>حدث خطأ في تحميل المنتجات.</p>";
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('pImgFile');
+            const file = fileInput.files[0];
+
+            if(!file) {
+                alert("الرجاء اختيار صورة أولاً");
+                return;
+            }
+
+            msg.className = "";
+            msg.innerHTML = "جاري رفع الصورة وحفظ المنتج...";
+            saveBtn.disabled = true;
+
+            try {
+                // رفع الصورة لـ Firebase Storage
+                const storageRef = ref(storage, 'products/' + Date.now() + '_' + file.name);
+                const snapshot = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+
+                // حفظ بيانات المنتج في Firestore
+                await addDoc(collection(db, "products"), {
+                    name: document.getElementById('pName').value,
+                    price: parseFloat(document.getElementById('pPrice').value),
+                    imageUrl: downloadURL,
+                    createdAt: new Date()
+                });
+
+                msg.className = "status success";
+                msg.innerHTML = "تم إضافة المنتج ورفع الصورة بنجاح!";
+                form.reset();
+                loadProducts();
+            } catch (err) {
+                msg.className = "status error";
+                msg.innerHTML = "خطأ في الحفظ: " + err.message;
+            } finally {
+                saveBtn.disabled = false;
+            }
+        });
+
+        loadProducts();
+    </script>
+</body>
+</html>
