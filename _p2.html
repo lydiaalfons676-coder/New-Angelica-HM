@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>probe</title></head>
+<body>
+<div id="out">loading</div>
+<script src="script.js?v=9"></script>
+<script>
+var lines = [];
+lines.push('bagPageNames keys = ' + Object.keys(bagPageNames).length);
+lines.push('');
+lines.push('=== numbers with NO name (1..70) ===');
+var noName = [];
+for (var n = 1; n <= 70; n++) { if (!bagPageNames[n]) noName.push(n); }
+lines.push('  ' + (noName.length ? noName.join(', ') : 'none'));
+lines.push('');
+lines.push('=== full getBagLinkData table (1..70) ===');
+for (var n = 1; n <= 70; n++) {
+    var d = getBagLinkData(n);
+    var flag = '';
+    if (bagImageGaps.indexOf(n) !== -1) flag = ' [DECLARED GAP]';
+    if (!bagPageNames[n]) flag += ' [NO NAME]';
+    lines.push('  bag' + n + ' | name="' + d.name + '" | img=' + d.image + ' | page=' + d.page + flag);
+}
+lines.push('');
+lines.push('=== related pairs that LAND ON each number (who links to it) ===');
+for (var n = 1; n <= 70; n++) {
+    if (bagImageGaps.indexOf(n) !== -1) continue;
+    var sources = [];
+    for (var s = 1; s <= 70; s++) {
+        if (bagImageGaps.indexOf(s) !== -1) continue;
+        var nx = getNextBagNumbers(s, 2);
+        if (nx.indexOf(n) !== -1) sources.push(s);
+    }
+    if (!sources.length) lines.push('  bag' + n + ' is NEVER shown as a related card  <-- orphan');
+}
+document.getElementById('out').textContent = lines.join('\n');
+</script>
+</body>
+</html>

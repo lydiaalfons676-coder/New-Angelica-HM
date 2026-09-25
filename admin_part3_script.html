@@ -1,0 +1,212 @@
+  <script>
+    (function () {
+      'use strict';
+
+      const state = {
+        firestoreReady: false,
+        db: null
+      const $ = (id) => document.getElementById(id);
+
+      const connectionBadge     = $('connectionBadge');
+      const connectionStatusText = $('connectionStatusText');
+      const statsTotal          = $('statsTotal');
+      const statsRevenue        = $('statsRevenue');
+      const productsLoading     = $('productsLoading');
+      const productsError       = $('productsError');
+      const productsTable       = $('productsTable');
+      const productsTableBody   = $('productsTableBody');
+      const addProductForm      = $('addProductForm');
+      const productName         = $('productName');
+      const productPrice        = $('productPrice');
+      const productImageUrl     = $('productImageUrl');
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB_znwz4xxYzk65zYxlOnaL4zRQKI립8M",
+        authDomain: "angelica-handmade.firebaseapp.com",
+        projectId: "angelica-handmade",
+        storageBucket: "angelica-handmade.firebasestorage.app",
+        messagingSenderId: "144102986676",
+        appId: "1:144102986676:web:30b52e8d34c8ad1bc6d8e1",
+
+      function setConnectionStatus(type, message) {
+        connectionBadge.className = 'status-badge';
+        if (type === 'ok') {
+          connectionBadge.classList.add('status-ok');
+          connectionBadge.textContent = '✅ متصل';
+        } else if (type === 'error') {
+
+      productImageUrl.addEventListener('input', function () {
+        const url = this.value.trim();
+        if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+          imageUrlPreview.classList.remove('hidden');
+          imageUrlPreviewImg.src = url;
+
+      function initFirebase() {
+        setConnectionStatus('pending', 'جارٍ تهيئة Firebase...');
+
+        const loadScript = (src) => new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+
+        Promise.all([
+
+      function loadStats() {
+        if (!state.firestoreReady || !state.db) return;
+
+        state.db.collection('products').get()
+          .then(querySnapshot => {
+            const total = querySnapshot.size;
+
+      function loadProducts() {
+        productsLoading.classList.remove('hidden');
+        productsError.classList.add('hidden');
+        productsTable.classList.add('hidden');
+
+        if (!state.firestoreReady || !state.db) {
+          productsLoading.classList.add('hidden');
+          productsError.classList.remove('hidden');
+          productsError.textContent = 'Firestore غير متاح.';
+          return;
+        }
+
+        state.db.collection('products')
+          .orderBy('createdAt', 'desc')
+          .limit(100)
+          .get()
+          .then(querySnapshot => {
+            productsLoading.classList.add('hidden');
+            productsError.classList.add('hidden');
+
+            if (querySnapshot.empty) {
+              productsTableBody.innerHTML =
+                '<tr><td colspan="7" style="text-align:center; color:#888; padding:20px;">لا توجد منتجات حتى الآن</td></tr>';
+              productsTable.classList.remove('hidden');
+              return;
+            }
+
+            let html = '';
+            let index = 0;
+            querySnapshot.forEach(doc => {
+              index++;
+              const product = doc.data();
+              const dateStr = product.createdAt && product.createdAt.toDate
+                ? new Date(product.createdAt.toDate()).toLocaleDateString('ar-EG')
+                : '—';
+
+              const priceStr = product.price !== undefined && product.price !== null
+                ? product.price.toLocaleString('ar-EG', { style: 'currency', currency: 'SAR' })
+                : '—';
+
+              const imageUrl = product.imageUrl || '';
+              let imageHtml = '';
+              if (imageUrl) {
+                imageHtml = '<div class="product-img-cell"><img src="' + imageUrl +
+                  '" alt="' + (product.name || 'منتج') +
+                  '" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect width=%2280%22 height=%2280%22 fill=%22%23eee%22/%3E%3Ctext x=%2240%22 y=%2244%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2212%22%3Eلا توجد صورة%3C/text%3E%3C/svg%3E\'; this.onerror=null;\"></div>';
+              } else {
+                imageHtml = '<div class="product-img-cell"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect width=%2280%22 height=%2280%22 fill=%22%23eee%22/%3E%3Ctext x=%2240%22 y=%2244%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2212%22%3Eبدون صورة%3C/text%3E%3C/svg%3E" alt="بدون صورة"></div>';
+              }
+
+              const linkHtml = imageUrl
+                ? '<br><small style="color:#888;"><a href="' + imageUrl + '" target="_blank" class="product-link-cell">فتح الرابط</a></small>'
+                : '';
+
+              html += '<tr>' +
+                '<td>' + index + '</td>' +
+                '<td>' + imageHtml + linkHtml + '</td>' +
+                '<td><strong>' + (product.name || '—') + '</strong></td>' +
+                '<td>' + priceStr + '</td>' +
+                '<td>' + (product.category || '—') + '</td>' +
+                '<td>' + dateStr + '</td>' +
+                '<td>' +
+                '<button class="btn btn-danger" style="padding:4px 10px; font-size:12px;" ' +
+                'onclick="adminApp.deleteProduct(\'' + doc.id + '\')">حذف</button>' +
+                '</td>' +
+                '</tr>';
+            });
+
+            productsTableBody.innerHTML = html;
+            productsTable.classList.remove('hidden');
+          })
+          .catch(err => {
+            productsLoading.classList.add('hidden');
+            productsError.classList.remove('hidden');
+            productsError.textContent = 'خطأ في جلب المنتجات: ' + err.message;
+            console.error('[admin] loadProducts error:', err);
+          });
+      }
+
+            let totalRevenue = 0;
+            querySnapshot.forEach(doc => {
+              const product = doc.data();
+              if (product.price && typeof product.price === 'number') {
+                totalRevenue += product.price;
+              }
+            });
+            statsTotal.textContent = total;
+            statsRevenue.textContent = totalRevenue.toLocaleString('ar-EG', {
+              style: 'currency',
+              currency: 'SAR'
+            });
+          })
+          .catch(() => {
+            statsTotal.textContent = '—';
+            statsRevenue.textContent = '—';
+          });
+      }
+
+          loadScript('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js'),
+          loadScript('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js')
+        ])
+        .then(() => {
+          if (typeof firebase === 'undefined') {
+            throw new Error('فشل تحميل Firebase SDK');
+          }
+
+          if (firebase.apps.length === 0) {
+            firebase.initializeApp(firebaseConfig);
+          }
+
+          state.db = firebase.firestore();
+          state.firestoreReady = true;
+          setConnectionStatus('ok', 'متصل بـ Firestore بنجاح.');
+          loadStats();
+          loadProducts();
+        })
+        .catch(err => {
+          setConnectionStatus('error', 'فشل تحميل Firebase: ' + err.message);
+          console.error('[admin] Firebase init error:', err);
+        });
+      }
+
+          imageUrlPreviewText.textContent = url;
+        } else {
+          imageUrlPreview.classList.add('hidden');
+          imageUrlPreviewImg.src = '';
+          imageUrlPreviewText.textContent = '';
+        }
+      });
+
+          connectionBadge.classList.add('status-error');
+          connectionBadge.textContent = '❌ خطأ';
+        } else {
+          connectionBadge.classList.add('status-pending');
+          connectionBadge.textContent = '⏳ جارٍ...';
+        }
+        connectionStatusText.textContent = message;
+      }
+
+        measurementId: "G-0TJ3CTWKRM"
+      };
+      const productCategory     = $('productCategory');
+      const productDescription  = $('productDescription');
+      const imageUrlPreview     = $('imageUrlPreview');
+      const imageUrlPreviewImg  = $('imageUrlPreviewImg');
+      const imageUrlPreviewText = $('imageUrlPreviewText');
+      const formMessage         = $('formMessage');
+      const submitBtn           = $('submitBtn');
+      };

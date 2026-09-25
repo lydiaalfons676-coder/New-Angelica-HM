@@ -1,0 +1,52 @@
+liveBagNames count = 55
+bagPageNames total keys = 67
+
+=== bagPageNames 55..70 ===
+  55  Off White Sugar Crumbs Beaded Phone Pouch With Pearls
+  56  Silver Beaded Phone Pouch
+  57  Light Blue Cordon Bag With a Light Blue Satin Pouch
+  58  *** MISSING ***
+  59  Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color
+  60  Red Beaded Bag With Off White Sugar Crumbs Beads
+  61  Beige Jute Bag With a White Bow
+  62  Colorful Beaded Phone Pouch
+  63  Beige Cordon Bag
+  64  Beige Backpack
+  65  Off White Pearl Bag
+  66  Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch
+  67  Yellow and Green Cordon Bag
+  68  Baby Blue Cordon Bag
+  69  White Transparent Beaded Bag
+  70  Candy Cordon Bag - Customizable in Any Color
+
+=== missing names for existing images (1..70 minus gaps 7,37) ===
+  MISSING: 58
+
+=== bagN.html related-products vs expected next-two ===
+  bag56  MISMATCH
+        got hrefs : bag57.html  ///  bag58.html
+        exp hrefs : bag57.html  ///  bag58.html
+        got names : Light Blue Cordon Bag With a Light Blue Satin Pouch  ///  Orange Beaded Bag
+        exp names : Light Blue Cordon Bag With a Light Blue Satin Pouch  ///  
+  bag57  MISMATCH
+        got hrefs : bag58.html  ///  bag59.html
+        exp hrefs : bag58.html  ///  bag59.html
+        got names : Orange Beaded Bag  ///  Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color
+        exp names :   ///  Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color
+  pages with mismatched related products = 2
+
+=== product.html dynamic output (bags 63..70) ===
+  bag63 (Beige Cordon Bag)  ->  bag64 = Beige Backpack   ///   bag65 = Off White Pearl Bag
+  bag64 (Beige Backpack)  ->  bag65 = Off White Pearl Bag   ///   bag66 = Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch
+  bag65 (Off White Pearl Bag)  ->  bag66 = Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch   ///   bag67 = Yellow and Green Cordon Bag
+  bag66 (Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch)  ->  bag67 = Yellow and Green Cordon Bag   ///   bag68 = Baby Blue Cordon Bag
+  bag67 (Yellow and Green Cordon Bag)  ->  bag68 = Baby Blue Cordon Bag   ///   bag69 = White Transparent Beaded Bag
+  bag68 (Baby Blue Cordon Bag)  ->  bag69 = White Transparent Beaded Bag   ///   bag70 = Candy Cordon Bag - Customizable in Any Color
+  bag69 (White Transparent Beaded Bag)  ->  bag70 = Candy Cordon Bag - Customizable in Any Color   ///   bag1 = Havan Cordon Bag
+  bag70 (Candy Cordon Bag - Customizable in Any Color)  ->  bag1 = Havan Cordon Bag   ///   bag2 = Golden Pearl Bag
+
+=== the specific card the user asked about ===
+  Beige Jute Bag With a White Bow = bag61
+  its related products should be:
+     bag62 -> Colorful Beaded Phone Pouch
+     bag63 -> Beige Cordon Bag
