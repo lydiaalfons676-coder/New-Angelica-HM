@@ -22,9 +22,9 @@
         <div class="product-image">
             <img id="main-image" src="bag4.jpg" alt="Product image">
             <div class="gallery">
-                <img id="thumb-1" src="bag4.jpg" onclick="changeImage(this)">
-                <img id="thumb-2" src="bag4.jpg" onclick="changeImage(this)">
-                <img id="thumb-3" src="bag4.jpg" onclick="changeImage(this)">
+                <img id="thumb-1" src="bag4.jpg" onclick="changeImage(this)" onerror="this.src='bag4.jpg'">
+                <img id="thumb-2" src="bag4.jpg" onclick="changeImage(this)" onerror="this.src='bag4.jpg'">
+                <img id="thumb-3" src="bag4.jpg" onclick="changeImage(this)" onerror="this.src='bag4.jpg'">
             </div>
         </div>
 
@@ -120,19 +120,32 @@
         </div>
     </div>
 
-    <script src="script.js?v=6"></script>
+    <hr>
+
+<h3>👜 Related Products</h3>
+
+<div class="related-products" id="related-products"></div>   <!-- نهاية related-products -->
+
+<script src="script.js?v=9"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const productName = urlParams.get('name') || 'Product Details';
         const imageName = urlParams.get('image') || 'bag4.jpg';
+        const imageBase = imageName.replace(/\.jpg$/i, '');
+        const thumb2Src = `${imageBase}-2.jpg`;
+        const thumb3Src = `${imageBase}-3.jpg`;
 
         document.getElementById('product-name').textContent = productName;
         document.getElementById('page-product-name').textContent = productName;
-        document.getElementById('main-image').src = imageName;
-        document.getElementById('main-image').alt = productName;
+        const mainImage = document.getElementById('main-image');
+        mainImage.src = imageName;
+        mainImage.alt = productName;
         document.getElementById('thumb-1').src = imageName;
-        document.getElementById('thumb-2').src = imageName;
-        document.getElementById('thumb-3').src = imageName;
+        document.getElementById('thumb-2').src = thumb2Src;
+        document.getElementById('thumb-3').src = thumb3Src;
+        if (typeof setupProductGallery === 'function') {
+            setupProductGallery();
+        }
 
         const color = productName.includes('Gold') ? 'Gold' :
             productName.includes('White') ? 'White' :
@@ -141,6 +154,7 @@
             productName.includes('Brown') ? 'Brown' :
             productName.includes('Beige') ? 'Beige' :
             productName.includes('Yellow') ? 'Yellow' :
+            productName.includes('Gray') ? 'Gray' :
             'Handmade';
 
         document.getElementById('product-color').textContent = color;
@@ -151,29 +165,41 @@
             'Black Organza Bag': 'A refined black organza bag with a soft luxury feel and an elegant evening-ready finish.',
             'Pink Cord Bag': 'A refined pink cord bag with a soft luxury feel and elegant handcrafted finish.',
             'Beige Woven Tote': 'A natural beige woven tote with classic texture and a comfortable, stylish finish.',
-            'Black Beaded Bag With a Gold Metal Handle': 'Elegant black beaded bag with a polished gold metal handle and a refined handmade finish.',
+            'Black Beaded Handbag With a Gold Metal Handle': 'Elegant black beaded handbag with a polished gold metal handle and a refined handmade finish.',
             'Black Macrame Bag With Wooden Handles': 'Elegant black macrame bag with natural wooden handles and a refined handmade finish.',
-            'Off White Sugar Crumb and Pearl Bag': 'A refined off-white sugar crumb and pearl bag with a soft luxury feel and elegant finish.',
-            'Pink Cord Bag With Thin Gold Threads': 'A refined pink cord bag with delicate thin gold threads and an elegant handcrafted finish.',
-            'Black and Gray Cord Bag': 'Elegant black and gray cord bag with a refined handmade finish and a modern, versatile style.',
-            'Beige and Black Canvas Bag': 'Elegant beige and black canvas bag with a refined handmade finish and versatile everyday style.',
+            'Pink Cordon Bag': 'A refined pink cordon bag with a modern, versatile style and an elegant handmade finish.',
+            'Off White Bag Crafted From Sugar Crumbs Beads and Pearls': 'An elegant off-white bag crafted from sugar crumbs beads and premium pearls with a refined handmade finish.',
+            'Pink Cordon Bag With a Thin Gold Thread': 'An elegant pink cordon bag accented with a delicate thin gold thread and a refined handmade finish.',
+            'Black and Gray Cordon Bag': 'An elegant black and gray cordon bag with a refined handmade finish and a modern versatile style.',
+            'Beige and Black Canvas Bag': 'An elegant black and beige canvas bag with a refined handmade finish and versatile everyday style.',
             'Small Petrol Blue Macrame Bag': 'A small petrol blue macrame bag with a refined handmade finish and a distinctive modern style.',
-            'Yellow Cord Bag': 'A bright yellow cord bag with a refined handmade finish and a cheerful, elegant style.',
-            'Burgundy Acrylic Evening Bag With Beaded Side Panels and Satin Handles': 'A glamorous burgundy acrylic evening bag with beaded side panels and elegant satin handles.',
-            'Black Beaded Bag With Gold Metal Strap': 'Elegant black beaded bag with a polished gold metal strap and a refined handmade finish.',
+            'Mustard Yellow Cordon Bag': 'A stylish mustard yellow cordon bag with a refined handmade finish and a rich, elegant color.',
+            'Acrylic Bag With Burgundy Beaded Edges and a Satin Handle': 'An elegant acrylic bag with burgundy beaded edges and a refined satin handle.',
+            'Black Beaded Bag': 'An elegant black beaded bag with a refined handmade finish and a polished look.',
+            'Colorful Beaded Phone Pouch': 'A stylish phone pouch decorated with colorful beads and a playful handcrafted finish.',
             'Beige Burlap Bag With Round Wooden Side Panels': 'A natural beige burlap bag with round wooden side panels and a refined handmade finish.',
-            'Black Corded Clutch Accented With Fine Gold Threads': 'An elegant black corded clutch accented with fine gold threads and a refined handmade finish.',
-            'Black and Beige Canvas Box': 'A stylish black and beige canvas box bag with a structured shape and refined handmade finish.',
-            'Blue Velvet Beaded Purse': 'A luxurious blue velvet beaded purse with a soft texture and elegant handcrafted finish.',
-            'Black Cord Bag With Gold Metal Handle': 'An elegant black cord bag with a polished gold metal handle and a refined handmade finish.',
-            'Off White Bag Crafted From Sparkling Sugar Beads Applied With Shiny Golden Glass Beads': 'An elegant off-white bag crafted from sparkling sugar beads and embellished with shiny golden glass beads.',
-            'Yellow Cordovan Leather Bag With a Pouch': 'A stylish yellow cordovan leather bag with a practical pouch and a refined finish.',
-            'Beige Cord Bag': 'A refined beige cord bag with a soft handmade texture and an elegant versatile style.',
-            'Red Corded Bag With Black Satin Bows': 'A striking red corded bag decorated with elegant black satin bows and a refined handmade finish.',
-            'Crystal Sugar Crumbs Beads and Premium Pearl Beads With White Satin Dust Bag': 'An elegant piece made with crystal sugar crumb beads and premium pearl beads, presented with a white satin dust bag.',
-            'Transparent Hexagonal Beaded Clutch With Large Lavender Bow': 'A sophisticated transparent hexagonal beaded clutch finished with a large lavender bow.',
-            'Pink Injected Bead Bag': 'A delicate pink injected bead bag with an elegant handmade finish and graceful style.',
-            'Children\'s Acrylic Purses With Pearl Sides': 'Charming acrylic purses for children with elegant pearl sides and a playful, polished finish.',
+            'Black Cordon Bag With a Thin Gold Thread': 'An elegant black cordon bag accented with a delicate thin gold thread and a refined handmade finish.',
+            'Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request': 'Phone cases available in black, mustard, beige, and gray, with other colors available on request.',
+            'Blue Velvet Beaded Bag': 'A luxurious blue velvet beaded bag with a refined handmade finish and a soft elegant texture.',
+            'Beige Cordon Bag': 'A stylish beige cordon bag with a refined handmade finish and a soft elegant texture.',
+            'Beige Backpack': 'A stylish beige backpack with a practical design and a refined handmade finish.',
+            'Off White Pearl Bag': 'An elegant off-white pearl bag with a polished finish and refined handmade detail.',
+            'Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch': 'An elegant acrylic bag with lavender beaded edges and a luxurious purple satin pouch.',
+            'Light Blue Cordon Bag With a Light Blue Satin Pouch': 'An elegant light blue cordon bag paired with a light blue satin pouch and a refined handmade finish.',
+            'Silver Beaded Phone Pouch': 'A stylish silver beaded phone pouch with a refined handmade finish and an elegant shimmering look.',
+            'Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads': 'An elegant off-white pearl bag with a spiral handle made of golden glass beads and a refined handmade finish.',
+            'Off White Sugar Crumbs Beaded Phone Pouch With Pearls': 'An elegant off-white beaded phone pouch crafted with sugar crumbs beads and premium pearls.',
+            'Burgundy Velvet Beaded Bag': 'A luxurious burgundy velvet beaded bag with a refined handmade finish and a rich elegant texture.',
+            'Pink Organza Bag': 'A delicate pink organza bag with a soft elegant texture and a refined handmade finish.',
+            'Light Beige Cordon Bag With Its Matching Hat': 'A stylish light beige cordon bag paired with its matching hat and a refined handmade finish.',
+            'Cocoa Cordon Bag': 'A rich cocoa cordon bag with a refined handmade finish and an elegant soft texture.',
+            'Fuchsia Cordon Bag With a Short White Pearl Handle': 'A vibrant fuchsia cordon bag with a short white pearl handle and a refined handmade finish.',
+            'Off White Sugar Crumbs Beaded Bag': 'An elegant off-white beaded bag crafted from sugar crumbs beads with a refined handmade finish.',
+            'Red Beaded Bag With Off White Sugar Crumbs Beads': 'An elegant red beaded bag decorated with off-white sugar crumbs beads and a refined handmade finish.',
+            'Beige Jute Bag With a White Bow': 'A stylish beige jute bag decorated with an elegant white bow and a refined handmade finish.',
+            'Yellow Cordon Bag': 'A bright yellow cordon bag with a refined handmade finish and a cheerful elegant style.',
+            'Red Cordon Bag': 'A striking red cordon bag with a refined handmade finish and an elegant style.',
+            'Light Beige Cordon Bag': 'A stylish light beige cordon bag with a refined handmade finish and a soft elegant texture.',
             'Blue Floral Corded Bag With a Colorful Injected Beaded Flap Handle': 'A charming blue floral corded bag with a colorful injected beaded flap handle and a refined handmade finish.',
             'Gray Velvet Beaded Bag With Silver Beads': 'An elegant gray velvet beaded bag decorated with refined silver beads and a luxurious handmade finish.',
             'Beaded Phone Pouch With Colorful Beads': 'A stylish beaded phone pouch decorated with colorful beads and a playful handcrafted finish.',
@@ -182,22 +208,48 @@
             'Jute Bag With Black': 'A natural jute bag with elegant black detailing and a refined handmade finish.',
             'Leaf Gold Handbag': 'Light gold handbag with a natural shimmer and elegant detailing.',
             'Clear Acrylic Hexagonal Beaded Bag': 'A sophisticated clear acrylic hexagonal beaded bag with a sparkling, elegant finish.',
-            'Black and Fuchsia Cord Bag': 'A stylish black and fuchsia cord bag with a vibrant contrast and refined handmade finish.',
+            'Black and Fuchsia Cordon Bag': 'A stylish black and fuchsia cordon bag with a vibrant contrast and refined handmade finish.',
             'Maroon and Beige Cord-Thread Bag With Its Matching Hat': 'A stylish maroon and beige cord-thread bag paired with its matching hat and a refined handmade finish.',
             'Fuchsia Phone Case With Lanyard': 'A vibrant fuchsia phone case with a practical lanyard and a stylish handmade finish.',
             'Black Phone Case With Lanyard': 'A sleek black phone case with a practical lanyard and a refined stylish finish.',
             'Black and Gold Thin Striped Phone Case With Lanyard': 'A stylish black and gold thin striped phone case with a practical lanyard and elegant finish.',
-            'Canary Yellow Crossbody Phone Case With Lanyard Cord': 'A cheerful canary yellow crossbody phone case with a practical lanyard cord and stylish finish.',
+            'شنطه بيج في فوشيا كوردون بالبرنيطة بتاعتها': 'A cheerful canary yellow crossbody phone case with a practical lanyard cord and stylish finish.',
             'Jute and Cordon Cord Clutch With Colorful Cordon Loops': 'A distinctive jute and cord clutch decorated with colorful cordon loops and a refined handmade finish.',
             'Phone Case With Cord Lanyard': 'A stylish phone case with a practical cord lanyard and a refined handmade finish.',
-            'Beige and Coffee Cordon Bag': 'A refined beige and coffee cordon bag with a warm color combination and elegant handmade finish.',
-            'Beige Drawstring Bag With Its Matching Hat': 'A stylish beige drawstring bag paired with its matching hat and a refined handmade finish.',
-            'Burlap Cord Bag With Black and White': 'A stylish burlap cord bag featuring elegant black and white details with a refined handmade finish.',
-            'Beige Cord Bag': 'A refined beige cord bag with a soft handmade texture and an elegant versatile style.',
-            'Pink Cord Bag With Pearl Bead Short and Long Straps': 'A refined pink cord bag with pearl beads and short and long straps, finished with an elegant handcrafted look.'
+            'Black Phone Pouch With a Thin Gold Thread': 'A sleek black phone pouch accented with a delicate thin gold thread and a refined handmade finish.',
+            'Butter Yellow Cordon Phone Pouch': 'A stylish butter yellow cordon phone pouch with a refined handmade finish and a cheerful elegant color.',
+            'Beige Jute Clutch With Multicolored Loops - Customizable on Request': 'A stylish beige jute clutch decorated with multicolored loops, customizable according to your taste.',
+            'Orange Beaded Bag': 'A vibrant orange beaded bag with a refined handmade finish and an elegant style.',
+            'Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request': 'Phone cases available in black, mustard, beige, and gray, with other colors available on request.',
+            'Beige and Coffee Cordon Bag With Matching Hat Available on Request': 'A refined beige and coffee cordon bag with its matching hat available on request and an elegant handmade finish.',
+            'Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color': 'A stylish beige and pink cordon bag with its matching clutch, customizable in any color according to your taste.',
+            'White Transparent Beaded Bag': 'An elegant handmade bag crafted from clear transparent white beads with a refined sparkling finish that complements any look.',
+            'Candy Cordon Bag - Customizable in Any Color': 'A charming handmade candy-striped cordon bag with cheerful multicolored stripes, gold-detailed handles and a long comfortable strap, available in any color of your choice.',
+            'شنطه خرز ابيض شفاف': 'An elegant handmade bag crafted from clear transparent white beads with a refined sparkling finish that complements any look.'
         };
 
         document.getElementById('product-description').textContent = detailedDescription[productName] || 'Elegant handmade bag with a unique style and premium finishing, designed to match your taste and personality.';
+
+        // الريليتد بروداكتس: الصورتين اللى بعد صورة المنتج الحالى بنفس ترتيب الكروت (زى صفحات الـ bagN.html)
+        const relatedBox = document.getElementById('related-products');
+
+        if (relatedBox && typeof getNextBagNumbers === 'function' && typeof getBagLinkData === 'function') {
+
+            getNextBagNumbers(getBagNumberFromImage(imageName), 2).forEach(function (bagNumber) {
+
+                const related = getBagLinkData(bagNumber);
+
+                const card = document.createElement('div');
+                card.className = 'related-card';
+                card.innerHTML =
+                    '<a href="' + related.page + '">' +
+                    '<img src="' + related.image + '" alt="' + related.name + '">' +
+                    '<p>' + related.name + '</p>' +
+                    '</a>';
+
+                relatedBox.appendChild(card);
+            });
+        }
     </script>
 </body>
 </html>

@@ -22,7 +22,8 @@ document.addEventListener("dragstart", function (event) {
 });
 
 let cart = [];
-const reviews = document.querySelectorAll(".review-card");
+const reviewsSlider = document.querySelector(".reviews .slider, section.reviews .slider");
+const reviews = reviewsSlider ? reviewsSlider.querySelectorAll(".review-card") : [];
 
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
@@ -35,14 +36,14 @@ function showReview(index){
         review.style.display = "none";
     });
 
-    reviews[index].style.display = "block";
+    if (reviews[index]) reviews[index].style.display = "block";
 }
 
 if (reviews.length > 0) {
     showReview(current);
 }
 
-if (next) {
+if (next && reviews.length > 0) {
 
     next.onclick = function(){
 
@@ -58,7 +59,7 @@ if (next) {
 
 }
 
-if (prev) {
+if (prev && reviews.length > 0) {
 
     prev.onclick = function(){
 
@@ -147,6 +148,8 @@ if (cartTotalEl) cartTotalEl.innerHTML = total;
 
 }
 function buyProduct(productName, price, image) {
+    productName = getCanonicalProductName(productName, image);
+
     if (welcomeMessage(productName)) {
         let existingProduct = cartItems.find(function(item){
             return item.name === productName;
@@ -175,6 +178,32 @@ function buyProductAndGo(productName, price, image, targetPage) {
         setTimeout(function() {
             window.location.href = targetPage;
         }, 50);
+    }
+}
+
+function addToCartDirect(productName, price, image, targetPage) {
+    productName = getCanonicalProductName(productName, image);
+
+    let existingProduct = cartItems.find(function(item){
+        return item.name === productName;
+    });
+
+    if (existingProduct) {
+        existingProduct.quantity++;
+    } else {
+        cartItems.push({
+            name: productName,
+            price: price,
+            image: image,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    addToCart();
+
+    if (targetPage) {
+        window.location.href = targetPage;
     }
 }
 
@@ -218,29 +247,54 @@ function orderWhatsApp(){
     shareOrderWithImages(message, imageUrls);
 
 }
-async function shareOrderWithImages(message, imageUrls){
+function openOrderOnWhatsApp(message){
 
-    try {
-        const files = [];
+    const whatsappUrl = "https://wa.me/" + whatsappPhoneNumber + "?text=" + encodeURIComponent(message);
 
-        for (const imageUrl of imageUrls) {
-            const response = await fetch(imageUrl);
-            if (!response.ok) throw new Error("Image could not be loaded");
+    // فتح واتساب فوراً وبشكل متزامن بدون أي انتظار عشان المتصفح مايحجبش النافذة الجديدة
+    const orderWindow = window.open(whatsappUrl, "_blank");
 
-            const blob = await response.blob();
-            const fileName = imageUrl.split("/").pop().split("?")[0] || "product-image.jpg";
-            files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
-        }
-
-        if (navigator.share && navigator.canShare && navigator.canShare({ files })) {
-            await navigator.share({ text: message, files: files });
-            return;
-        }
-    } catch (error) {
-        if (error.name === "AbortError") return;
+    // لو المتصفح حجب النافذة الجديدة نفتح واتساب في نفس التاب
+    if (!orderWindow) {
+        window.location.href = whatsappUrl;
     }
 
-    window.open("https://wa.me/" + whatsappPhoneNumber + "?text=" + encodeURIComponent(message), "_blank");
+}
+// بيبعت رسالة الواتساب مع صورة المنتج نفسها (مش لينك) عشان الصورة تظهر لصاحب الموقع
+// لو المتصفح مش بيدعم مشاركة الصور، بيرجع تلقائياً لرسالة واتساب العادية اللي فيها لينك الصورة
+async function shareOrderWithImages(message, imageUrls){
+
+    const isHttp = /^https?:$/i.test(window.location.protocol);
+    const urls = Array.isArray(imageUrls) ? imageUrls.filter(Boolean) : [];
+
+    if (isHttp && urls.length && navigator.share && navigator.canShare) {
+
+        try {
+
+            const files = [];
+
+            for (const imageUrl of urls) {
+                const response = await fetch(imageUrl);
+                if (!response.ok) throw new Error("Image could not be loaded");
+
+                const blob = await response.blob();
+                const fileName = decodeURIComponent(imageUrl.split("/").pop().split("?")[0]) || "product-image.jpg";
+                files.push(new File([blob], fileName, { type: blob.type || "image/jpeg" }));
+            }
+
+            if (files.length && navigator.canShare({ files: files })) {
+                await navigator.share({ text: message, files: files });
+                return;
+            }
+
+        } catch (error) {
+            // لو المستخدم قفل الشيت بنفسه منبعتش رسالة تانية
+            if (error.name === "AbortError") return;
+        }
+
+    }
+
+    openOrderOnWhatsApp(message);
 
 }
 function removeItem(index){
@@ -269,6 +323,8 @@ function toggleFavorite(element){
 
     let icon = element.querySelector("i");
     let productName = element.dataset.product;
+    let productImage = element.closest(".product-card")?.querySelector("img")?.getAttribute("src");
+    productName = getCanonicalProductName(productName, productImage);
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 console.log(favorites);
@@ -293,11 +349,237 @@ localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
 }
+const liveBagNames = [
+    "Havan Cordon Bag",
+    "Golden Pearl Bag",
+    "Gold Metallic Canvas Bag",
+    "Canary Yellow Organza Bag",
+    "Black Organza Bag",
+    "Pink Cordon Bag",
+    "Black Beaded Handbag With a Gold Metal Handle",
+    "Black Macrame Bag With Wooden Handles",
+    "Off White Bag Crafted From Sugar Crumbs Beads and Pearls",
+    "Pink Cordon Bag With a Thin Gold Thread",
+    "Black and Gray Cordon Bag",
+    "Beige and Black Canvas Bag",
+    "Small Petrol Blue Macrame Bag",
+    "Mustard Yellow Cordon Bag",
+    "Acrylic Bag With Burgundy Beaded Edges and a Satin Handle",
+    "Black Beaded Bag",
+    "Beige Burlap Bag With Round Wooden Side Panels",
+    "Black Cordon Bag With a Thin Gold Thread",
+    "Beige and Black Canvas Bag",
+    "Blue Velvet Beaded Bag",
+    "Black Cordon Bag With a Thin Gold Thread",
+    "Off White Sugar Crumbs Beaded Bag",
+    "Yellow Cordon Bag",
+    "Light Beige Cordon Bag",
+    "Red Cordon Bag",
+    "Off White Sugar Crumbs Beaded Bag With Pearls",
+    "White Beaded Bag With a Large Lavender Bow Made of Injected Beads",
+    "Pink Bag Made of Injected Beads",
+    "Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes",
+    "Blue Cordon Bag With a Beaded Flap and Handle",
+    "Gray Velvet Beaded Bag With Silver Beads",
+    "Phone Pouch With Multicolored Beads",
+    "Black Beaded Bag",
+    "Off-White Pearl Bag With an Elegant Metal Clasp",
+    "Jute Bag With Black",
+    "Black Acrylic Bag With Clear White Beaded Sides",
+    "Black and Fuchsia Cordon Bag",
+    "Beige and Burgundy Cordon Bag With Its Matching Hat",
+    "Fuchsia Cordon Phone Pouch",
+    "Black Cordon Phone Pouch",
+    "Black Phone Pouch With a Thin Gold Thread",
+    "Butter Yellow Cordon Phone Pouch",
+    "Beige Jute Clutch With Multicolored Loops - Customizable on Request",
+    "Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request",
+    "Beige and Coffee Cordon Bag With Matching Hat Available on Request",
+    "Light Beige Cordon Bag With Its Matching Hat",
+    "Cocoa Cordon Bag",
+    "Beige Cordon Bag",
+    "Fuchsia Cordon Bag With a Short White Pearl Handle",
+    "Pink Organza Bag",
+    "Burgundy Velvet Beaded Bag",
+    "Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads",
+    "Off White Sugar Crumbs Beaded Phone Pouch With Pearls",
+    "Silver Beaded Phone Pouch",
+    "Light Blue Cordon Bag With a Light Blue Satin Pouch"
+];
+
+// Keep every product-page title synchronized with the name shown on its card.
+const bagPageNames = {};
+
+liveBagNames.forEach(function (name, index) {
+    const bagNumber = index < 6 ? index + 1 : index < 35 ? index + 2 : index + 3;
+    bagPageNames[bagNumber] = name;
+});
+
+Object.assign(bagPageNames, {
+    58: "Orange Beaded Bag",
+    59: "Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color",
+    60: "Red Beaded Bag With Off White Sugar Crumbs Beads",
+    61: "Beige Jute Bag With a White Bow",
+    62: "Colorful Beaded Phone Pouch",
+    63: "Beige Cordon Bag",
+    64: "Beige Backpack",
+    65: "Off White Pearl Bag",
+    66: "Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch",
+    67: "Yellow and Green Cordon Bag",
+    68: "Baby Blue Cordon Bag",
+    69: "White Transparent Beaded Bag",
+    70: "Candy Cordon Bag - Customizable in Any Color"
+});
+
+// أرقام صور الشنط الموجودة فعلاً: من 1 لـ 70 (صورة رقم 1 اسمها bag.jpg) وفيها فجوتين: 7 و 37
+const bagImageGaps = [7, 37];
+const lastBagNumber = 70;
+
+// بيرجّع أرقام الصور اللى بعد صورة المنتج الحالى بنفس ترتيب الكروت (وبيلف من الأول بعد آخر صورة)
+function getNextBagNumbers(bagNumber, count){
+    const numbers = [];
+    const wanted = count || 2;
+    const total = lastBagNumber;
+
+    if (!bagNumber || bagNumber < 1 || bagNumber > total) return numbers;
+
+    let current = bagNumber;
+
+    for (let step = 0; step < total && numbers.length < wanted; step++) {
+        current = current >= total ? 1 : current + 1;
+        if (bagImageGaps.indexOf(current) === -1) numbers.push(current);
+    }
+
+    return numbers;
+}
+
+// بيرجّع بيانات صورة شنطة معينة (اللينك + الصورة + الاسم) عشان الريليتد بروداكتس
+function getBagLinkData(bagNumber){
+    const image = bagNumber === 1 ? "bag.jpg" : `bag${bagNumber}.jpg`;
+    const name = bagPageNames[bagNumber] || `Bag ${bagNumber}`;
+    const page = bagNumber <= 62 ?
+        `bag${bagNumber}.html` :
+        `product.html?name=${encodeURIComponent(name)}&image=${image}`;
+
+    return { number: bagNumber, image: image, name: name, page: page };
+}
+
+function syncProductPageName() {
+    const match = window.location.pathname.match(/bag(\d+)\.html$/i);
+    if (!match) return;
+
+    const productName = bagPageNames[Number(match[1])];
+    if (!productName) return;
+
+    document.title = `${productName} | Angelica Handmade`;
+
+    const heading = document.querySelector(".product-details h1");
+    if (heading) heading.textContent = productName;
+
+    const breadcrumbParts = document.querySelectorAll(".breadcrumb span");
+    const currentProduct = breadcrumbParts[breadcrumbParts.length - 1];
+    if (currentProduct) currentProduct.textContent = productName;
+
+    const image = document.getElementById("main-image");
+    if (image) image.alt = productName;
+}
+
+function getBagNumberFromImage(imageSource) {
+    const source = String(imageSource || "");
+    if (/(?:^|\/)bag\.jpg(?:$|[?#])/i.test(source)) return 1;
+
+    const match = source.match(/bag(\d+)\.jpg(?:$|[?#])/i);
+    return match ? Number(match[1]) : null;
+}
+
+function getCanonicalProductName(productName, imageSource) {
+    const bagNumber = getBagNumberFromImage(imageSource);
+    return bagNumber && bagPageNames[bagNumber] ? bagPageNames[bagNumber] : productName;
+}
+
+function syncStoredProductNames() {
+    const mergedCartItems = [];
+
+    cartItems.forEach(function (item) {
+        const normalizedItem = {
+            ...item,
+            name: getCanonicalProductName(item.name, item.image)
+        };
+        const existingItem = mergedCartItems.find(function (savedItem) {
+            return savedItem.name === normalizedItem.name && savedItem.image === normalizedItem.image;
+        });
+
+        if (existingItem) {
+            existingItem.quantity += normalizedItem.quantity;
+        } else {
+            mergedCartItems.push(normalizedItem);
+        }
+    });
+
+    cartItems = mergedCartItems;
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    const mergedFavorites = [];
+    favoriteProducts.forEach(function (product) {
+        const normalizedProduct = {
+            ...product,
+            name: getCanonicalProductName(product.name, product.image)
+        };
+
+        if (!mergedFavorites.some(function (savedProduct) {
+            return savedProduct.name === normalizedProduct.name;
+        })) {
+            mergedFavorites.push(normalizedProduct);
+        }
+    });
+
+    favoriteProducts = mergedFavorites;
+    saveFavoriteProducts();
+}
+
+function syncProductCardNames() {
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach(function(card, index) {
+        const desiredName = liveBagNames[index] || card.querySelector("h3")?.textContent.trim();
+
+        if (!desiredName) return;
+
+        const heading = card.querySelector("h3");
+        if (heading) heading.textContent = desiredName;
+
+        const image = card.querySelector("img");
+        if (image) image.alt = desiredName;
+
+        const favoriteBtn = card.querySelector(".favorite-btn");
+        if (favoriteBtn) favoriteBtn.setAttribute("data-product", desiredName);
+
+        const button = card.querySelector(".buy-btn");
+        if (button) {
+            const imageName = image ? image.getAttribute("src") : "";
+            const priceMatch = button.getAttribute("onclick")?.match(/buyProduct\('([^']+)',\s*([0-9.]+),\s*'([^']+)'/i);
+            const directPriceMatch = button.getAttribute("onclick")?.match(/addToCartDirect\('([^']+)',\s*([0-9.]+),\s*'([^']+)'/i);
+            const targetMatch = button.getAttribute("onclick")?.match(/window\.location='([^']+)'/i);
+            const price = priceMatch ? priceMatch[2] : (directPriceMatch ? directPriceMatch[2] : "0");
+            const target = targetMatch ? targetMatch[1] : "index.html";
+
+            button.setAttribute(
+                "onclick",
+                `event.stopPropagation(); buyProductAndGo(${JSON.stringify(desiredName)}, ${price}, ${JSON.stringify(imageName)}, ${JSON.stringify(target)});`
+            );
+        }
+    });
+}
+
 window.addEventListener("load", function () {
     favoriteProducts = getStoredFavoriteProducts();
+    syncProductCardNames();
+    syncStoredProductNames();
     syncFavoriteButtons();
     renderFavorites();
     updateFavoriteCount();
+    syncProductPageName();
+    setupProductGallery();
 });
 const searchInput = document.getElementById("searchInput");
 
@@ -372,61 +654,100 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
     document.body.dataset.extraGalleryLoaded = "true";
 
     const productNames = [
-        "Canary Yellow Organza Bag",
-        "Black Organza Bag",
-        "Pink Cord Bag",
-        "Beige Woven Tote",
-        "Black Beaded Bag With a Gold Metal Handle",
-        "Black Macrame Bag With Wooden Handles",
-        "Off White Sugar Crumb and Pearl Bag",
-        "Pink Cord Bag With Thin Gold Threads",
-        "Black and Gray Cord Bag",
-        "Beige and Black Canvas Bag",
-        "Small Petrol Blue Macrame Bag",
-        "Yellow Cord Bag",
-        "Burgundy Acrylic Evening Bag With Beaded Side Panels and Satin Handles",
-        "Black Beaded Bag With Gold Metal Strap",
+        "Organza Ribbon Bag",
+        "Pearl Evening Bag",
+        "Pearl Crossbody",
+        "Beaded Evening Bag",
+        "Organza Clutch",
         "Beige Burlap Bag With Round Wooden Side Panels",
-        "Black Corded Clutch Accented With Fine Gold Threads",
-        "Black and Beige Canvas Box",
-        "Blue Velvet Beaded Purse",
-        "Black Cord Bag With Gold Metal Handle",
-        "Off White Bag Crafted From Sparkling Sugar Beads Applied With Shiny Golden Glass Beads",
-        "Yellow Cordovan Leather Bag With a Pouch",
-        "Beige Cord Bag",
-        "Red Corded Bag With Black Satin Bows",
-        "Crystal Sugar Crumbs Beads and Premium Pearl Beads With White Satin Dust Bag",
-        "Transparent Hexagonal Beaded Clutch With Large Lavender Bow",
-        "Pink Injected Bead Bag",
-        "Children's Acrylic Purses With Pearl Sides",
+        "Canvas Mini Bag",
+        "Fluffy Crossbody",
+        "Metallic Tote",
+        "Beaded Tote",
+        "Pearl Clutch",
+        "Organza Shoulder Bag",
+        "Cord Mini Bag",
+        "Fluffy Clutch",
+        "Canvas Crossbody",
+        "Metallic Shoulder Bag",
+        "Beaded Crossbody",
+        "Pearl Tote",
+        "Organza Crossbody",
+        "Cord Tote",
+        "Fluffy Mini Bag",
+        "Canvas Shoulder Bag",
+        "Red Cordon Bag",
+        "Off White Sugar Crumbs Beaded Bag With Pearls",
+        "Pearl Mini Bag",
+        "Cord Wristlet",
+        "Fluffy Wristlet",
+        "Canvas Wristlet",
+        "Metallic Wristlet",
+        "Beaded Mini Bag",
+        "Pearl Wristlet",
+        "Organza Wristlet",
+        "Cord Evening Bag",
+        "Fluffy Evening Bag",
+        "Canvas Evening Bag",
+        "Black and Fuchsia Cordon Bag",
+        "شنطه بيج فى فوشيا كوردون بالبرنيطه بتاعتها",
+        "Pearl Evening Clutch",
+        "Organza Evening Clutch",
+        "Cord Clutch",
+        "Canvas Clutch",
+        "Beige Jute Clutch With Multicolored Loops - Customizable on Request",
+        "Beaded Clutch",
+        "Pearl Clutch",
+        "Organza Clutch",
+        "Cord Shopper",
+        "Black Organza Bag",
+        "Pink Cordon Bag",
+        "Black Beaded Handbag With a Gold Metal Handle",
+        "Black Macrame Bag With Wooden Handles",
+        "Off White Bag Crafted From Sugar Crumbs Beads and Pearls",
+        "Pink Cordon Bag With a Thin Gold Thread",
+        "Black and Gray Cordon Bag",
+        "Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request",
+        "Orange Beaded Bag",
+        "Mustard Yellow Cordon Bag",
+        "Acrylic Bag With Burgundy Beaded Edges and a Satin Handle",
+        "Black Beaded Bag",
+        "Colorful Beaded Phone Pouch",
+        "Black Cordon Bag With a Thin Gold Thread",
+        "Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request",
+        "Blue Velvet Beaded Bag",
+        "Black Cordon Bag With a Thin Gold Thread",
+        "Off White Sugar Crumbs Beaded Bag",
+        "Yellow Cordon Bag",
+        "Light Beige Cordon Bag",
         "Blue Floral Corded Bag With a Colorful Injected Beaded Flap Handle",
+        "Off White Sugar Crumbs Beaded Bag With Pearls",
+        "White Beaded Bag With a Large Lavender Bow Made of Injected Beads",
+        "Pink Bag Made of Injected Beads",
+        "Off-White Pearl Acrylic Kids' Bag — Available in Any Color and Other Shapes",
+        "Blue Cordon Bag With a Beaded Flap and Handle",
         "Gray Velvet Beaded Bag With Silver Beads",
-        "Beaded Phone Pouch With Colorful Beads",
-        "Black Beaded Box Purse",
-        "Off White Pearl Beaded Bag",
+        "Phone Pouch With Multicolored Beads",
+        "Black Beaded Bag",
+        "Off-White Pearl Bag With an Elegant Metal Clasp",
         "Jute Bag With Black",
-        "Leaf Gold Handbag",
-        "Clear Acrylic Hexagonal Beaded Bag",
-        "Black and Fuchsia Cord Bag",
-        "Maroon and Beige Cord-Thread Bag With Its Matching Hat",
-        "Fuchsia Phone Case With Lanyard",
-        "Black Phone Case With Lanyard",
+        "Black Acrylic Bag With Clear White Beaded Sides",
         "Black and Gold Thin Striped Phone Case With Lanyard",
-        "Canary Yellow Crossbody Phone Case With Lanyard Cord",
-        "Jute and Cordon Cord Clutch With Colorful Cordon Loops",
-        "Phone Case With Cord Lanyard",
-        "Beige and Coffee Cordon Bag",
-        "Beige Drawstring Bag With Its Matching Hat",
-        "Burlap Cord Bag With Black and White",
-        "Beige Cord Bag",
-        "Pink Cord Bag With Pearl Bead Short and Long Straps",
-        "Pink Organza Pouch",
-        "Maroon Velvet Beaded Bag",
-        "Golden Glass Bead Faux Pearl Bag with a Spiral Handle",
-        "Off White Sugar Texture and Pearl Beaded Phone Strap",
-        "Silver Beaded Phone Case",
-        "Blue Gray Cord Bag With Satin Pouch",
-        "Orange Beaded Bag With a Beaded Handle"
+        "شنطه بيج في فوشيا كوردون بالبرنيطة بتاعتها",
+        "Fuchsia Cordon Phone Pouch",
+        "Black Cordon Phone Pouch",
+        "Black Phone Pouch With a Thin Gold Thread",
+        "Butter Yellow Cordon Phone Pouch",
+        "Beige Jute Clutch With Multicolored Loops - Customizable on Request",
+        "Phone Cases in Black, Mustard, Beige and Gray - Other Colors Available on Request",
+        "Beige and Coffee Cordon Bag With Matching Hat Available on Request",
+        "Light Beige Cordon Bag With Its Matching Hat",
+        "Cocoa Cordon Bag",
+        "Beige Cordon Bag",
+        "Fuchsia Cordon Bag With a Short White Pearl Handle",
+        "Pink Organza Bag",
+        "Burgundy Velvet Beaded Bag",
+        "Off White Pearl Bag With a Spiral Handle Made of Golden Glass Beads"
     ];
 
     const productDetails = [
@@ -501,19 +822,28 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
         850, 870, 890, 900, 920, 940, 960
     ];
 
-    for (let i = 4; i <= 62; i++) {
-        if (i === 7 || i === 37) continue;
+    for (let i = 4; i <= 66; i++) {
+        if (i === 4 || i === 7 || i === 37) continue;
 
-        const productName = i === 59 ? "Pink and Jute Cord Bag" :
-            i === 60 ? "Red Beaded Bag with White Sugar Crumbs" :
-            i === 61 ? "Beige Jute Bag with a White Satin Bow" :
-            i === 62 ? "Ganga Beaded Phone Case" :
+        const productName = i === 59 ? "Beige and Pink Cordon Bag With Its Clutch - Customizable in Any Color" :
+            i === 60 ? "Red Beaded Bag With Off White Sugar Crumbs Beads" :
+            i === 61 ? "Beige Jute Bag With a White Bow" :
+            i === 63 ? "Beige Cordon Bag" :
+            i === 64 ? "Beige Backpack" :
+            i === 65 ? "Off White Pearl Bag" :
+            i === 66 ? "Acrylic Bag With Lavender Beaded Edges and a Purple Satin Pouch" :
             (productNames[i - 4] || `Bag ${i}`);
-        const imageName = `bag${i}.jpg`;
+        const imageName = i === 5 ?
+            "image-backup-before-watermark/bag5.jpg" :
+            `bag${i}.jpg`;
         const price = productPrices[i - 4] || 500;
+        const detailPage = i >= 63 ?
+            `product.html?name=${encodeURIComponent(productName)}&image=${imageName}` :
+            `bag${i}.html`;
 
         const card = document.createElement("div");
         card.className = "card product-card";
+        card.setAttribute("onclick", `window.location='${detailPage}'`);
 
         card.innerHTML = `
             <span class="favorite-btn"
@@ -532,7 +862,7 @@ if (productContainer && !document.body.dataset.extraGalleryLoaded) {
             </div>
 
             <button class="buy-btn"
-            onclick="event.stopPropagation(); buyProductAndGo('${productName}', ${price}, '${imageName}', 'product.html?name=${encodeURIComponent(productName)}&image=${imageName}');">
+            onclick="event.stopPropagation(); addToCartDirect('${productName}', ${price}, '${imageName}', '${detailPage}'); window.location='${detailPage}';">
                 Shop Now
             </button>
         `;
@@ -671,8 +1001,11 @@ function toggleFavoriteCard(button) {
 
     if (!card) return;
 
-    let productName = card.querySelector("h3").innerText.trim();
     let productImage = card.querySelector("img");
+    let productName = getCanonicalProductName(
+        card.querySelector("h3").innerText.trim(),
+        productImage ? (productImage.currentSrc || productImage.src) : ""
+    );
     let icon = button.querySelector("i");
 
     let index = favoriteProducts.findIndex(
@@ -793,6 +1126,66 @@ function clearFavorites(event){
 
 }
 
+function buildGalleryCandidates(imageSrc){
+    if (!imageSrc) return [];
+
+    const cleanSrc = imageSrc.split("?")[0];
+    const fileName = cleanSrc.split("/").pop();
+    const lastDot = fileName.lastIndexOf(".");
+    const name = lastDot > -1 ? fileName.slice(0, lastDot) : fileName;
+    const extension = lastDot > -1 ? fileName.slice(lastDot) : ".jpg";
+    const basePath = cleanSrc.slice(0, cleanSrc.lastIndexOf("/")) + "/";
+
+    return [
+        `${basePath}${fileName}`,
+        `${basePath}${name}-2${extension}`,
+        `${basePath}${name}-3${extension}`
+    ];
+}
+
+function ensureThreeThumbGallery(){
+    const mainImage = document.getElementById("main-image");
+    if (!mainImage) return;
+
+    let gallery = document.querySelector(".gallery");
+    if (!gallery) {
+        gallery = document.createElement("div");
+        gallery.className = "gallery";
+        mainImage.parentNode.insertBefore(gallery, mainImage.nextSibling);
+    }
+
+    const existingImages = Array.from(gallery.querySelectorAll("img"));
+    const targetCount = 3;
+    const fallbackSrc = mainImage.src || mainImage.getAttribute("src") || "bag.jpg";
+
+    while (existingImages.length < targetCount) {
+        const newImg = document.createElement("img");
+        newImg.src = fallbackSrc;
+        newImg.alt = mainImage.alt || "Product image";
+        newImg.onclick = function () { changeImage(this); };
+        newImg.onerror = function () { this.src = fallbackSrc; };
+        gallery.appendChild(newImg);
+        existingImages.push(newImg);
+    }
+
+    const galleryImages = Array.from(gallery.querySelectorAll("img")).slice(0, targetCount);
+    const candidates = buildGalleryCandidates(fallbackSrc);
+    const fallback = candidates[0] || fallbackSrc;
+
+    galleryImages.forEach((img, index) => {
+        const source = candidates[index] || fallback;
+        img.src = source;
+        img.alt = mainImage.alt || "Product image";
+        img.onerror = function () {
+            this.src = fallback;
+        };
+    });
+}
+
+function setupProductGallery(){
+    ensureThreeThumbGallery();
+}
+
 function changeImage(img){
 
     document.getElementById("main-image").src = img.src;
@@ -885,3 +1278,93 @@ window.addEventListener("load", function () {
     }
 
 });
+
+// ===== Normalize Related Products shape like bag1 (Havan Cordon Bag) on ALL product pages =====
+(function(){
+  function normalizeRelated(){
+    try{
+      var page = document.querySelector('.product-page');
+      var grid = document.querySelector('.related-products');
+      if(page && grid && page.contains(grid)){
+        var title = null;
+        var el = grid.previousElementSibling;
+        for(var k=0;k<6 && el;k++){
+          if(el.tagName==='H3' && /Related Products/.test(el.textContent)){ title = el; break; }
+          el = el.previousElementSibling;
+        }
+        var hrBefore = null;
+        if(title && title.previousElementSibling && title.previousElementSibling.tagName==='HR') hrBefore = title.previousElementSibling;
+        var parent = page.parentNode;
+        var next = page.nextSibling;
+        if(hrBefore) parent.insertBefore(hrBefore, next);
+        if(title){ parent.insertBefore(title, next); title.style.textAlign='center'; title.style.width='100%'; }
+        parent.insertBefore(grid, next);
+      }
+    }catch(e){}
+    var grids = document.querySelectorAll('.related-products');
+    if(!grids.length) return;
+    grids.forEach(function(grid){
+      // Force: grid 2 columns, centered
+      grid.style.display = 'grid';
+      grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 220px))';
+      grid.style.justifyContent = 'center';
+      grid.style.gap = '20px';
+      grid.style.margin = '20px auto';
+      grid.style.width = '100%';
+      grid.style.maxWidth = '480px';
+      var cards = grid.querySelectorAll('.related-card');
+      cards.forEach(function(card){
+        card.style.width = '220px';
+        card.style.maxWidth = '100%';
+        card.style.minHeight = '300px';
+        card.style.margin = '0 auto';
+        card.style.background = '#fff';
+        card.style.borderRadius = '15px';
+        card.style.overflow = 'hidden';
+        card.style.textAlign = 'center';
+        card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        var a = card.querySelector('a');
+        if(a){ a.style.display='flex'; a.style.flexDirection='column'; a.style.height='100%'; a.style.textDecoration='none'; a.style.color='#6f4e37'; }
+        var img = card.querySelector('img');
+        if(img){ img.style.width='100%'; img.style.height='200px'; img.style.objectFit='cover'; img.style.display='block'; }
+        var p = card.querySelector('p');
+        if(p){ p.style.padding='12px 10px'; p.style.fontSize='15px'; p.style.margin='0'; p.style.flex='1'; p.style.display='flex'; p.style.alignItems='center'; p.style.justifyContent='center'; }
+      });
+    });
+    // Mobile: keep 2 per row
+    if(window.innerWidth <= 600){
+      grids.forEach(function(grid){
+        grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+        grid.style.gap = '12px';
+        grid.style.maxWidth = '100%';
+        grid.style.padding = '0 10px';
+      });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', normalizeRelated);
+  else normalizeRelated();
+  window.addEventListener('resize', normalizeRelated);
+})();
+// Hide Customer Reviews on product pages (bag*.html + product.html) - keep homepage
+(function(){
+  function hideProductReviews(){
+    if(!document.querySelector('.product-page')) return;
+    // hide every .reviews div inside/after product-page
+    document.querySelectorAll('.reviews').forEach(function(r){ r.style.display='none'; });
+    // hide its title + hr: "Customer Reviews"
+    document.querySelectorAll('h3').forEach(function(h){
+      if(/Customer Reviews/.test(h.textContent)){
+        h.style.display='none';
+        var prev = h.previousElementSibling;
+        if(prev && prev.tagName==='HR') prev.style.display='none';
+        // hide arabic comment marker sibling is not element, skip
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', hideProductReviews);
+  else hideProductReviews();
+})();
+
+

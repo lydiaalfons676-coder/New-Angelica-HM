@@ -1424,6 +1424,40 @@ footer p{
     margin-top:25px;
 }
 
+/* Related inside product-details (bag1 style - unified on all pages) */
+.product-details .related-products{
+    justify-content:flex-start;
+    gap:15px;
+    margin-top:20px;
+}
+
+.product-details .related-card{
+    width:160px;
+}
+
+/* Reviews inside product-details (bag1 style - unified on all pages) */
+.product-details .reviews{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    padding:0;
+    background:none;
+}
+
+.product-details .review-card{
+    flex:1 1 200px;
+    min-width:200px;
+}
+
+@media (max-width:768px){
+    .product-details .related-products{
+        justify-content:center;
+    }
+    .product-details .related-card{
+        width:150px;
+    }
+}
+
 .related-card{
 
     width:170px;
@@ -1840,3 +1874,185 @@ transition: 4s;
     }
 
 }
+}
+
+/* ===== Unified Related Products - same shape as bag1 (Havan Cordon Bag) ===== */
+.related-products{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 220px)) !important;
+    justify-content:center !important;
+    align-items:start;
+    gap:20px !important;
+    margin:20px auto !important;
+    width:100%;
+    max-width:480px;
+}
+.related-card{
+    width:220px !important;
+    max-width:100%;
+    min-height:300px;
+    margin:0 auto !important;
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    transition:transform .3s, box-shadow .3s;
+    display:flex;
+    flex-direction:column;
+}
+.related-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+.related-card a{
+    text-decoration:none;
+    color:#6f4e37;
+    font-weight:bold;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+.related-card img{
+    width:100% !important;
+    height:200px !important;
+    object-fit:cover !important;
+    display:block;
+    background:#f5f0eb;
+    aspect-ratio:1/1;
+}
+.related-card p{
+    padding:12px 10px !important;
+    font-size:15px !important;
+    line-height:1.4;
+    margin:0;
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+/* product.html has related outside product-page - center it same way */
+body > h3, body > .related-products{
+    text-align:center;
+}
+body > .related-products{
+    max-width:480px;
+}
+@media (max-width:600px){
+    .related-products{
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:12px !important;
+        max-width:100%;
+        padding:0 10px;
+    }
+    .related-card{
+        width:100% !important;
+        min-height:250px;
+    }
+    .related-card img{
+        height:150px !important;
+    }
+    .related-card p{
+        font-size:13px !important;
+    }
+}
+
+
+
+/* ===== FIX: close any unclosed blocks from above + Unified Related Products (same as bag1) ===== */
+}
+.related-products{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 220px)) !important;
+    justify-content:center !important;
+    align-items:start;
+    gap:20px !important;
+    margin:20px auto !important;
+    width:100% !important;
+    max-width:480px !important;
+    flex-wrap:unset !important;
+}
+.related-card{
+    width:220px !important;
+    max-width:100% !important;
+    min-height:300px !important;
+    margin:0 auto !important;
+    background:#fff !important;
+    border-radius:15px !important;
+    overflow:hidden !important;
+    text-align:center !important;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1) !important;
+    display:flex !important;
+    flex-direction:column !important;
+}
+.related-card:hover{
+    transform:translateY(-5px) !important;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2) !important;
+}
+.related-card a{
+    text-decoration:none !important;
+    color:#6f4e37 !important;
+    font-weight:bold !important;
+    display:flex !important;
+    flex-direction:column !important;
+    height:100% !important;
+}
+.related-card img{
+    width:100% !important;
+    height:200px !important;
+    object-fit:cover !important;
+    display:block !important;
+    background:#f5f0eb !important;
+}
+.related-card p{
+    padding:12px 10px !important;
+    font-size:15px !important;
+    line-height:1.4 !important;
+    margin:0 !important;
+    flex:1 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    color:#6f4e37 !important;
+    font-weight:bold !important;
+}
+@media (max-width:600px){
+    .related-products{
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:12px !important;
+        max-width:100% !important;
+        padding:0 10px !important;
+    }
+    .related-card{
+        width:100% !important;
+        min-height:250px !important;
+    }
+    .related-card img{
+        height:150px !important;
+    }
+    .related-card p{
+        font-size:13px !important;
+    }
+}
+
+/* FINAL OVERRIDE - unified related like bag1 */
+.related-products{display:grid !important;grid-template-columns:repeat(2,minmax(0,220px)) !important;justify-content:center !important;gap:20px !important;margin:20px auto !important;max-width:480px !important;width:100% !important;margin-left:auto !important;margin-right:auto !important;}
+.related-card{width:220px !important;max-width:100% !important;min-height:300px !important;margin:0 auto !important;background:#fff !important;border-radius:15px !important;overflow:hidden !important;text-align:center !important;box-shadow:0 2px 8px rgba(0,0,0,0.1) !important;display:flex !important;flex-direction:column !important;}
+.related-card img{width:100% !important;height:200px !important;object-fit:cover !important;display:block !important;}
+.related-card p{padding:12px 10px !important;font-size:15px !important;color:#6f4e37 !important;font-weight:bold !important;margin:0 !important;flex:1 !important;display:flex !important;align-items:center !important;justify-content:center !important;}
+
+/* related fix */
+.related-products{max-width:480px !important;margin-left:auto !important;margin-right:auto !important;}
+/* verify fix active */
+.product-details .related-products{max-width:480px !important;margin-left:auto !important;margin-right:auto !important;}
+/* SCOPE FIX: related inside details (bag3+) vs outside (bag1/bag2) - unify visual shape */
+.product-details .related-products{max-width:480px !important;margin-left:auto !important;margin-right:auto !important;}
+body > .related-products, body > h3{text-align:center;}
+/* Hide Customer Reviews on product pages only (bag*.html + product.html) - keep homepage reviews */
+.product-page ~ h3, .product-details h3{
+}
+body:has(.product-page) .reviews{display:none !important;}
+body:has(.product-page) h3:has(+ .reviews){display:none !important;}
+
+
+
